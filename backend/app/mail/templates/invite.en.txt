@@ -1,0 +1,7 @@
+Subject: {{ inviter }} invited you to {{ tenant }} on {{ app_name }}
+
+Hello,
+
+{{ inviter }} invited you to join {{ tenant }} on {{ app_name }} as {{ role }}. Open the link below to accept (expires in {{ days }} days):
+
+{{ link }}

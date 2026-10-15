@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="vi" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>SP1 — Tenant + mail + luồng đăng nhập · BizWithAgents</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/highlight.css">
+<link rel="stylesheet" href="../../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="README.html" class="active" aria-current="page" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Plan</span></nav>
+<div class="doc-meta"><span class="badge st-done">Xong</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/plans/sp1-tenant-mail/README.md</code></div>
+<article class="prose">
+<h1 id="sp1--tenant--mail--luồng-đăng-nhập">SP1 — Tenant + mail + luồng đăng nhập <a class="anchor" href="#sp1--tenant--mail--luồng-đăng-nhập" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../../index.html">CLAUDE.md</a> | <a href="../../design/roadmap.html">roadmap</a> · <a href="../../design/template-v1.html">template-v1 §3.2–§3.3</a> · <a href="../../design/decisions/d01-current.html">decisions D10–D14</a> · <a href="../../architecture/auth-rbac.html">auth-rbac</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> <strong>Xong</strong> (2026-10-15) — plan dạng đặc tả (D18). Kết quả ở <a href="../../design/roadmap.html">roadmap</a>; E2E: <code>scripts/e2e/sp1_tenant_ui.py</code> (ảnh + <code>result.json</code> ở <code>.e2e/sp1/</code>, đã gitignore).</p>
+<h2 id="goal">Goal <a class="anchor" href="#goal" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Dữ liệu từng khách hàng tách hẳn nhau mà code module và agent không phải nghĩ tới tenant; người dùng vào đúng tenant theo <code>signup_mode</code>; email thật cho xác thực, quên mật khẩu, lời mời.</p>
+<h2 id="architecture">Architecture <a class="anchor" href="#architecture" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Lõi tenant</strong> (<code>app/core/tenancy.py</code> — chỗ duy nhất của lõi biết tenant):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TenantScoped</code> (mixin SQLModel)</td>
+<td>cột <code>tenant_id</code> uuid NOT NULL + index, FK <code>tenants.id</code></td>
+</tr>
+<tr>
+<td><code>scope_session(session, tenant_id)</code></td>
+<td>đặt <code>session.info[&quot;tenant_id&quot;]</code>; listener <code>do_orm_execute</code> thêm <code>with_loader_criteria(TenantScoped, tenant_id == …, include_aliases=True)</code> cho mọi <code>select</code> / <code>update</code> / <code>delete</code> ORM; listener <code>before_flush</code> gán <code>tenant_id</code> cho đối tượng mới thiếu, đối tượng khác tenant → <code>AppException(1005)</code></td>
+</tr>
+<tr>
+<td><code>tenant_session(tid)</code></td>
+<td>context manager mở session RW / RO đã scope — dùng ở task / consumer / cron</td>
+</tr>
+<tr>
+<td><code>ctx.tenant_id</code> · <code>ctx.cross_tenant()</code></td>
+<td>runner scope session theo <code>principal.tenant_id</code>; <code>cross_tenant()</code> trả session <strong>không</strong> lọc, chỉ khi <code>principal.sup</code>, log <code>sys0601</code> (op, user)</td>
+</tr>
+<tr>
+<td><code>ctx.invalidate(keys, tenant=True)</code> · <code>emit_to_tenant(tid, event, data)</code></td>
+<td>routing key <code>tenant.&lt;tid&gt;</code> → phòng <code>tenant:&lt;tid&gt;</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bảng</strong> (gộp vào chuỗi migration đầu — template chưa deploy nên sửa thẳng <code>0002_auth_rbac</code>, DB dev dựng lại):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bảng</th>
+<th>Cột chính</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tenants</code></td>
+<td><code>id</code> · <code>name</code> · <code>slug</code> unique · <code>status</code> <code>active | suspended</code> · <code>policies</code> jsonb · <code>created_at</code></td>
+</tr>
+<tr>
+<td><code>users</code></td>
+<td>thêm <code>tenant_id</code> (FK, NOT NULL), <code>email_verified_at</code></td>
+</tr>
+<tr>
+<td><code>auth_tokens</code></td>
+<td><code>id</code> · <code>user_id</code> NULL · <code>tenant_id</code> · <code>purpose</code> <code>verify | reset | invite</code> · <code>token_hash</code> (SHA-256) · <code>email</code> · <code>role_id</code> · <code>max_uses</code> · <code>uses</code> · <code>expires_at</code> · <code>used_at</code> · <code>created_by</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Tenant <code>default</code> tạo lúc <code>bw migrate</code> (bước <code>tenants.default</code>); user cũ / superadmin thuộc tenant này.</p>
+<p><strong>Quyền + role</strong> (D12): role có sẵn đổi thành <code>admin</code> · <code>member</code> · <code>viewer</code> (+ superadmin env); <code>member</code> là role mặc định; <code>role.manage</code> chỉ superadmin; quyền mới <code>tenant.settings</code>, <code>tenant.invite</code>. <code>admin.*</code> của admin tenant tự lọc theo tenant (bảng <code>users</code> là <code>TenantScoped</code>); superadmin xem chéo ở <code>/sa/tenants</code> và <code>/admin/users</code> (<code>cross_tenant</code>).</p>
+<p><strong>JWT + realtime</strong> (D13): claim <code>tid</code>; service realtime join <code>tenant:&lt;tid&gt;</code> lúc bắt tay, bind / unbind routing key <code>tenant.&lt;tid&gt;</code> như <code>user.&lt;id&gt;</code>.</p>
+<p><strong>Đăng ký</strong> (D12): <code>system_settings.signup_mode</code> thay <code>signup_open</code> — <code>default_tenant</code> (mặc định) · <code>new_tenant</code> (tạo tenant + role <code>admin</code>) · <code>invite_only</code>. Lời mời: email (gửi mail) hoặc link (token, hạn, số lần dùng); <code>auth.register</code> nhận <code>invite_token</code> → vào tenant + role của lời mời. Email đã có tài khoản → <code>2109</code>. Google OAuth tạo user mới theo cùng luật.</p>
+<p><strong>Khoá tenant:</strong> <code>tenants.suspend</code> → <code>status=suspended</code> + dấu Redis <code>bw:tenant:disabled:&lt;tid&gt;</code> (TTL = đời access token) + <code>rt:revoke</code> cho phòng tenant + thu hồi refresh token của mọi user tenant đó; REST mang token cũ → 403 <code>2110</code>.</p>
+<p><strong>Chính sách:</strong> <code>AccountPolicies</code> thêm tầng tenant (mặc định hệ thống → tenant → role lớn nhất → user); khoá mới <code>user_limit</code> (đếm user active của tenant khi đăng ký / nhận lời mời — <code>2111</code>), <code>agent_enabled</code> (SP2 đọc).</p>
+<p><strong>Mail</strong> (D14, <code>app/mail/</code>): <code>MailTransport</code> protocol · <code>ConsoleTransport</code> (log <code>mail0001</code> + Redis list <code>bw:mail:outbox</code> ≤ 50 thư, TTL 1 ngày — trang <code>/sa/mail</code>) · <code>SmtpTransport</code> (<code>aiosmtplib</code>, STARTTLS / TLS) · <code>render(template, locale, **ctx)</code> Jinja2 (<code>app/mail/templates/&lt;tên&gt;.&lt;locale&gt;.{html,txt}</code>) · task <code>mail.send</code> (lane <code>default</code>, retry 2, idempotent <code>bw:mail:sent:&lt;id&gt;</code>). Mã lỗi <code>8xxx</code>, <code>loc</code> <code>mail</code>.</p>
+<p><strong>Luồng auth mới:</strong> <code>auth.request_verify</code> · <code>auth.verify_email {token}</code> (public) · <code>auth.forgot_password {email}</code> (public, luôn 200, rate limit) · <code>auth.reset_password {token, new_password}</code> (public, thu hồi mọi refresh token) · <code>system_settings.email_verification</code> <code>off | soft | required</code> (mặc định <code>soft</code>: banner nhắc; chưa xác thực không mời được người khác — <code>2112</code>; <code>required</code>: chưa xác thực không đăng nhập được — <code>2113</code>).</p>
+<p><strong>Op tenant:</strong> <code>tenant.get</code> · <code>tenant.update</code> (admin: tên, cài đặt) · <code>tenant.invite {email \| link, role_id, max_uses, days}</code> · <code>tenant.list_invites</code> · <code>tenant.revoke_invite</code> · <code>invites.preview {token}</code> (public: tên tenant, role, hạn) · superadmin <code>tenants.list</code> · <code>tenants.create {name, admin_email}</code> (tạo + mời admin đầu tiên) · <code>tenants.update</code> (tên, chính sách) · <code>tenants.suspend</code> / <code>tenants.resume</code>.</p>
+<h2 id="global-constraints">Global Constraints <a class="anchor" href="#global-constraints" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Mọi bảng mới của nền có <code>tenant_id</code> trừ: <code>tenants</code>, cấu hình agent, credential, permission, role, system settings, push keys.</li>
+<li>Test luật mới (B14): model trong <code>app/&lt;module&gt;/</code> (ngoài nền) kế thừa <code>TenantScoped</code>; không <code>text()</code> / Core trên bảng <code>TenantScoped</code> trong module (ngoại lệ ghi lý do); Redis key tenant mang <code>tid</code>.</li>
+<li>Seed dev: 2 tenant (<code>default</code>, <code>acme</code>) + user test mỗi tenant (<code>user1..3@test.local</code> ở <code>default</code>, <code>acme1@test.local</code> ở <code>acme</code>).</li>
+</ul>
+<h2 id="tasks">Tasks <a class="anchor" href="#tasks" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Việc</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>Lõi tenancy</td>
+<td><code>core/tenancy.py</code>, sửa runner / <code>OpContext</code> / <code>Principal</code> (<code>tenant_id</code>), test lọc select / update / delete / get, before_flush, cross_tenant</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>Migration + model</td>
+<td><code>tenants</code>, <code>users.tenant_id</code> + <code>email_verified_at</code>, <code>auth_tokens</code>; bước migrate <code>tenants.default</code>; <code>bw migrate</code> trên DB trống</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>Auth + RBAC</td>
+<td>claim <code>tid</code>, role <code>admin / member / viewer</code>, <code>role.manage</code> superadmin-only, <code>signup_mode</code>, đăng ký qua lời mời, Google theo <code>signup_mode</code>, <code>user_limit</code></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>Realtime tenant</td>
+<td>service realtime phòng <code>tenant:&lt;tid&gt;</code>, <code>emit_to_tenant</code>, <code>ctx.invalidate(tenant=True)</code>, test RT ≥ 90 %</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>Mail</td>
+<td><code>app/mail/</code> + mẫu thư vi / en + task + <code>/sa/mail</code> (console) + bảng mặc định R11</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>Xác thực email + quên mật khẩu</td>
+<td>op + <code>auth_tokens</code> + rate limit + <code>email_verification</code></td>
+</tr>
+<tr>
+<td>T7</td>
+<td>Op tenant + lời mời + khoá tenant</td>
+<td>op ở trên, mã <code>2109–2113</code>, realtime khoá tenant</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>Frontend</td>
+<td>đăng ký theo <code>signup_mode</code>, trang nhận lời mời <code>/invite/:token</code>, xác thực email, quên / đặt lại mật khẩu, banner chưa xác thực, trang <strong>Tổ chức</strong> (<code>/org</code>: thông tin, thành viên, lời mời), <code>/sa/tenants</code>, <code>/sa/mail</code>, tên tenant ở Header, i18n vi / en</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>Tài liệu</td>
+<td><code>auth-rbac</code> (tenant, role mới, luồng mới), doc mới <code>tenancy.md</code>, <code>mail.md</code>, B14 vào backend/CLAUDE.md, roadmap</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>Kiểm + release</td>
+<td><code>make ci</code>; smoke-local thêm bước 2 tenant (user <code>acme</code> không thấy dữ liệu <code>default</code> qua REST lẫn socket), quên mật khẩu qua outbox console; E2E Playwright (subagent) 375 / 1440</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="definition-of-done">Definition of Done <a class="anchor" href="#definition-of-done" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>make ci</code> xanh; <code>make dev-up</code> + <code>make smoke-local</code> hai chế độ Mongo xanh, có bước tách tenant.</li>
+<li>Test: user tenant B gọi op đọc / sửa dữ liệu tenant A → 404 / 1005; socket tenant B không nhận <code>data:changed</code> của tenant A.</li>
+<li>E2E: đăng ký 3 chế độ, mời bằng link, đặt lại mật khẩu, khoá tenant → bị đăng xuất.</li>
+</ul>
+<h2 id="self-review">Self-Review <a class="anchor" href="#self-review" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Agent: bảng chat / run / approval thành <code>TenantScoped</code> ở SP2 (cùng lúc với registry) — ghi rõ ở SP2 plan.</li>
+<li>Superadmin dùng trợ lý: principal agent <code>sup=False</code> → luôn trong tenant của mình.</li>
+<li>Sau E2E: trang <code>/invite/:token</code> gọi preview một lần ngoài cache query (đăng nhập <code>resetQueries</code> từng gọi lại preview với token đã dùng → 400). Theo dõi: một lần E2E T1 375 bị đẩy về <code>/login</code> kèm <code>401 auth/refresh</code> ngay sau đăng nhập — chạy lại 3 lần không tái hiện.</li>
+<li>Tenant tạo bởi smoke / E2E (<code>Smoke *</code>, <code>E2E Org *</code>) dồn dần trong namespace <code>bizwithagents_e2e</code> — chưa có op xoá tenant (cân nhắc ở SP5).</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/plans/sp1-tenant-mail/README.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#goal">Goal</a></li><li class="lvl2"><a href="#architecture">Architecture</a></li><li class="lvl2"><a href="#global-constraints">Global Constraints</a></li><li class="lvl2"><a href="#tasks">Tasks</a></li><li class="lvl2"><a href="#definition-of-done">Definition of Done</a></li><li class="lvl2"><a href="#self-review">Self-Review</a></li></ul></aside>
+</div>
+</body>
+</html>

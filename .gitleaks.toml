@@ -1,0 +1,24 @@
+# Cấu hình gitleaks cho `make secrets-scan`: luật mặc định + bỏ qua đúng các giá trị giả đã kiểm.
+# Thêm ngoại lệ ở đây chỉ khi chắc chắn là giá trị giả — ghi rõ file và lý do.
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "secret giả trong test (credential, webhook, usage) + test vector RFC 8291 của Web Push"
+regexTarget = "match"
+regexes = [
+  '''whsec_abcdef123456''',                # backend/tests/agent/test_hook_webhook.py
+  '''whsec_dry_1234567''',                 # backend/tests/agent/test_hook_webhook.py (chạy thử hook)
+  '''sk-live-abcdef-wxyz1234''',           # backend/tests/agent/test_tracer.py, test_traces_ops.py
+  '''sk-key-two-12345678''',               # backend/tests/agent/test_usage.py
+  '''BTBZMqHH6r4Tts7J_aSIgg''',            # backend/tests/notifications/test_webpush.py (RFC 8291 auth secret)
+  '''BCVxsr7N_eNgVRqvHtD0zTZsEc6-VV-JvLexhqUzORcxaOzi6-AYWXvTBHm4bjyPjs7Vd8pZGH6SRpkNtoIAiw4''',  # frontend/test/lib/push.test.ts (RFC 8291)
+]
+
+[[allowlists]]
+description = "PEM giữ chỗ không có thân khoá: tài liệu deploy (`\\n…\\n`) và test `bw keys --print` (chỉ kiểm tiền tố)"
+regexTarget = "match"
+regexes = [
+  '''BEGIN PRIVATE KEY-----\\+n(…|&hellip;|"\))''',
+]

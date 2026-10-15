@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Platform — Tenant: tách dữ liệu khách hàng · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="tenancy.html" class="active" aria-current="page" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Kiến trúc</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/architecture/tenancy.md</code></div>
+<article class="prose">
+<h1 id="platform--tenant-tách-dữ-liệu-khách-hàng">Platform — Tenant: tách dữ liệu khách hàng <a class="anchor" href="#platform--tenant-tách-dữ-liệu-khách-hàng" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../CLAUDE.html">platform/CLAUDE.md</a> · <a href="../design/template-v1.html">template-v1 §3.2</a> · <a href="../design/decisions/d01-current.html">decisions D10–D13</a> · <a href="auth-rbac.html">auth-rbac</a> · <a href="../plans/sp1-tenant-mail/README.html">plan SP1</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (SP1). Code: <code>backend/app/core/tenancy.py</code>, <code>backend/app/tenants/</code>, <code>realtime/src/</code> (phòng tenant).</p>
+<p>Tenant chỉ là <strong>ranh giới dữ liệu</strong> (D3). RBAC, agent, Studio, thông báo giữ cách của dự án nguồn; lõi thêm <strong>một</strong> bộ lọc <code>tenant_id</code> tự động. Code module và agent không phải nghĩ tới tenant.</p>
+<h2 id="1-mô-hình-d10">1. Mô hình (D10) <a class="anchor" href="#1-mô-hình-d10" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Mỗi user thuộc đúng một tenant: <code>users.tenant_id</code> NOT NULL, claim <code>tid</code> trong JWT. Một email chỉ ở một tenant.</li>
+<li>Bảng <code>tenants</code>: <code>id</code> · <code>name</code> · <code>slug</code> (citext, unique) · <code>status</code> <code>active | suspended</code> · <code>policies</code> jsonb · <code>created_at</code> · <code>updated_at</code>. Tenant <code>default</code> có id cố định <code>00000000-0000-4000-8000-000000000001</code>, tạo ở migration.</li>
+<li>Bảng nghiệp vụ của module kế thừa <code>TenantScoped</code> (<code>tenant_id</code> FK + index). Nền: <code>users</code>, hội thoại trợ lý <code>agent_sessions</code> · <code>agent_messages</code> · <code>agent_runs</code> · <code>agent_approvals</code> (D22 — worker ghi tin / duyệt chép <code>tenant_id</code> của phiên / lượt). Bảng toàn nền tảng (không <code>tenant_id</code>, danh sách + lý do ở <code>PLATFORM</code> của test B14): cấu hình agent, chặn / hạn mức chat từng user, credential, permission, role, system settings, push keys, thông báo.</li>
+<li>Span trace + document usage (Mongo) mang <code>tenant_id</code> → <code>/sa/usage</code> gộp / lọc theo tổ chức, <code>/sa/traces</code> lọc tổ chức. Tổ chức tắt trợ lý: <code>policies.agent_enabled=false</code> (<a href="agent-runtime.html">agent-runtime §12</a>).</li>
+</ul>
+<h2 id="2-lọc-tự-động-d11">2. Lọc tự động (D11) <a class="anchor" href="#2-lọc-tự-động-d11" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Chỗ</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scope_session(session, tid)</code></td>
+<td>đặt <code>session.info[&quot;tenant_id&quot;]</code></td>
+</tr>
+<tr>
+<td>listener <code>do_orm_execute</code></td>
+<td>mọi <code>select</code> / <code>update</code> / <code>delete</code> ORM có <code>with_loader_criteria(TenantScoped, tenant_id == tid)</code> (cả <code>session.get</code>, lazy load)</td>
+</tr>
+<tr>
+<td>listener <code>before_flush</code></td>
+<td>đối tượng mới thiếu <code>tenant_id</code> → gán; đối tượng của tenant khác (mới hoặc đã sửa) → <code>1005</code></td>
+</tr>
+<tr>
+<td>runner <code>@operation</code></td>
+<td>scope session theo <code>principal.tenant_id</code> (op public: không scope)</td>
+</tr>
+<tr>
+<td><code>ctx.cross_tenant()</code></td>
+<td>bỏ lọc trong khối <code>with</code> — chỉ superadmin (<code>sup</code>), log <code>sys0601</code></td>
+</tr>
+<tr>
+<td><code>tenant_session(tid)</code></td>
+<td>session đã scope cho task / consumer / cron; cron chạy cho mọi tenant thì lặp tenant tường minh</td>
+</tr>
+</tbody>
+</table></div>
+<p>Không đi qua bộ lọc: SQL thô (<code>text()</code>), bảng Core — test luật B14 cấm trên bảng <code>TenantScoped</code> trong module.</p>
+<h2 id="3-realtime-d13">3. Realtime (D13) <a class="anchor" href="#3-realtime-d13" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Bắt tay: service realtime join <code>user:&lt;id&gt;</code> + <code>tenant:&lt;tid&gt;</code> (claim <code>tid</code>) + <code>sup</code> nếu có.</li>
+<li><code>ctx.invalidate(keys, tenant=True)</code> / <code>emit_to_tenant(tid, event, data)</code> → routing key <code>tenant.&lt;tid&gt;</code>. <code>data:changed</code> chỉ mang query key — client tải lại theo quyền của mình.</li>
+<li>Sự kiện riêng (<code>core:notification</code>, <code>agent:*</code>, <code>core:rbac_updated</code>) vẫn tới <code>user:&lt;id&gt;</code>.</li>
+</ul>
+<h2 id="4-đăng-ký-vào-tenant-d12">4. Đăng ký vào tenant (D12) <a class="anchor" href="#4-đăng-ký-vào-tenant-d12" aria-label="Liên kết tới mục này">#</a></h2>
+<p><code>system_settings.signup_mode</code> (thay <code>signup_open</code>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>signup_mode</code></th>
+<th>Người đăng ký mới (không có lời mời)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default_tenant</code> (mặc định)</td>
+<td>vào tenant <code>default</code>, role <code>member</code></td>
+</tr>
+<tr>
+<td><code>new_tenant</code></td>
+<td>tạo tenant mới (tên nhập ở form, mặc định theo tên người dùng), role <code>admin</code></td>
+</tr>
+<tr>
+<td><code>invite_only</code></td>
+<td>bị từ chối <code>2105</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Có lời mời (<code>invite_token</code>): vào tenant + role của lời mời ở mọi chế độ. Lời mời gắn email thì email đăng ký phải trùng.</li>
+<li>Email trong <code>SUPERADMIN_EMAILS</code> luôn đăng ký được (tenant <code>default</code>).</li>
+<li>Google OAuth: user mới đi theo cùng luật; có lời mời gắn email đó đang chờ → vào tenant của lời mời.</li>
+<li>Hạn mức <code>user_limit</code> của tenant (0 = không giới hạn) chặn đăng ký / nhận lời mời khi đầy → <code>2111</code>.</li>
+</ul>
+<h2 id="5-lời-mời">5. Lời mời <a class="anchor" href="#5-lời-mời" aria-label="Liên kết tới mục này">#</a></h2>
+<p><code>auth_tokens</code> (<code>purpose=invite</code>): <code>tenant_id</code> · <code>email</code> (NULL = link) · <code>role_id</code> · <code>max_uses</code> · <code>uses</code> · <code>expires_at</code> · <code>token_hash</code> (SHA-256 — token thô chỉ có trong link).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Op</th>
+<th>Ai</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tenant.invite {email? , role_id, days, max_uses}</code></td>
+<td><code>tenant.invite</code></td>
+<td>email → gửi thư <code>invite</code>; không email → trả link (token thô một lần). Chưa xác thực email (chế độ <code>soft</code>) → <code>2112</code></td>
+</tr>
+<tr>
+<td><code>tenant.list_invites</code> · <code>tenant.revoke_invite</code></td>
+<td><code>tenant.invite</code></td>
+<td>lời mời còn hạn / thu hồi</td>
+</tr>
+<tr>
+<td><code>invites.preview {token}</code></td>
+<td>công khai</td>
+<td>tên tenant, role, hạn, email gắn (che) — trang <code>/invite/:token</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Email đã có tài khoản (tenant nào cũng vậy) → <code>2109</code>, không gộp tài khoản.</p>
+<h2 id="6-khoá-tenant">6. Khoá tenant <a class="anchor" href="#6-khoá-tenant" aria-label="Liên kết tới mục này">#</a></h2>
+<p><code>tenants.suspend</code> (superadmin): <code>status=suspended</code> → dấu Redis <code>bw:tenant:disabled:&lt;tid&gt;</code> (TTL = đời access token) → thu hồi refresh token mọi user của tenant → <code>core:account_disabled</code> tới phòng tenant + <code>rt:revoke</code> từng user. REST mang token cũ → 403 <code>2110</code>; đăng nhập → <code>2110</code>. <code>tenants.resume</code> gỡ.</p>
+<h2 id="7-mã-lỗi-dải-auth-2xxx">7. Mã lỗi (dải auth 2xxx) <a class="anchor" href="#7-mã-lỗi-dải-auth-2xxx" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2109</td>
+<td>Email đã có tài khoản (không nhận lời mời / không tạo trùng)</td>
+</tr>
+<tr>
+<td>2110</td>
+<td>Tenant đang bị khoá</td>
+</tr>
+<tr>
+<td>2111</td>
+<td>Tenant đã đủ số user (<code>user_limit</code>)</td>
+</tr>
+<tr>
+<td>2112</td>
+<td>Cần xác thực email trước khi mời người khác</td>
+</tr>
+<tr>
+<td>2113</td>
+<td>Cần xác thực email trước khi đăng nhập (<code>email_verification=required</code>)</td>
+</tr>
+<tr>
+<td>2114</td>
+<td>Lời mời / link không hợp lệ hoặc hết hạn</td>
+</tr>
+<tr>
+<td>2115</td>
+<td>Không tìm thấy tenant</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-bảng-mặc-định-r11">8. Bảng mặc định (R11) <a class="anchor" href="#8-bảng-mặc-định-r11" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Khoá</th>
+<th>Mặc định</th>
+<th>Nguồn thật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>signup_mode</code></td>
+<td><code>default_tenant</code></td>
+<td><code>/sa/settings</code></td>
+</tr>
+<tr>
+<td><code>user_limit</code></td>
+<td>0 (không giới hạn)</td>
+<td><code>tenants.policies</code> (<code>/sa/tenants</code>) → <code>system_settings.user_limit_default</code></td>
+</tr>
+<tr>
+<td>lời mời: hạn / số lần dùng</td>
+<td>7 ngày / email: 1, link: 20</td>
+<td>input <code>tenant.invite</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/architecture/tenancy.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-mô-hình-d10">1. Mô hình (D10)</a></li><li class="lvl2"><a href="#2-lọc-tự-động-d11">2. Lọc tự động (D11)</a></li><li class="lvl2"><a href="#3-realtime-d13">3. Realtime (D13)</a></li><li class="lvl2"><a href="#4-đăng-ký-vào-tenant-d12">4. Đăng ký vào tenant (D12)</a></li><li class="lvl2"><a href="#5-lời-mời">5. Lời mời</a></li><li class="lvl2"><a href="#6-khoá-tenant">6. Khoá tenant</a></li><li class="lvl2"><a href="#7-mã-lỗi-dải-auth-2xxx">7. Mã lỗi (dải auth 2xxx)</a></li><li class="lvl2"><a href="#8-bảng-mặc-định-r11">8. Bảng mặc định (R11)</a></li></ul></aside>
+</div>
+</body>
+</html>

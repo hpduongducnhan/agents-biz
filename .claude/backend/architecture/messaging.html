@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Backend</summary><ul><li><a href="../CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="messaging.html" class="active" aria-current="page" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Backend</a> <span class='sep'>/</span> <span>Kiến trúc</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-12</span><code class="meta-src">.claude/backend/architecture/messaging.md</code></div>
+<article class="prose">
+<h1 id="backend--messaging-lane-subscriber--task--cron-broadcast-nhịp-tim">Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim <a class="anchor" href="#backend--messaging-lane-subscriber--task--cron-broadcast-nhịp-tim" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../CLAUDE.html">backend/CLAUDE.md</a> · <a href="realtime.html">realtime</a> · <a href="operations.html">operations</a> · <a href="logging.html">logging §4</a> · <a href="../../platform/design/decisions/README.html">decisions</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép <code>core/messaging/*</code> từ dự án nguồn ở SP0). Không có:</p>
+<ul>
+<li>file topology — một RabbitMQ, lane = queue cố định;</li>
+<li>outbox / <code>@on_event</code>.</li>
+</ul>
+<hr />
+<h2 id="1-mặt-phẳng">1. Mặt phẳng <a class="anchor" href="#1-mặt-phẳng" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mặt phẳng</th>
+<th>Công nghệ</th>
+<th>Dùng cho</th>
+<th>Bền</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Việc theo sự kiện</td>
+<td>FastStream trên RabbitMQ</td>
+<td><code>@subscriber</code> + <code>publish</code>; event client <code>@on_ws</code></td>
+<td>✓ queue bền</td>
+</tr>
+<tr>
+<td>Task / cron</td>
+<td>taskiq + <code>taskiq-aio-pika</code></td>
+<td>job nền, job định kỳ</td>
+<td>✓ quorum queue</td>
+</tr>
+<tr>
+<td>Realtime ra</td>
+<td>exchange <code>bw.rt.out</code></td>
+<td>đẩy sự kiện xuống trình duyệt</td>
+<td>✗ transient</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>exchange <code>bw.sys.bcast</code></td>
+<td>báo mọi process xoá cache</td>
+<td>✗ transient</td>
+</tr>
+</tbody>
+</table></div>
+<p>Một RabbitMQ (<code>RABBITMQ_URL</code>, vhost <code>bizwithagents</code>); tên sinh từ <code>app/core/messaging/names.py</code>.</p>
+<h2 id="2-api">2. API <a class="anchor" href="#2-api" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="code"><span class="code-lang">python</span><div class="hl"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app.core.messaging.broadcast</span><span class="w"> </span><span class="kn">import</span> <span class="n">broadcast</span><span class="p">,</span> <span class="n">on_broadcast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.core.messaging.streams</span><span class="w"> </span><span class="kn">import</span> <span class="n">publish</span><span class="p">,</span> <span class="n">subscriber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.core.messaging.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="n">task</span>
+
+
+<span class="nd">@subscriber</span><span class="p">(</span><span class="s2">"system.ping"</span><span class="p">,</span> <span class="n">lane</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>   <span class="c1"># queue bw.system.ping</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_ping</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">PingMsg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">await</span> <span class="n">publish</span><span class="p">(</span><span class="s2">"system.ping"</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>              <span class="c1"># mang cid</span>
+
+
+<span class="nd">@task</span><span class="p">(</span><span class="s2">"system.ping"</span><span class="p">,</span> <span class="n">lane</span><span class="o">=</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">retry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">every</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>   <span class="c1"># hoặc cron="*/15 * * * *"</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">await</span> <span class="n">ping</span><span class="o">.</span><span class="n">kiq</span><span class="p">()</span>
+
+
+<span class="nd">@on_broadcast</span><span class="p">(</span><span class="s2">"auth.rbac_changed"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">drop_cache</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">await</span> <span class="n">broadcast</span><span class="p">(</span><span class="s2">"auth.rbac_changed"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"…"</span><span class="p">})</span>
+</pre></div>
+</div>
+<h2 id="3-lane-appcoremessaginglanespy--dict-cố-định">3. Lane (<code>app/core/messaging/lanes.py</code> — dict cố định) <a class="anchor" href="#3-lane-appcoremessaginglanespy--dict-cố-định" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Queue taskiq</th>
+<th>Dùng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default</code></td>
+<td><code>bw.tq.default</code></td>
+<td>mọi việc nền thường (mail, webhook, nhắc hạn…)</td>
+</tr>
+<tr>
+<td><code>agent-run</code></td>
+<td><code>bw.tq.agent-run</code></td>
+<td>lượt chạy agent</td>
+</tr>
+</tbody>
+</table></div>
+<p>Queue FastStream <code>bw.&lt;miền&gt;.&lt;event&gt;</code>; dead letter task <code>bw.tq.dead_letter</code>.</p>
+<h2 id="4-process">4. Process <a class="anchor" href="#4-process" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bw api</code></td>
+<td>HTTP; chỉ publish</td>
+</tr>
+<tr>
+<td><code>bw consume [--lanes …]</code></td>
+<td>subscriber + <code>@on_ws</code></td>
+</tr>
+<tr>
+<td><code>bw work [--lanes …] [--concurrency N]</code></td>
+<td>worker taskiq</td>
+</tr>
+<tr>
+<td><code>bw schedule</code></td>
+<td>cron + <code>every</code>; khoá leader Redis <code>bw:leader:schedule</code> — deploy chồng lấn thì bản thứ hai chờ</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-đảm-bảo-giao">5. Đảm bảo giao <a class="anchor" href="#5-đảm-bảo-giao" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Ít nhất một lần (FastStream ack sau xử lý; taskiq <code>when_saved</code>) → idempotent (B11).</li>
+<li>Handler lỗi → log <code>bus0500</code> / <code>tq0500</code>, không kẹt queue. <code>retry=N</code> → tối đa N+1 lần chạy.</li>
+<li>Process gửi tự khai queue trước khi publish.</li>
+</ul>
+<h2 id="6-broadcast-bwsysbcast">6. Broadcast <code>bw.sys.bcast</code> <a class="anchor" href="#6-broadcast-bwsysbcast" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Mỗi process một queue <code>exclusive</code> + <code>auto-delete</code> bind <code>#</code>.</li>
+<li>Chỉ báo &quot;đã đổi&quot;; process tự đọc lại DB.</li>
+<li>Cache xoá theo broadcast phải có TTL (60 giây) để tự lành.</li>
+</ul>
+<h2 id="7-nhịp-tim-pipeline">7. Nhịp tim pipeline <a class="anchor" href="#7-nhịp-tim-pipeline" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Task <code>system.ping</code> (<code>every=HEARTBEAT_INTERVAL</code>, 15 giây) đi đường thật scheduler → RabbitMQ → worker / consumer.</li>
+<li>Mỗi role ghi <code>bw:hb:&lt;role&gt;</code>.</li>
+<li><code>GET /bizwithagents/api/health/pipeline</code>: 200 khi cả ba role có tuổi ≤ 3 × <code>HEARTBEAT_INTERVAL</code>; ngược lại 503 kèm <code>{role: {last, age_s, ok}}</code>.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-12</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/backend/architecture/messaging.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-mặt-phẳng">1. Mặt phẳng</a></li><li class="lvl2"><a href="#2-api">2. API</a></li><li class="lvl2"><a href="#3-lane-appcoremessaginglanespy--dict-cố-định">3. Lane (app/core/messaging/lanes.py — dict cố định)</a></li><li class="lvl2"><a href="#4-process">4. Process</a></li><li class="lvl2"><a href="#5-đảm-bảo-giao">5. Đảm bảo giao</a></li><li class="lvl2"><a href="#6-broadcast-bwsysbcast">6. Broadcast bw.sys.bcast</a></li><li class="lvl2"><a href="#7-nhịp-tim-pipeline">7. Nhịp tim pipeline</a></li></ul></aside>
+</div>
+</body>
+</html>

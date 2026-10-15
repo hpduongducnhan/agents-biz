@@ -1,0 +1,518 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "BizWithAgents — triển khai Coolify",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1220,
+      850
+    ],
+    "output": ".claude/HLD/diagrams/deployment.html"
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Người dùng",
+      "sublabel": "web + điện thoại",
+      "pos": [
+        35,
+        20
+      ],
+      "size": [
+        153,
+        60
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "type": "cloud",
+      "label": "Cloudflare",
+      "sublabel": "HTTPS kết thúc ở đây",
+      "brand": "cloudflare",
+      "pos": [
+        252,
+        20
+      ],
+      "size": [
+        171,
+        60
+      ]
+    },
+    {
+      "id": "dev",
+      "type": "external",
+      "label": "Máy dev",
+      "sublabel": "git push · make deploy",
+      "pos": [
+        835,
+        20
+      ],
+      "size": [
+        135,
+        60
+      ]
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "label": "GitHub",
+      "sublabel": "repo BizWithAgents · main",
+      "brand": "github",
+      "pos": [
+        1035,
+        20
+      ],
+      "size": [
+        144,
+        60
+      ]
+    },
+    {
+      "id": "cloudflared",
+      "type": "security",
+      "label": "cloudflared",
+      "sublabel": "container riêng",
+      "pos": [
+        261,
+        170
+      ],
+      "size": [
+        153,
+        60
+      ]
+    },
+    {
+      "id": "traefik",
+      "type": "cloud",
+      "label": "Traefik",
+      "sublabel": "IP server:80",
+      "pos": [
+        461,
+        170
+      ],
+      "size": [
+        135,
+        60
+      ]
+    },
+    {
+      "id": "coolify",
+      "type": "cloud",
+      "label": "Coolify",
+      "sublabel": "API · build + compose",
+      "pos": [
+        835,
+        170
+      ],
+      "size": [
+        135,
+        60
+      ]
+    },
+    {
+      "id": "images",
+      "type": "cloud",
+      "label": "3 image",
+      "sublabel": "backend · realtime · web",
+      "pos": [
+        1035,
+        170
+      ],
+      "size": [
+        144,
+        60
+      ]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "bw-web · nginx",
+      "sublabel": "SPA · cửa duy nhất :16801",
+      "pos": [
+        687,
+        270
+      ],
+      "size": [
+        180,
+        60
+      ]
+    },
+    {
+      "id": "scheduler",
+      "type": "backend",
+      "label": "bw-scheduler",
+      "sublabel": "bw schedule",
+      "pos": [
+        35,
+        500
+      ],
+      "size": [
+        153,
+        60
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "bw-worker",
+      "sublabel": "bw work",
+      "pos": [
+        209,
+        500
+      ],
+      "size": [
+        135,
+        60
+      ]
+    },
+    {
+      "id": "consumer",
+      "type": "backend",
+      "label": "bw-consumer",
+      "sublabel": "bw consume",
+      "pos": [
+        365,
+        500
+      ],
+      "size": [
+        153,
+        60
+      ]
+    },
+    {
+      "id": "realtime",
+      "type": "backend",
+      "label": "bw-realtime",
+      "sublabel": "Socket.IO · :16803",
+      "brand": "node-js",
+      "pos": [
+        539,
+        500
+      ],
+      "size": [
+        162,
+        60
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "bw-api",
+      "sublabel": "bw migrate → bw api · :16802",
+      "pos": [
+        731,
+        500
+      ],
+      "size": [
+        225,
+        60
+      ]
+    },
+    {
+      "id": "network",
+      "type": "cloud",
+      "label": "IP host (hạ tầng chung)",
+      "sublabel": "mạng riêng · URL qua env",
+      "pos": [
+        365,
+        640
+      ],
+      "size": [
+        270,
+        50
+      ]
+    },
+    {
+      "id": "postgres",
+      "type": "database",
+      "label": "Postgres",
+      "sublabel": "DB bizwithagents · user bizwithagents",
+      "brand": "postgresql",
+      "pos": [
+        35,
+        750
+      ],
+      "size": [
+        207,
+        60
+      ]
+    },
+    {
+      "id": "mongo",
+      "type": "database",
+      "label": "MongoDB · tuỳ chọn",
+      "sublabel": "DB bizwithagents · MONGO_ENABLED",
+      "brand": "mongodb",
+      "pos": [
+        287,
+        750
+      ],
+      "size": [
+        216,
+        60
+      ]
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis",
+      "sublabel": "db index riêng · key bw:",
+      "brand": "redis",
+      "pos": [
+        548,
+        750
+      ],
+      "size": [
+        207,
+        60
+      ]
+    },
+    {
+      "id": "rabbitmq",
+      "type": "messagebus",
+      "label": "RabbitMQ",
+      "sublabel": "vhost bizwithagents · bw.*",
+      "brand": "rabbitmq",
+      "pos": [
+        800,
+        750
+      ],
+      "size": [
+        207,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Server · Coolify",
+      "wraps": [
+        "cloudflared",
+        "traefik",
+        "coolify",
+        "images",
+        "web",
+        "scheduler",
+        "worker",
+        "consumer",
+        "realtime",
+        "api",
+        "network",
+        "postgres",
+        "mongo",
+        "redis",
+        "rabbitmq"
+      ],
+      "pad": 22
+    },
+    {
+      "kind": "security-group",
+      "label": "compose.yml · project bizwithagents · 6 service",
+      "wraps": [
+        "web",
+        "scheduler",
+        "worker",
+        "consumer",
+        "realtime",
+        "api"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "Instance dùng chung với app khác · namespace riêng",
+      "wraps": [
+        "postgres",
+        "mongo",
+        "redis",
+        "rabbitmq"
+      ],
+      "pad": 12
+    }
+  ],
+  "connections": [
+    {
+      "id": "users-cf",
+      "from": "users",
+      "to": "cloudflare",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cf-tunnel",
+      "from": "cloudflare",
+      "to": "cloudflared",
+      "label": "Tunnel",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        335,
+        125
+      ]
+    },
+    {
+      "id": "tunnel-traefik",
+      "from": "cloudflared",
+      "to": "traefik",
+      "label": "HTTP",
+      "variant": "emphasis"
+    },
+    {
+      "id": "traefik-web",
+      "from": "traefik",
+      "to": "web",
+      "label": "Host bizwithagents",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "id": "web-realtime",
+      "from": "web",
+      "to": "realtime",
+      "label": "/bizwithagents/ws/*",
+      "variant": "emphasis",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "id": "web-api",
+      "from": "web",
+      "to": "api",
+      "label": "/bizwithagents/api/*",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "id": "dev-push",
+      "from": "dev",
+      "to": "github",
+      "label": "git push"
+    },
+    {
+      "id": "dev-deploy",
+      "from": "dev",
+      "to": "coolify",
+      "label": "make deploy",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        831,
+        140
+      ]
+    },
+    {
+      "id": "github-pull",
+      "from": "github",
+      "to": "coolify",
+      "label": "pull main",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "coolify-build",
+      "from": "coolify",
+      "to": "images",
+      "label": "build"
+    },
+    {
+      "id": "scheduler-net",
+      "from": "scheduler",
+      "to": "network",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "worker-net",
+      "from": "worker",
+      "to": "network",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "consumer-net",
+      "from": "consumer",
+      "to": "network",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "realtime-net",
+      "from": "realtime",
+      "to": "network",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "api-net",
+      "from": "api",
+      "to": "network",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "net-pg",
+      "from": "network",
+      "to": "postgres",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "net-mongo",
+      "from": "network",
+      "to": "mongo",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed"
+    },
+    {
+      "id": "net-redis",
+      "from": "network",
+      "to": "redis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "net-rabbit",
+      "from": "network",
+      "to": "rabbitmq",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Một cửa: bw-web",
+      "items": [
+        "Chỉ bw-web có domain; Coolify sinh SERVICE_URL_BW_WEB",
+        "/bizwithagents/api/* → bw-api:16802 · /bizwithagents/ws/* → bw-realtime:16803",
+        "Không service nào publish cổng host"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Thứ tự khởi động",
+      "items": [
+        "bw-api: bw migrate → exec bw api (idempotent)",
+        "consumer · worker · scheduler chờ bw-api healthy; realtime không chờ ai",
+        "bw-web chờ bw-api + bw-realtime healthy"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "DB dùng chung qua IP host, khoá JWT ở env",
+      "items": [
+        "Postgres + Mongo: database bizwithagents, user bizwithagents · nối qua IP host:<cổng> (hạ tầng chung — D19)",
+        "Redis: db index trống + key bw: · RabbitMQ: vhost bizwithagents, bw.*",
+        "Khoá JWT: PEM trong env AUTH_PRIVATE_KEY / AUTH_PUBLIC_KEY · Mongo chỉ kết nối khi MONGO_ENABLED=true"
+      ]
+    }
+  ]
+}

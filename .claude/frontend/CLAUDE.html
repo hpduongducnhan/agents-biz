@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="vi" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Frontend · BizWithAgents</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/highlight.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Frontend</summary><ul><li><a href="CLAUDE.html" class="active" aria-current="page" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../index.html">Tổng quan</a> <span class='sep'>/</span> <span>Frontend</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/frontend/CLAUDE.md</code></div>
+<article class="prose">
+<h1 id="claudemd--frontend">CLAUDE.md — Frontend <a class="anchor" href="#claudemd--frontend" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../index.html">CLAUDE.md</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép từ dự án nguồn ở SP0). Rule chung ở <a href="../index.html">CLAUDE.md</a> — file này <strong>không chép lại</strong>, chỉ ghi chi tiết riêng của frontend.</p>
+<p>Một app <strong>React 19 + TypeScript strict + Vite</strong> ở <code>frontend/</code>: TanStack Query, Zustand, Tailwind 4 + Radix, react-router, react-hook-form + zod, socket.io-client, sonner, lucide, font Nunito.</p>
+<h2 id="menu-tài-liệu">Menu tài liệu <a class="anchor" href="#menu-tài-liệu" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Trạng thái</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="design/ui-system.html">ui-system</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Hiến pháp giao diện: ưu tiên điện thoại, token thương hiệu, bảng màu tối + vai <code>primary</code> (nền nút) / <code>brand</code> (chữ nhấn), bảng / thẻ (R16), <code>JsonView</code> (R17), dark / light, i18n, a11y, màn SP1, checklist</td>
+</tr>
+</tbody>
+</table></div>
+<p>Auth / guard / realtime phía client: <a href="../platform/architecture/auth-rbac.html">platform/auth-rbac §9</a> · <a href="../backend/architecture/realtime.html">backend/realtime</a>.</p>
+<h2 id="cấu-trúc">Cấu trúc <a class="anchor" href="#cấu-trúc" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thư mục</th>
+<th>Chứa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/lib/api/</code></td>
+<td><code>openapi.json</code> (hợp đồng, dump từ backend) · <code>schema.d.ts</code> (sinh) · <code>endpoints.ts</code> (tên op → method + path) · <code>client.ts</code> (<code>call(op, input)</code>, mở envelope, refresh) · <code>url.ts</code> (<code>apiUrl</code>) · <code>errors.ts</code></td>
+</tr>
+<tr>
+<td><code>src/lib/</code></td>
+<td><code>keys.ts</code> (<code>mkKeys</code>), <code>query-client.ts</code>, <code>auth/</code>, <code>i18n/</code>, <code>realtime/</code> (<code>socket.ts</code>, <code>hooks.ts</code>), <code>date.ts</code>, <code>cn.ts</code></td>
+</tr>
+<tr>
+<td><code>src/ui/</code> · <code>src/ui/shared/</code></td>
+<td>UI kit Radix · <code>Table</code>, <code>TruncText</code>, <code>json/JsonView</code>, <code>EmptyState</code>, <code>FormDialog</code>, <code>ConfirmDialog</code>…</td>
+</tr>
+<tr>
+<td><code>src/features/&lt;miền&gt;/</code></td>
+<td><code>api.ts</code> (alias kiểu + gọi <code>call</code>) · <code>keys.ts</code></td>
+</tr>
+<tr>
+<td><code>src/guards/</code> · <code>src/boot/</code> · <code>src/layout/</code> · <code>src/pages/</code></td>
+<td>guard route · router + realtime boot · AppShell (Header + <code>NavDrawer</code> ☰ điện thoại, Sidebar, <code>MobileDock</code> Trợ lý, <code>InstallGuide</code>); menu khai ở <code>layout/nav.ts</code> (<code>NavSection</code> + nhóm con <code>NavGroup</code> gập / mở, vẽ bởi <code>SidebarLinks.tsx</code>) · trang</td>
+</tr>
+<tr>
+<td><code>src/modules/</code></td>
+<td>module nghiệp vụ (D25): <code>types.ts</code> (<code>ModuleManifest</code>), <code>registry.ts</code> (<code>MODULES</code> — thêm một dòng mỗi module), <code>access.ts</code> (lọc theo quyền), <code>&lt;module&gt;/</code> (<code>index.ts</code> manifest · <code>api.ts</code> · <code>keys.ts</code> · <code>dict.ts</code> · <code>pages/</code> · <code>components/</code> · <code>widgets/</code>) — khuôn ở <a href="../platform/architecture/tasks-module.html">tasks-module</a></td>
+</tr>
+<tr>
+<td><code>src/features/agent/</code> · <code>src/pages/{assistant,studio}/</code> · <code>src/pages/sa/{Traces,TraceDetail,Usage}Page.tsx</code></td>
+<td><code>store.ts</code> (áp <code>agent:*</code> theo <code>seq</code>, báo hở) + <code>useRunStream</code> (nghe realtime, bù <code>run_events</code>) · trang Trợ lý · Agent Studio · Trace + Usage — <a href="../platform/architecture/agent-runtime.html">agent-runtime</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="rule-gốc-áp-cho-frontend--chi-tiết-riêng">Rule gốc áp cho frontend — chi tiết riêng <a class="anchor" href="#rule-gốc-áp-cho-frontend--chi-tiết-riêng" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rule gốc (<a href="../index.html">CLAUDE.md</a>)</th>
+<th>Ở frontend BizWithAgents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R6 envelope</td>
+<td>mở <strong>một</strong> chỗ: <code>src/lib/api/client.ts</code>; lỗi <code>ApiError(status, code, correlationId, data)</code>; toast &quot;Mã tra cứu: &lt;cid&gt;&quot;</td>
+</tr>
+<tr>
+<td>R7 OpenAPI</td>
+<td><code>npm run gen:api</code> sinh <code>schema.d.ts</code> từ <code>openapi.json</code> bằng bộ công cụ riêng <code>frontend/tools/openapi-ts</code> (TypeScript 5; <code>make fe-install</code> cài kèm); <code>make fe-api-check</code> trong <code>make ci</code>; chỉ <code>endpoints.ts</code> biết method + path</td>
+</tr>
+<tr>
+<td>R9 ≤ ~400 dòng (test / kịch bản kiểm ≤ ~800)</td>
+<td>trang lớn tách dialog / card ra file riêng</td>
+</tr>
+<tr>
+<td>R14 phân trang</td>
+<td><code>limit</code> mặc định 20, dropdown / tra cứu <code>limit=100</code></td>
+</tr>
+<tr>
+<td>R15 JWT Bearer</td>
+<td>access token chỉ trong bộ nhớ; refresh token <code>localStorage</code> <code>bw_refresh_token</code>; refresh single-flight + Web Locks <code>bw-auth-refresh</code>; URL qua <code>apiUrl()</code></td>
+</tr>
+<tr>
+<td>R16 bảng</td>
+<td><code>ui/shared/Table</code> + <code>TruncText</code> (Radix Tooltip, không <code>title</code>); dưới <code>md</code> danh sách là thẻ</td>
+</tr>
+<tr>
+<td>R17 JSON</td>
+<td><code>ui/shared/json/JsonView</code> — call-site truyền thẳng giá trị</td>
+</tr>
+<tr>
+<td>R18 realtime-first</td>
+<td>socket một cửa <code>src/lib/realtime</code>; <code>data:changed</code> → <code>invalidateQueries</code> theo tiền tố <code>mkKeys</code></td>
+</tr>
+<tr>
+<td>R22 test giao diện</td>
+<td>Playwright qua subagent Sonnet</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="rule-riêng-của-frontend-root-chưa-có">Rule riêng của frontend (root chưa có) <a class="anchor" href="#rule-riêng-của-frontend-root-chưa-có" aria-label="Liên kết tới mục này">#</a></h2>
+<ol>
+<li><strong>State đúng công cụ.</strong> Data backend → TanStack Query, key <code>mkKeys(&quot;&lt;miền&gt;&quot;, …)</code> khớp <code>invalidates</code> của operation. UI state → Zustand (<code>stores/ui.store.ts</code>). Không nhồi data backend vào Zustand.</li>
+<li><strong>Guard ở route.</strong> <code>ProtectedRoute</code> · <code>RequirePermission</code> · <code>RequireSuperadmin</code> (<code>src/guards</code>). Thiếu quyền → <code>/403</code>. Trang không tự redirect.</li>
+<li><strong>Realtime một cửa.</strong> <code>useRealtime</code> / <code>useSendRealtime</code> / <code>useSocketStatus</code>; cấm tự gọi <code>io()</code>.
+<ul>
+<li><code>core:rbac_updated</code> → refresh token + tải lại <code>me</code>.</li>
+<li><code>core:account_disabled</code> → đăng xuất về <code>/login</code>.</li>
+<li>Nối lại → refetch query cũ.</li>
+</ul>
+</li>
+<li><strong>Env một cửa</strong> <code>src/env.ts</code>.</li>
+<li><strong>Quyền = mirror backend.</strong> Hằng quyền khớp catalog (<code>user.view</code>, <code>user.manage</code>, <code>role.manage</code>, …); ẩn UI chỉ là UX.</li>
+<li><strong>Ưu tiên điện thoại.</strong> Thiết kế 375 trước; vùng bấm ≥ 44px; ô nhập 16px dưới <code>md</code>; dialog <code>max-h-[90dvh]</code>; không cuộn ngang ở 375 / 768 / 1024 / 1440 (<a href="design/ui-system.html">ui-system</a>).</li>
+<li><strong>Chỉ semantic token</strong>, không hex / màu Tailwind thô. Icon lucide, không emoji. Mọi chuỗi qua <code>t()</code>, mỗi key khai một lần <code>[vi, en]</code>.</li>
+<li><strong>HTML thô phải sanitize</strong>; lib nặng <code>lazy()</code> + <code>Suspense</code>.</li>
+<li><strong>Ngày / giờ / số</strong> qua <code>Intl</code> + helper (<code>lib/date.ts</code>); class động qua <code>cn()</code>.</li>
+<li><strong>Banner khi tắt Mongo:</strong> API đọc log trả <code>enabled: false</code> → <code>LogDisabledBanner</code>, không coi là lỗi.</li>
+<li><strong>Trợ lý.</strong>
+<ul>
+<li>Sự kiện <code>agent:*</code> chỉ nghe qua <code>useRunStream</code> (một cửa); sự kiện cũ / trùng <code>seq</code> bị bỏ, hở <code>seq</code> / nối lại → <code>agent.run_events</code>.</li>
+<li>Trả lời của trợ lý hiện bằng <code>&lt;Markdown&gt;</code> (<code>ui/shared/Markdown.tsx</code> — React node, không HTML thô; tiêu đề, danh sách lồng theo thụt đầu dòng, <code>&gt;</code>, <code>---</code>); tham số / kết quả tool + thẻ duyệt dùng <code>JsonView</code> (R17).</li>
+<li>Ô nhập chữ 16px ở điện thoại, dính đáy (trang Trợ lý không có cụm nút nổi); không bọc <code>&lt;form&gt;</code>, <code>autocomplete=off</code> để bàn phím không hiện thanh tự điền thẻ / địa chỉ / vị trí; lỗi 6001 / 6002 hiện &quot;thử lại {time}&quot; từ <code>retry_after_sec</code>, 6009 / 6010 hiện &quot;chưa cấu hình&quot; (+ link Studio cho superadmin).</li>
+</ul>
+</li>
+<li><strong>Sạch trước khi xong:</strong> <code>make fe-lint fe-typecheck fe-cov fe-build fe-api-check</code> (độ phủ ≥ 80%); không <code>any</code>.</li>
+</ol>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/frontend/CLAUDE.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#menu-tài-liệu">Menu tài liệu</a></li><li class="lvl2"><a href="#cấu-trúc">Cấu trúc</a></li><li class="lvl2"><a href="#rule-gốc-áp-cho-frontend--chi-tiết-riêng">Rule gốc áp cho frontend — chi tiết riêng</a></li><li class="lvl2"><a href="#rule-riêng-của-frontend-root-chưa-có">Rule riêng của frontend (root chưa có)</a></li></ul></aside>
+</div>
+</body>
+</html>

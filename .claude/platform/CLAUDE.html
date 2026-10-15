@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="vi" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Platform · BizWithAgents</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/highlight.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="CLAUDE.html" class="active" aria-current="page" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../index.html">Tổng quan</a> <span class='sep'>/</span> <span>Platform</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/CLAUDE.md</code></div>
+<article class="prose">
+<h1 id="claudemd--platform">CLAUDE.md — Platform <a class="anchor" href="#claudemd--platform" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../index.html">CLAUDE.md</a> | <a href="design/template-v1.html">template-v1</a> · <a href="design/roadmap.html">roadmap</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT. Platform = thiết kế tổng + phần cross-stack (backend + realtime + frontend) của template. Rule riêng từng stack: <a href="../backend/CLAUDE.html">backend</a> · <a href="../frontend/CLAUDE.html">frontend</a> · <a href="../deploy/CLAUDE.html">deploy</a>. Rule chung: <a href="../index.html">CLAUDE.md</a> R1–R29.</p>
+<h2 id="menu-tài-liệu">Menu tài liệu <a class="anchor" href="#menu-tài-liệu" aria-label="Liên kết tới mục này">#</a></h2>
+<h3 id="architecture-architecture">Architecture (<code>architecture/</code>) <a class="anchor" href="#architecture-architecture" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Trạng thái</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="architecture/auth-rbac.html">auth-rbac</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Bảng auth, JWT (claim <code>tid</code>) + refresh xoay vòng, superadmin từ env, RBAC dùng chung mọi tenant (admin / member / viewer), chính sách tài khoản (tầng tenant), rate limit theo IP thật, khoá tài khoản / tenant → realtime, mã 2xxx, bảng mặc định, tài khoản test 2 tenant</td>
+</tr>
+<tr>
+<td><a href="architecture/agent-runtime.html">agent-runtime</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Trợ lý AI: cấu hình + credential, lượt chạy + sự kiện, tool từ <code>@operation</code>, duyệt, xoay key, hạn mức + chống spam, ngữ cảnh (registry), trace + usage, hook, router + chuyên gia (registry), mã 6xxx, bảng mặc định</td>
+</tr>
+<tr>
+<td><a href="architecture/tenancy.html">tenancy</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Tenant: mô hình 1 user = 1 tenant, lọc tự động <code>TenantScoped</code> (luật B14), phòng realtime, <code>signup_mode</code>, lời mời, khoá tenant, mã 2109–2115</td>
+</tr>
+<tr>
+<td><a href="architecture/tasks-module.html">tasks-module</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Module mẫu Tasks + khuôn thêm module: 9 chỗ phải chạm, backend / frontend (registry D25), op, trợ lý, kiểm, bảng mặc định</td>
+</tr>
+<tr>
+<td><a href="architecture/mail.html">mail</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Transport console / smtp, mẫu thư theo ngôn ngữ, task gửi, xác thực email, quên mật khẩu, bảng mặc định</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="playbook-playbooks">Playbook (<code>playbooks/</code>) <a class="anchor" href="#playbook-playbooks" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Trạng thái</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="playbooks/README.html">playbooks</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Bằng chat (Claude Code / Codex / Gemini — skill <code>new-app</code>, <code>setup-env</code>, <code>new-module</code>); tạo app sau khi clone (<code>make init-app</code>), dựng môi trường (<code>make setup</code>), kéo bản sửa của template (<code>make template-sync</code>), thêm module (<code>make new-module</code>): bước, ai làm, lỗi hay gặp</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="design-design">Design (<code>design/</code>) <a class="anchor" href="#design-design" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Trạng thái</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="design/template-v1.html">template-v1</a></td>
+<td>ĐÃ CHỐT</td>
+<td>Thiết kế tổng: mục tiêu, giữ / sửa / bỏ từ dự án nguồn, đổi tên, tenant, mail, module, agent, Tasks, i18n, môi trường, tài liệu</td>
+</tr>
+<tr>
+<td><a href="design/decisions/README.html">decisions</a></td>
+<td>—</td>
+<td>Nhật ký quyết định D1… + quyết định kế thừa từ dự án nguồn</td>
+</tr>
+<tr>
+<td><a href="design/roadmap.html">roadmap</a></td>
+<td>—</td>
+<td>Sub-project + trạng thái</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="plans-plans">Plans (<code>plans/</code>) <a class="anchor" href="#plans-plans" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Trạng thái</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="plans/sp0-platform-port/README.html">sp0-platform-port</a></td>
+<td>Xong</td>
+<td>Chép nền từ dự án nguồn, đổi tên <code>bw</code>, bỏ nghiệp vụ ví / nhóm / chia tiền / Drive</td>
+</tr>
+<tr>
+<td><a href="plans/sp1-tenant-mail/README.html">sp1-tenant-mail</a></td>
+<td>Xong</td>
+<td>Tenant (lọc tự động, <code>signup_mode</code>, lời mời, khoá tenant, phòng realtime), mail, xác thực email, quên mật khẩu</td>
+</tr>
+<tr>
+<td><a href="plans/sp2-agent-general/README.html">sp2-agent-general</a></td>
+<td>Xong</td>
+<td>Registry toolset, dữ liệu agent theo tenant, usage / trace theo tổ chức, tắt trợ lý theo tenant, stream chat + <code>/sa/ai-settings</code> (D22–D24)</td>
+</tr>
+<tr>
+<td><a href="plans/sp3-tasks-module/README.html">sp3-tasks-module</a></td>
+<td>Xong</td>
+<td>Module mẫu Tasks: bảng, op, realtime, nhắc hạn, chuyên gia + câu ý định, registry module frontend (D25), UI danh sách / chi tiết / Thêm nhanh / widget</td>
+</tr>
+<tr>
+<td><a href="plans/sp4-scaffold/README.html">sp4-scaffold</a></td>
+<td>Xong</td>
+<td><code>make new-module</code> (Jinja2 theo khuôn Tasks) + <code>scaffold-check</code> trong CI, <code>make new-app</code> (đổi tên, cổng, Redis db) + <code>new-app-check</code>, skill new-module / new-app</td>
+</tr>
+<tr>
+<td><a href="plans/sp5-release/README.html">sp5-release</a></td>
+<td>Xong</td>
+<td>Dọn tên / tham chiếu dự án nguồn trong code, HLD + sơ đồ, kiểm toàn bộ, tag <code>v1.0.0</code></td>
+</tr>
+<tr>
+<td><a href="plans/sp6-agent-skills/README.html">sp6-agent-skills</a></td>
+<td>Xong</td>
+<td>Skill cho Claude Code / Codex / Gemini (<code>.agents/skills</code> + <code>AGENTS.md</code>), <code>make init-app</code> đổi tên tại chỗ sau khi clone, <code>make setup</code> dựng môi trường (D26–D28); <code>make template-sync</code> kéo bản sửa của template (D29)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/CLAUDE.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#menu-tài-liệu">Menu tài liệu</a></li><li class="lvl3"><a href="#architecture-architecture">Architecture (architecture/)</a></li><li class="lvl3"><a href="#playbook-playbooks">Playbook (playbooks/)</a></li><li class="lvl3"><a href="#design-design">Design (design/)</a></li><li class="lvl3"><a href="#plans-plans">Plans (plans/)</a></li></ul></aside>
+</div>
+</body>
+</html>

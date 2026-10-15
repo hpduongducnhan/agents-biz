@@ -1,0 +1,153 @@
+x-backend-env: &backend-env
+  ENV: ${ENV:-prod}
+  DEBUG: ${DEBUG:-false}
+  SERVICE_PATH: ${SERVICE_PATH:-bizwithagents}
+  BUILD_VERSION: ${SOURCE_COMMIT:-dev}
+  APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Ho_Chi_Minh}
+  HOST: 0.0.0.0
+  PORT: 16812
+  WORKERS: ${API_WORKERS:-1}
+  CORS_ALLOW_ORIGINS: "[]"
+  FORWARDED_ALLOW_IPS: "*" # uvicorn tin X-Forwarded-For — api chỉ nhận request từ web (không mở cổng)
+  LOG_JSON: ${LOG_JSON:-true}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  LOG_REDACT_KEYS: ${LOG_REDACT_KEYS:-}
+  LOG_HTTP_IN: ${LOG_HTTP_IN:-true}
+  LOG_HTTP_OUT: ${LOG_HTTP_OUT:-true}
+  LOG_HTTP_SLOW_MS: ${LOG_HTTP_SLOW_MS:-1000}
+  POSTGRES_RW_URL: ${POSTGRES_RW_URL:?}
+  POSTGRES_RO_URL: ${POSTGRES_RO_URL:-}
+  POSTGRES_POOL_SIZE: ${POSTGRES_POOL_SIZE:-3}
+  POSTGRES_MAX_OVERFLOW: ${POSTGRES_MAX_OVERFLOW:-5}
+  POSTGRES_PGBOUNCER: ${POSTGRES_PGBOUNCER:-false}
+  MONGO_ENABLED: ${MONGO_ENABLED:-true}
+  MONGO_RW_URL: ${MONGO_RW_URL:-}
+  MONGO_RO_URL: ${MONGO_RO_URL:-}
+  MONGO_DB_NAME: ${MONGO_DB_NAME:-bizwithagents}
+  REDIS_RW_URL: ${REDIS_RW_URL:?}
+  REDIS_RO_URL: ${REDIS_RO_URL:-}
+  RABBITMQ_URL: ${RABBITMQ_URL:?}
+  AUTH_PRIVATE_KEY: ${AUTH_PRIVATE_KEY:?} # PEM — sinh một lần bằng `bw keys --print`
+  AUTH_PUBLIC_KEY: ${AUTH_PUBLIC_KEY:?}
+  SUPERADMIN_EMAILS: ${SUPERADMIN_EMAILS:?}
+  CREDENTIAL_KEYS: ${CREDENTIAL_KEYS:-}
+  GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+  GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+  GOOGLE_REDIRECT_URI: ${SERVICE_URL_BW_WEB:?}/${SERVICE_PATH:-bizwithagents}/api/auth/google/callback
+  FRONTEND_AUTH_CALLBACK_URL: ${SERVICE_URL_BW_WEB:?}/auth/callback
+  PUBLIC_URL: ${PUBLIC_URL:-} # https://… → app dựng 2 URL callback ở trên từ đây
+
+x-backend: &backend
+  build:
+    context: .
+    dockerfile: deploy/docker/backend.Dockerfile
+  restart: unless-stopped
+  environment: *backend-env
+  depends_on:
+    bw-api:
+      condition: service_healthy
+
+services:
+  # Mỗi lần container khởi động: migration (một chuỗi Alembic, chạy lại không làm gì) rồi mới thành api.
+  # Migration lỗi → container thoát, Docker chạy lại; service nền chờ tới khi api healthy.
+  bw-api:
+    <<: *backend
+    command: ["sh", "-c", "bw migrate && exec bw api"]
+    depends_on: {}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import os, urllib.request as u; u.urlopen('http://127.0.0.1:16812/' + os.environ['SERVICE_PATH'] + '/api/health/ready', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      start_period: 180s # đủ chỗ cho migration — healthy ngay khi /health/ready trả 200
+      retries: 6
+
+  # Process nền khoẻ = nhịp tim `bw:hb:<role>` trên Redis còn mới (< 90 s) — nhận việc qua đường thật scheduler → RabbitMQ.
+  bw-consumer:
+    <<: *backend
+    command: ["bw", "consume"]
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import os,sys,redis,datetime as d; u=os.environ.get('REDIS_RO_URL') or os.environ['REDIS_RW_URL']; v=redis.Redis.from_url(u,decode_responses=True,socket_timeout=3).get('bw:hb:consume'); sys.exit(0 if v and (d.datetime.now(d.UTC)-d.datetime.fromisoformat(v)).total_seconds()<90 else 1)"
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+
+  bw-worker:
+    <<: *backend
+    command: ["bw", "work"]
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import os,sys,redis,datetime as d; u=os.environ.get('REDIS_RO_URL') or os.environ['REDIS_RW_URL']; v=redis.Redis.from_url(u,decode_responses=True,socket_timeout=3).get('bw:hb:work'); sys.exit(0 if v and (d.datetime.now(d.UTC)-d.datetime.fromisoformat(v)).total_seconds()<90 else 1)"
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+
+  # Nhịp tim + cron — chỉ 1 bản (khoá leader Redis dự phòng deploy chồng lấn).
+  bw-scheduler:
+    <<: *backend
+    command: ["bw", "schedule"]
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import os,sys,redis,datetime as d; u=os.environ.get('REDIS_RO_URL') or os.environ['REDIS_RW_URL']; v=redis.Redis.from_url(u,decode_responses=True,socket_timeout=3).get('bw:hb:schedule'); sys.exit(0 if v and (d.datetime.now(d.UTC)-d.datetime.fromisoformat(v)).total_seconds()<90 else 1)"
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+
+  # Chỉ cần RabbitMQ + public key → không chờ service nào.
+  bw-realtime:
+    build:
+      context: .
+      dockerfile: deploy/docker/realtime.Dockerfile
+    restart: unless-stopped
+    environment:
+      RABBITMQ_URL: ${RABBITMQ_URL:?}
+      AUTH_PUBLIC_KEY: ${AUTH_PUBLIC_KEY:?}
+      REALTIME_PORT: 16813
+      WS_PATH: /${SERVICE_PATH:-bizwithagents}/ws
+      LOG_JSON: ${LOG_JSON:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:16813' + process.env.WS_PATH + '/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 6
+
+  # Cửa duy nhất ra ngoài: gắn domain Coolify cho service này, không kèm cổng.
+  bw-web:
+    build:
+      context: .
+      dockerfile: deploy/docker/web.Dockerfile
+      args:
+        SERVICE_PATH: ${SERVICE_PATH:-bizwithagents}
+    restart: unless-stopped
+    expose: ["16811"] # Coolify lấy cổng này cho Traefik khi domain không kèm cổng
+    environment:
+      SERVICE_URL_BW_WEB: ${SERVICE_URL_BW_WEB:?} # nhắc tên biến ở service này → Coolify sinh domain cho nó
+      SERVICE_PATH: ${SERVICE_PATH:-bizwithagents}
+      WEB_PORT: 16811
+      API_UPSTREAM: bw-api:16812
+      REALTIME_UPSTREAM: bw-realtime:16813
+      REAL_IP_HEADER: ${REAL_IP_HEADER:-CF-Connecting-IP}
+    depends_on:
+      bw-api:
+        condition: service_healthy
+      bw-realtime:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:16811/"]
+      interval: 10s
+      timeout: 3s
+      retries: 6

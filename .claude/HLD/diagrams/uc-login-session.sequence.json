@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "UC-a · Đăng nhập và phiên",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "output": ".claude/HLD/diagrams/uc-login-session.html"
+  },
+  "participants": [
+    {
+      "id": "admin",
+      "type": "external",
+      "label": "Admin"
+    },
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Trình duyệt"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api"
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "Postgres"
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis"
+    },
+    {
+      "id": "rabbit",
+      "type": "messagebus",
+      "label": "RabbitMQ"
+    },
+    {
+      "id": "rt",
+      "type": "backend",
+      "label": "realtime"
+    }
+  ],
+  "segments": [
+    {
+      "from": 162,
+      "to": 298,
+      "label": "Đăng nhập"
+    },
+    {
+      "from": 304,
+      "to": 368,
+      "label": "Nối socket"
+    },
+    {
+      "from": 374,
+      "to": 574,
+      "label": "401 → refresh"
+    },
+    {
+      "from": 580,
+      "to": 812,
+      "label": "Bị khoá"
+    }
+  ],
+  "messages": [
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 180,
+      "label": "POST auth/login {email, password}",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "redis",
+      "y": 214,
+      "label": "rate limit 5 / 60 s · ip + email",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 248,
+      "label": "argon2id · tenant + email xác thực · SUPERADMIN_EMAILS · lưu SHA-256 refresh",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "browser",
+      "y": 282,
+      "label": "{user, tokens} · access 30 phút · refresh 7 ngày",
+      "variant": "return"
+    },
+    {
+      "from": "browser",
+      "to": "rt",
+      "y": 318,
+      "label": "/bizwithagents/ws/socket.io/ · auth: {token}",
+      "variant": "emphasis"
+    },
+    {
+      "from": "rt",
+      "to": "rabbit",
+      "y": 352,
+      "label": "bind user.<sub> + tenant.<tid> (+ sup)",
+      "variant": "default"
+    },
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 388,
+      "label": "request · Bearer hết hạn",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "browser",
+      "y": 422,
+      "label": "401",
+      "variant": "return"
+    },
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 456,
+      "label": "POST auth/refresh · single-flight",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 490,
+      "label": "xoay theo family_id · ân hạn 10 s",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "browser",
+      "y": 524,
+      "label": "cặp token mới → gọi lại request",
+      "variant": "return"
+    },
+    {
+      "from": "browser",
+      "to": "rt",
+      "y": 558,
+      "label": "auth:refresh {token}",
+      "variant": "dashed"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 596,
+      "label": "POST admin/update_user {is_active: false}",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 630,
+      "label": "is_active=false · thu hồi refresh token",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "redis",
+      "y": 664,
+      "label": "SET bw:auth:disabled:<uid> · TTL đời access",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 698,
+      "label": "sau commit: rt:revoke → all · core:account_disabled → user.<uid>",
+      "variant": "emphasis"
+    },
+    {
+      "from": "rabbit",
+      "to": "rt",
+      "y": 732,
+      "label": "deliver",
+      "variant": "default"
+    },
+    {
+      "from": "rt",
+      "to": "browser",
+      "y": 766,
+      "label": "core:account_disabled → logout → /login?reason=disabled · ngắt socket",
+      "variant": "return"
+    },
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 800,
+      "label": "REST → 2103 · refresh → 2104",
+      "variant": "dashed"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 174,
+      "to": 288,
+      "type": "backend"
+    },
+    {
+      "participant": "rt",
+      "from": 312,
+      "to": 358,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 382,
+      "to": 530,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 624,
+      "to": 738,
+      "type": "backend"
+    },
+    {
+      "participant": "rt",
+      "from": 760,
+      "to": 772,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Phiên JWT",
+      "items": [
+        "Claims {sub, tid, typ, perms, sup, iat, exp}",
+        "Refresh xoay theo family_id, ân hạn 10 s"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Khoá có hiệu lực ngay",
+      "items": [
+        "REST + @on_ws đọc bw:auth:disabled → 2103",
+        "rt:revoke ngắt socket ở mọi instance"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Một cửa web",
+      "items": [
+        "Mọi gọi đi qua /bizwithagents/api/* và /bizwithagents/ws/*",
+        "Google OAuth phát cùng loại token"
+      ]
+    }
+  ]
+}

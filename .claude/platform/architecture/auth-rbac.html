@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Platform — Auth, RBAC hệ thống, superadmin từ env · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="auth-rbac.html" class="active" aria-current="page" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Kiến trúc</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/architecture/auth-rbac.md</code></div>
+<article class="prose">
+<h1 id="platform--auth-rbac-hệ-thống-superadmin-từ-env">Platform — Auth, RBAC hệ thống, superadmin từ env <a class="anchor" href="#platform--auth-rbac-hệ-thống-superadmin-từ-env" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../design/decisions/README.html">decisions</a> · <a href="../../backend/architecture/operations.html">backend/operations</a> · <a href="../../backend/architecture/realtime.html">backend/realtime</a> · <a href="../../frontend/CLAUDE.html">frontend/CLAUDE.md</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép từ dự án nguồn ở SP0, SP1 thêm tenant — D10–D12). Mỗi user thuộc một tenant (<a href="tenancy.html">tenancy</a>); role và quyền dùng chung mọi tenant. Xác thực email / quên mật khẩu: <a href="mail.html">mail</a>.</p>
+<hr />
+<h2 id="1-bảng-postgres-migration-0002_auth_rbac">1. Bảng (Postgres, migration <code>0002_auth_rbac</code>) <a class="anchor" href="#1-bảng-postgres-migration-0002_auth_rbac" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bảng</th>
+<th>Cột chính</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>users</code> (<code>TenantScoped</code>)</td>
+<td><code>id</code> uuid · <code>tenant_id</code> · <code>email</code> citext unique · <code>email_verified_at</code> · <code>password_hash</code> · <code>name</code> · <code>is_active</code> · <code>is_superadmin</code> · <code>must_change_password</code> · <code>timezone</code> · <code>locale</code> · <code>policies</code> jsonb · <code>created_at</code> · <code>last_login_at</code></td>
+<td><code>is_superadmin</code> chỉ do <code>SUPERADMIN_EMAILS</code> đồng bộ</td>
+</tr>
+<tr>
+<td><code>oauth_accounts</code></td>
+<td><code>user_id</code> · <code>provider</code> · <code>provider_uid</code> · <code>email</code></td>
+<td>Google</td>
+</tr>
+<tr>
+<td><code>refresh_tokens</code></td>
+<td><code>id</code> · <code>user_id</code> · <code>token_hash</code> (SHA-256) · <code>family_id</code> · <code>expires_at</code> · <code>revoked_at</code></td>
+<td>xoay vòng theo họ</td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td><code>codename</code> PK · <code>domain</code> · <code>description</code> · <code>deprecated_at</code></td>
+<td>đồng bộ idempotent lúc <code>bw migrate</code></td>
+</tr>
+<tr>
+<td><code>roles</code> · <code>role_permissions</code> · <code>user_roles</code></td>
+<td>role (<code>name</code> unique, <code>is_builtin</code>, <code>policies</code> jsonb) · quyền của role · role của user</td>
+<td>role dùng chung mọi tenant</td>
+</tr>
+<tr>
+<td><code>auth_tokens</code></td>
+<td><code>purpose</code> <code>verify | reset | invite</code> · <code>token_hash</code> · <code>user_id</code> / <code>tenant_id</code> · <code>email</code> · <code>role_id</code> · <code>max_uses</code> · <code>uses</code> · <code>expires_at</code></td>
+<td>token một lần (thư xác thực, đặt lại mật khẩu, lời mời)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-token">2. Token <a class="anchor" href="#2-token" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Access:</strong> JWT EdDSA, claims <code>{sub, tid, typ: &quot;access&quot;, perms, sup, iat, exp}</code> — <code>tid</code> = tenant của user; <code>perms</code> rỗng khi <code>sup</code>.</li>
+<li><strong>Refresh:</strong> ngẫu nhiên, DB giữ SHA-256, <strong>xoay vòng</strong> mỗi lần dùng.
+<ul>
+<li>Token cũ bị dùng lại sau <code>AUTH_REFRESH_REUSE_GRACE_SECONDS</code> → thu hồi cả họ.</li>
+<li>Trong khoảng grace (hai tab cùng refresh) thì không thu hồi.</li>
+</ul>
+</li>
+<li><strong>Khoá ký:</strong> <code>bw keys</code> sinh Ed25519 vào <code>.secrets/</code> (local); Coolify: PEM trong env <code>AUTH_PRIVATE_KEY</code> / <code>AUTH_PUBLIC_KEY</code>, sinh bằng <code>bw keys --print</code>; <code>realtime</code> chỉ cần public key.</li>
+<li>Đổi mật khẩu / đăng xuất mọi nơi → thu hồi mọi refresh token.</li>
+</ul>
+<h2 id="3-superadmin-từ-env">3. Superadmin từ env <a class="anchor" href="#3-superadmin-từ-env" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>SUPERADMIN_EMAILS</code> là <strong>nguồn sự thật duy nhất</strong>: đồng bộ lúc <code>bw migrate</code> và mỗi lần đăng ký / đăng nhập / refresh. Không API nào sửa (<code>2204</code>).</li>
+<li>Email trong danh sách luôn đăng ký được (tenant <code>default</code>), kể cả khi <code>signup_mode=invite_only</code>.</li>
+<li><code>sup</code> vượt mọi kiểm quyền. Việc chỉ superadmin làm được: <code>@operation(superadmin=True)</code> — op này chạy không lọc tenant; op <code>sup_all_tenants=True</code> (vd <code>admin.list_users</code>) bỏ lọc khi superadmin gọi, user thường vẫn chỉ thấy tenant mình.</li>
+</ul>
+<h2 id="4-rbac-dùng-chung-mọi-tenant--d12">4. RBAC (dùng chung mọi tenant — D12) <a class="anchor" href="#4-rbac-dùng-chung-mọi-tenant--d12" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Quyền</th>
+<th>Cho phép</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user.view</code></td>
+<td>Xem user <strong>của tenant mình</strong>, xem role</td>
+</tr>
+<tr>
+<td><code>user.manage</code></td>
+<td>Khoá / mở, gán role, đặt lại mật khẩu (trong tenant)</td>
+</tr>
+<tr>
+<td><code>tenant.settings</code></td>
+<td>Đổi tên tenant</td>
+</tr>
+<tr>
+<td><code>tenant.invite</code></td>
+<td>Mời người vào tenant (email / link), xem + thu hồi lời mời</td>
+</tr>
+<tr>
+<td><code>agent.chat</code></td>
+<td>Chat với agent</td>
+</tr>
+<tr>
+<td><code>agent.&lt;toolset&gt;</code></td>
+<td>Trợ lý được dùng nhóm tool tương ứng — thiếu thì tool không đưa cho LLM. Nền có <code>agent.lookup</code>; module khai toolset thì quyền tự vào catalog (SP2)</td>
+</tr>
+<tr>
+<td><code>&lt;module&gt;.*</code></td>
+<td>Quyền của module nghiệp vụ, khai bằng <code>declare_permissions</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role có sẵn</th>
+<th>Quyền</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>superadmin</code></td>
+<td>ngầm mọi quyền (claim <code>sup</code>), theo env</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>quản trị tenant: <code>user.*</code>, <code>tenant.*</code>, <code>agent.chat</code> + mọi <code>agent.&lt;toolset&gt;</code> — người tự tạo tenant (<code>new_tenant</code>) nhận role này</td>
+</tr>
+<tr>
+<td><code>member</code></td>
+<td><code>agent.chat</code> + mọi <code>agent.&lt;toolset&gt;</code> + quyền module khai cho <code>member</code> — tự gán cho user mới (<code>DEFAULT_ROLE</code>)</td>
+</tr>
+<tr>
+<td><code>viewer</code></td>
+<td><code>agent.chat</code> + mọi <code>agent.&lt;toolset&gt;</code> + quyền chỉ đọc module khai cho <code>viewer</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Module khai quyền + role có sẵn nhận quyền nào: <code>declare_permissions(&quot;tasks&quot;, {...}, roles={&quot;admin&quot;: [...], &quot;member&quot;: [...], &quot;viewer&quot;: [...]})</code>; <code>bw migrate</code> đặt quyền role có sẵn đúng như code.</li>
+<li>Role tự tạo: <strong>chỉ superadmin</strong> tạo / sửa / xoá (role dùng chung mọi tenant), chọn quyền từ catalog. Admin tenant xem role (<code>user.view</code>) và gán role cho user của mình. Role có sẵn không sửa / xoá (<code>2202</code>); role đang gán không xoá (<code>2205</code>); <code>rbac.list_roles</code> đếm người giữ role trong tenant người xem.</li>
+<li>Quyền đổi → <code>core:rbac_updated</code> tới user bị ảnh hưởng → frontend refresh token + tải lại <code>me</code> → menu đổi không tải lại trang.</li>
+</ul>
+<h3 id="41-chính-sách-tài-khoản">4.1 Chính sách tài khoản <a class="anchor" href="#41-chính-sách-tài-khoản" aria-label="Liên kết tới mục này">#</a></h3>
+<p>Giá trị (không phải bật / tắt) gắn theo role <strong>và</strong> ghi đè theo user: cột jsonb <code>roles.policies</code> / <code>users.policies</code> chỉ chứa khoá đã đặt, đọc bằng <code>app/auth/policies.py</code> <code>AccountPolicies</code> (khoá hỏng → bỏ qua + <code>WARNING</code> <code>auth0601</code>).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Khoá</th>
+<th>Kiểu</th>
+<th>Hiệu lực (dừng ở tầng đầu có giá trị)</th>
+<th>Dùng ở</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chat_per_minute</code> · <code>chat_per_hour</code> · <code>chat_per_day</code></td>
+<td>int 0–100 000, <code>0</code> = không giới hạn</td>
+<td>superadmin miễn → user ghi đè → <strong>lớn nhất</strong> trong các role (<code>0</code> thắng) → <code>system_settings.chat_per_*</code> (10 / 100 / 400, <code>/sa/chat-guard</code>)</td>
+<td><code>agent.send</code> (6001 <code>scope=account</code>), <code>agent.chat_limits</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Chỉ superadmin sửa: <code>rbac.set_role_policies</code> (cả role có sẵn), <code>admin.set_user_policies</code> (user là superadmin → 2204), xem <code>admin.user_policies</code>.</li>
+<li>Đổi chính sách → <code>data:changed</code> <code>agent.chat_limits</code> tới user bị ảnh hưởng (R18). Log <code>auth0602</code> / <code>auth0603</code>.</li>
+<li>Tầng tenant (<code>tenants.policies</code>, superadmin sửa ở <code>/sa/tenants</code>): <code>chat_per_*</code> nằm giữa mặc định hệ thống và role; <code>user_limit</code> (0 = không giới hạn, mặc định <code>system_settings.user_limit_default</code>) chặn đăng ký / nhận lời mời khi đầy (<code>2111</code>); <code>agent_enabled</code> (SP2 đọc).</li>
+</ul>
+<h2 id="5-đăng-ký--đăng-nhập--bảng-mặc-định-r11">5. Đăng ký / đăng nhập + bảng mặc định (R11) <a class="anchor" href="#5-đăng-ký--đăng-nhập--bảng-mặc-định-r11" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Mặc định</th>
+<th>Nguồn thật khi cấu hình</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AUTH_ACCESS_TOKEN_EXPIRE_MINUTES</code></td>
+<td>30</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_REFRESH_TOKEN_EXPIRE_DAYS</code></td>
+<td>7</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_PASSWORD_MIN_LENGTH</code></td>
+<td>8 (<code>2107</code>)</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_LOGIN_RATE_LIMIT</code></td>
+<td>5 lần / 60 giây theo IP + email, <strong>tính cả lần đúng</strong></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_REGISTER_RATE_LIMIT</code> / <code>_WINDOW</code></td>
+<td>10 lần / 3600 giây theo IP</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_REFRESH_REUSE_GRACE_SECONDS</code></td>
+<td>10</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>signup_mode</code></td>
+<td><code>default_tenant</code> (<code>new_tenant</code> · <code>invite_only</code>) — <a href="tenancy.html">tenancy §4</a></td>
+<td><code>/sa/settings</code></td>
+</tr>
+<tr>
+<td><code>email_verification</code></td>
+<td><code>soft</code> (<code>off</code> · <code>required</code>) — <a href="mail.html">mail</a></td>
+<td><code>/sa/settings</code></td>
+</tr>
+<tr>
+<td><code>user_limit_default</code></td>
+<td><code>0</code> (không giới hạn)</td>
+<td><code>/sa/settings</code></td>
+</tr>
+<tr>
+<td><code>AUTH_VERIFY_TOKEN_HOURS</code> · <code>AUTH_RESET_TOKEN_MINUTES</code></td>
+<td>24 · 60</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>AUTH_EMAIL_RATE_LIMIT</code></td>
+<td>5 thư / giờ theo IP + email (xác thực, quên mật khẩu)</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>SEED_PASSWORD</code></td>
+<td><code>password123</code> (chỉ dev / E2E)</td>
+<td><code>.env</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Vượt hạn mức → 429 <code>1007</code> kèm <code>retry_after_sec</code>.</li>
+<li>Mật khẩu argon2id; user không tồn tại vẫn so với hash giả.</li>
+<li><strong>IP</strong> = <code>ctx.request_ip</code>; uvicorn tin <code>X-Forwarded-For</code> từ proxy:
+<ul>
+<li>deploy: nginx đặt header từ <code>CF-Connecting-IP</code>;</li>
+<li>local: proxy Vite chuyển nguyên header.</li>
+<li>Smoke kiểm cả hai (<a href="../../deploy/CLAUDE.html">deploy, mục Smoke</a>).</li>
+</ul>
+</li>
+<li><strong>Google OAuth:</strong> PKCE S256, state Redis 10 phút, bắt buộc <code>email_verified</code>, route tay <code>ui_only</code>. Bật khi có <code>GOOGLE_CLIENT_ID</code> + công tắc <code>google_enabled</code> (thiếu → <code>2108</code>).</li>
+</ul>
+<h2 id="6-khoá-tài-khoản">6. Khoá tài khoản <a class="anchor" href="#6-khoá-tài-khoản" aria-label="Liên kết tới mục này">#</a></h2>
+<p><code>admin.update_user {user_id, is_active: false}</code> (cần <code>user.manage</code>; không tự khoá mình — <code>2206</code>; không khoá superadmin — <code>2204</code>):</p>
+<ol>
+<li><code>is_active=false</code> + thu hồi refresh token (cùng transaction).</li>
+<li>Sau commit: dấu Redis <code>bw:auth:disabled:&lt;uid&gt;</code> sống bằng đời access token → REST mang token cũ → 403 <code>2103</code>.</li>
+<li>Sau commit: <code>rt:revoke</code> → mọi instance realtime ngắt socket + từ chối token cũ.</li>
+<li><code>core:account_disabled</code> → frontend đăng xuất về <code>/login</code>.</li>
+</ol>
+<p>Khoá cả tenant (<code>tenants.suspend</code>, superadmin): mọi user của tenant bị chặn đăng nhập / refresh (<code>2110</code>), dấu Redis chặn access token cũ, <code>rt:revoke</code> ngắt socket.</p>
+<p>Kiểm: smoke bước &quot;khoá user&quot; · E2E F4.</p>
+<h2 id="7-mã-lỗi-2xxx">7. Mã lỗi (2xxx) <a class="anchor" href="#7-mã-lỗi-2xxx" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Ý nghĩa</th>
+<th></th>
+<th>Mã</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2101</td>
+<td>Email đã đăng ký</td>
+<td></td>
+<td>2201</td>
+<td>Tên role đã tồn tại</td>
+</tr>
+<tr>
+<td>2102</td>
+<td>Sai email hoặc mật khẩu (401)</td>
+<td></td>
+<td>2202</td>
+<td>Role có sẵn không sửa / xoá được</td>
+</tr>
+<tr>
+<td>2103</td>
+<td>Tài khoản bị khoá (403)</td>
+<td></td>
+<td>2203</td>
+<td>Quyền không tồn tại</td>
+</tr>
+<tr>
+<td>2104</td>
+<td>Refresh token không hợp lệ / hết hạn</td>
+<td></td>
+<td>2204</td>
+<td>Superadmin do env quản</td>
+</tr>
+<tr>
+<td>2105</td>
+<td>Đăng ký đang đóng</td>
+<td></td>
+<td>2205</td>
+<td>Role đang được gán</td>
+</tr>
+<tr>
+<td>2106</td>
+<td>Mật khẩu hiện tại sai</td>
+<td></td>
+<td>2206</td>
+<td>Không tự khoá chính mình</td>
+</tr>
+<tr>
+<td>2107</td>
+<td>Mật khẩu quá ngắn</td>
+<td></td>
+<td>2109–2115</td>
+<td>Tenant / lời mời / xác thực email — <a href="tenancy.html">tenancy</a></td>
+</tr>
+<tr>
+<td>2108</td>
+<td>Đăng nhập Google không khả dụng</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-operation-từ-openapijson">8. Operation (từ <code>openapi.json</code>) <a class="anchor" href="#8-operation-từ-openapijson" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>REST</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /admin/get_user</code></td>
+<td>Chi tiết user</td>
+</tr>
+<tr>
+<td><code>GET /admin/user_policies</code></td>
+<td>Hạn mức của user</td>
+</tr>
+<tr>
+<td><code>POST /admin/set_user_policies</code></td>
+<td>Đặt hạn mức cho user</td>
+</tr>
+<tr>
+<td><code>GET /admin/list_users</code></td>
+<td>Danh sách user</td>
+</tr>
+<tr>
+<td><code>POST /admin/reset_password</code></td>
+<td>Đặt lại mật khẩu</td>
+</tr>
+<tr>
+<td><code>POST /admin/update_user</code></td>
+<td>Sửa tài khoản</td>
+</tr>
+<tr>
+<td><code>POST /auth/change_password</code></td>
+<td>Đổi mật khẩu</td>
+</tr>
+<tr>
+<td><code>GET /auth/google/authorize</code></td>
+<td>Google Authorize</td>
+</tr>
+<tr>
+<td><code>GET /auth/google/callback</code></td>
+<td>Google Callback</td>
+</tr>
+<tr>
+<td><code>POST /auth/login</code></td>
+<td>Đăng nhập</td>
+</tr>
+<tr>
+<td><code>POST /auth/logout</code></td>
+<td>Đăng xuất</td>
+</tr>
+<tr>
+<td><code>POST /auth/logout_all</code></td>
+<td>Đăng xuất mọi nơi</td>
+</tr>
+<tr>
+<td><code>GET /auth/me</code></td>
+<td>Hồ sơ của tôi</td>
+</tr>
+<tr>
+<td><code>POST /auth/refresh</code></td>
+<td>Làm mới phiên</td>
+</tr>
+<tr>
+<td><code>POST /auth/register</code></td>
+<td>Đăng ký</td>
+</tr>
+<tr>
+<td><code>POST /auth/update_me</code></td>
+<td>Sửa hồ sơ</td>
+</tr>
+<tr>
+<td><code>POST /auth/request_verify</code> · <code>POST /auth/verify_email</code></td>
+<td>Gửi lại thư xác thực · xác thực bằng token</td>
+</tr>
+<tr>
+<td><code>POST /auth/forgot_password</code> · <code>POST /auth/reset_password</code></td>
+<td>Gửi link đặt lại mật khẩu (luôn trả OK) · đặt mật khẩu mới bằng token</td>
+</tr>
+<tr>
+<td><code>POST /rbac/create_role</code></td>
+<td>Tạo role (superadmin)</td>
+</tr>
+<tr>
+<td><code>POST /rbac/delete_role</code></td>
+<td>Xoá role (superadmin)</td>
+</tr>
+<tr>
+<td><code>GET /rbac/list_permissions</code></td>
+<td>Catalog quyền</td>
+</tr>
+<tr>
+<td><code>GET /rbac/list_roles</code></td>
+<td>Role (đếm người giữ trong tenant)</td>
+</tr>
+<tr>
+<td><code>POST /rbac/update_role</code></td>
+<td>Sửa role (superadmin)</td>
+</tr>
+<tr>
+<td><code>POST /rbac/set_role_policies</code></td>
+<td>Đặt hạn mức cho role</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="9-frontend">9. Frontend <a class="anchor" href="#9-frontend" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Guard:</strong> <code>ProtectedRoute</code> · <code>RequirePermission</code> · <code>RequireSuperadmin</code>; thiếu quyền → <code>/403</code>. Ẩn menu chỉ là UX.</li>
+<li><strong>Token:</strong> access trong bộ nhớ; refresh <code>localStorage</code> <code>bw_refresh_token</code>; refresh single-flight + Web Locks (hai tab không gửi lại token đã xoay).</li>
+<li><strong>Realtime:</strong> <code>core:rbac_updated</code> → refresh; <code>core:account_disabled</code> → đăng xuất.</li>
+<li><strong>Trang công khai:</strong> <code>/forgot-password</code> · <code>/reset-password?token=</code> · <code>/verify-email?token=</code> · <code>/invite/:token</code>. Banner nhắc xác thực trong khung app khi <code>email_verification ≠ off</code> và <code>me.email_verified=false</code>; menu người dùng hiện tên tenant.</li>
+</ul>
+<h2 id="10-tài-khoản-test-dev--bw-seed-test-users">10. Tài khoản test (dev) — <code>bw seed-test-users</code> <a class="anchor" href="#10-tài-khoản-test-dev--bw-seed-test-users" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Tenant</th>
+<th>Role</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>superadmin@test.local</code></td>
+<td><code>default</code></td>
+<td>superadmin</td>
+<td>phải nằm trong <code>SUPERADMIN_EMAILS</code> của môi trường chạy seed — stack thử đặt sẵn; thiếu thì cảnh báo <code>auth0402</code></td>
+</tr>
+<tr>
+<td><code>admin@test.local</code></td>
+<td><code>default</code></td>
+<td>admin</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user1@test.local</code> · <code>user2@test.local</code></td>
+<td><code>default</code></td>
+<td>member</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user3@test.local</code></td>
+<td><code>default</code></td>
+<td>viewer</td>
+<td></td>
+</tr>
+<tr>
+<td><code>acme-admin@test.local</code></td>
+<td><code>acme</code></td>
+<td>admin</td>
+<td>tenant thứ hai — luôn kiểm được việc tách dữ liệu</td>
+</tr>
+<tr>
+<td><code>acme1@test.local</code></td>
+<td><code>acme</code></td>
+<td>member</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Mật khẩu <code>SEED_PASSWORD</code>. Từ chối khi <code>ENV=prod</code> <strong>hoặc</strong> tên DB đích không kết thúc <code>_test</code> / <code>_e2e</code> / <code>_dev</code> (<code>seed_target_problem</code>): <code>.env</code> dev trỏ vào DB thật, không bao giờ seed vào đó.</li>
+<li>Chạy lại: đặt lại mật khẩu, mở khoá, đã xác thực email, bỏ <code>must_change_password</code>, đảm bảo role. <code>make dev-up</code> gọi mỗi lần.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/architecture/auth-rbac.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-bảng-postgres-migration-0002_auth_rbac">1. Bảng (Postgres, migration 0002_auth_rbac)</a></li><li class="lvl2"><a href="#2-token">2. Token</a></li><li class="lvl2"><a href="#3-superadmin-từ-env">3. Superadmin từ env</a></li><li class="lvl2"><a href="#4-rbac-dùng-chung-mọi-tenant--d12">4. RBAC (dùng chung mọi tenant — D12)</a></li><li class="lvl3"><a href="#41-chính-sách-tài-khoản">4.1 Chính sách tài khoản</a></li><li class="lvl2"><a href="#5-đăng-ký--đăng-nhập--bảng-mặc-định-r11">5. Đăng ký / đăng nhập + bảng mặc định (R11)</a></li><li class="lvl2"><a href="#6-khoá-tài-khoản">6. Khoá tài khoản</a></li><li class="lvl2"><a href="#7-mã-lỗi-2xxx">7. Mã lỗi (2xxx)</a></li><li class="lvl2"><a href="#8-operation-từ-openapijson">8. Operation (từ openapi.json)</a></li><li class="lvl2"><a href="#9-frontend">9. Frontend</a></li><li class="lvl2"><a href="#10-tài-khoản-test-dev--bw-seed-test-users">10. Tài khoản test (dev) — bw seed-test-users</a></li></ul></aside>
+</div>
+</body>
+</html>

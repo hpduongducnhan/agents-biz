@@ -1,0 +1,9 @@
+{
+  "name": "@bw/openapi-ts-tool",
+  "private": true,
+  "description": "Sinh src/lib/api/schema.d.ts từ openapi.json (R7). Tách riêng vì openapi-typescript cần compiler API của TypeScript 5 — bản TypeScript 7 của app không có.",
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  }
+}

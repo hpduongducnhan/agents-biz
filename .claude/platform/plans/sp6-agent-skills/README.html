@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường · BizWithAgents</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/highlight.css">
+<link rel="stylesheet" href="../../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="README.html" class="active" aria-current="page" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Plan</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/plans/sp6-agent-skills/README.md</code></div>
+<article class="prose">
+<h1 id="sp6--skill-cho-claude-code--codex--gemini-tạo-app-sau-khi-clone--dựng-môi-trường">SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường <a class="anchor" href="#sp6--skill-cho-claude-code--codex--gemini-tạo-app-sau-khi-clone--dựng-môi-trường" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../../index.html">CLAUDE.md</a> | <a href="../../design/roadmap.html">roadmap</a> · <a href="../../design/decisions/README.html">decisions</a> · <a href="../../playbooks/README.html">playbooks</a> · <a href="../sp4-scaffold/README.html">sp4-scaffold</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (2026-10-15) — plan dạng đặc tả (D18), yêu cầu của chủ dự án; quyết định D26–D28; bổ sung sau review: D29. <strong>Xong</strong> 2026-10-15 — kết quả ở <a href="../../design/roadmap.html">roadmap</a>.</p>
+<h2 id="goal">Goal <a class="anchor" href="#goal" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Clone template từ git về, mở bằng Claude Code, Codex hoặc Gemini CLI rồi nói bằng chat &quot;tạo app Task Hub&quot; là xong: đổi tên tại chỗ, cài phụ thuộc, <code>.env</code>, khoá, hạ tầng, migrate, user test, smoke. Người clone một app có sẵn chỉ cần &quot;dựng môi trường&quot;.</p>
+<h2 id="architecture">Architecture <a class="anchor" href="#architecture" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phần</th>
+<th>Cách</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill (D26)</td>
+<td>Bản gốc <code>.agents/skills/&lt;tên&gt;/SKILL.md</code> (chuẩn Agent Skills: Codex đọc <code>.agents/skills</code>, Gemini CLI đọc <code>.agents/skills</code> = bí danh <code>.gemini/skills</code>); bản sao y hệt ở <code>.claude/skills/</code> cho Claude Code — <code>scripts/skills_sync.py</code> chép, <code>make skills-check</code> (trong <code>make ci</code>) bắt lệch</td>
+</tr>
+<tr>
+<td>Bộ skill</td>
+<td><code>new-app</code> (chỉ ở template) · <code>setup-env</code> (mọi app) · <code>new-module</code> (mọi app — sửa lời cho agent bất kỳ)</td>
+</tr>
+<tr>
+<td>Ngữ cảnh agent</td>
+<td><code>AGENTS.md</code> ở gốc (Codex tự đọc): trỏ CLAUDE.md là luật chung + danh sách skill; <code>.gemini/settings.json</code> → <code>context.fileName = [&quot;AGENTS.md&quot;, &quot;GEMINI.md&quot;]</code></td>
+</tr>
+<tr>
+<td>Đổi tên tại chỗ (D27)</td>
+<td><code>make init-app NAME=… SLUG=… PREFIX=… PORTS=… REDIS_DBS=…</code> trong bản clone: kiểm cây git sạch + thư mục không mang tên template → <code>be-install</code> → đổi tên (bỏ <code>.git</code>, <code>node_modules</code>, <code>.venv</code>, <code>.env</code>…) → bỏ công cụ chỉ của template → <code>ruff format</code> + sinh lại tài liệu → remote <code>origin</code> đổi thành <code>template</code> → commit. <code>make new-app DEST=…</code> (chép sang thư mục mới) giữ nguyên</td>
+</tr>
+<tr>
+<td>Dựng môi trường (D28)</td>
+<td><code>make setup [MODE=local|shared] [SUPERADMIN=email] [VERIFY=1]</code> — <code>scripts/setup_env.py</code> (chỉ thư viện chuẩn), chạy lại vô hại: kiểm công cụ → cài phụ thuộc → <code>.env</code> → <code>CREDENTIAL_KEYS</code> bền → khoá JWT → hạ tầng (local: <code>make infra-up</code> + chờ healthy; shared: kiểm còn <code>&lt;mật khẩu&gt;</code>) → <code>check-config</code> → migrate → user test → (VERIFY) <code>dev-up</code> + <code>smoke-local</code></td>
+</tr>
+<tr>
+<td>Kiểm</td>
+<td><code>new-app-check</code> đi đúng đường người dùng: chép cây làm như bản clone (git init + remote <code>origin</code>) → <code>init-app</code> tại chỗ → không còn tên template → lint + test không hạ tầng; test đơn vị cho <code>setup_env.py</code>, <code>skills_sync.py</code>, <code>new_app.py --in-place</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="global-constraints">Global Constraints <a class="anchor" href="#global-constraints" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Không in / đọc giá trị secret (R21): <code>setup_env.py</code> ghi <code>.env</code> (khoá Fernet sinh bằng <code>os.urandom</code>) nhưng chỉ in tên biến; agent không mở <code>.env</code>.</li>
+<li>Skill viết trung lập agent: phần riêng Claude (subagent Sonnet cho Playwright — R22) ghi rõ &quot;Claude Code&quot;; agent khác tự chạy.</li>
+<li>Lệnh trong skill đi qua <code>make</code> (tên CLI đổi theo tiền tố app).</li>
+</ul>
+<h2 id="tasks">Tasks <a class="anchor" href="#tasks" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Việc</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td><code>.agents/skills/{new-app,setup-env,new-module}</code> + <code>skills_sync.py</code> + <code>make skills-sync</code> / <code>skills-check</code> (trong <code>ci</code>)</td>
+<td><code>.claude/skills/</code> khớp</td>
+</tr>
+<tr>
+<td>T2</td>
+<td><code>AGENTS.md</code>, <code>.gemini/settings.json</code></td>
+<td>Codex / Gemini nạp luật + thấy skill</td>
+</tr>
+<tr>
+<td>T3</td>
+<td><code>new_app.py --in-place</code> + <code>make init-app</code> + <code>new-app-check</code> theo đường clone</td>
+<td>test đơn vị + check xanh</td>
+</tr>
+<tr>
+<td>T4</td>
+<td><code>setup_env.py</code> + <code>make setup</code> / <code>check-config</code></td>
+<td>test đơn vị; chạy thật MODE=local trên bản clone tạm</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>Tài liệu: playbooks, decisions D26–D28, roadmap, CLAUDE.md</td>
+<td><code>make docs</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="bổ-sung-sau-review-2026-10-15-d29">Bổ sung sau review (2026-10-15, D29) <a class="anchor" href="#bổ-sung-sau-review-2026-10-15-d29" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Việc</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T6</td>
+<td><code>make new-app</code> tự kiểm công cụ + <code>be-install</code> (bản clone mới chưa có <code>backend/.venv</code> → <code>not found</code>); <code>init-app</code> / <code>new-app</code> kiểm công cụ ở chế độ <code>shared</code> (không đòi Docker)</td>
+<td>chạy thật <code>make new-app</code> trên bản <code>git clone</code> mới</td>
+</tr>
+<tr>
+<td>T7</td>
+<td><code>make template-sync</code> (<code>scripts/scaffold/template_sync.py</code>, chỉ của template — app lấy bản mới nhất từ remote <code>template</code>); <code>init-app</code> / <code>new-app</code> ghi <code>.template.json</code>; playbook §1.1</td>
+<td>test đơn vị (repo git nhỏ: đổi tên dòng sửa + file mới, giữ phần app sửa, xung đột, chỉ đổi công cụ template, chặn cây bẩn); <code>new-app-check</code>: clone → <code>init-app</code> → template có bản sửa → <code>make template-sync</code></td>
+</tr>
+<tr>
+<td>T8</td>
+<td><code>README.md</code> gốc · HLD (đường tạo app mới) · <code>fake-llm</code> vào <code>.PHONY</code></td>
+<td><code>make docs</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="definition-of-done">Definition of Done <a class="anchor" href="#definition-of-done" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>make ci</code> (có <code>skills-check</code>) xanh; <code>make new-app-check</code> xanh qua đường <code>init-app</code> tại chỗ.</li>
+<li>Chạy thật trên bản clone tạm: <code>make init-app</code> → <code>make setup MODE=local VERIFY=1</code> → smoke xanh.</li>
+<li>(D29) <code>new-app-check</code> xanh có bước <code>make template-sync</code>; <code>make new-app</code> chạy được trên bản <code>git clone</code> mới.</li>
+</ul>
+<h2 id="self-review">Self-Review <a class="anchor" href="#self-review" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Gemini CLI cần tin thư mục (<code>/trust</code>) mới nạp skill workspace; ghi ở playbook.</li>
+<li>Hai app cùng chạy hạ tầng local từng trùng cổng → đổi tên app dời cổng hạ tầng local + LLM giả +100 × (<code>PORTS</code> − 82) (test: 90 giá trị <code>PORTS</code> không trùng nhau); <code>setup</code> vẫn kiểm cổng bận (dịch vụ khác) trước <code>infra-up</code>.</li>
+<li>Lỗi có sẵn từ SP4 lộ ra khi viết test: ví dụ <code>REDIS_DBS=20,21,22</code> trong skill / Makefile / playbook không hợp lệ (Redis chỉ có db 0–15) → gợi ý <code>4,5,6</code> (db 0–3, 8, 13, 14 đang có app khác dùng trên Redis chung).</li>
+<li><code>seed-test-users</code> chỉ chạy trên DB <code>_test</code> / <code>_e2e</code> (an toàn có chủ đích) → <code>setup</code> không seed DB dev; superadmin đầu tiên = đăng ký bằng email <code>SUPERADMIN=</code>; <code>VERIFY=1</code> dựng stack thử có user test.</li>
+<li>Review sau phát hành tìm ra: <code>make new-app</code> hỏng trên bản clone mới (thiếu <code>.venv</code>), <code>init-app</code> đòi Docker dù đổi tên không cần, thiếu đường kéo bản sửa của template (playbook upgrade đã hứa ở template-v1 §3.9 / §5; <code>git merge template/main</code> để lọt tên template qua file mới) → T6–T8.</li>
+<li>Chạy thật trên bản clone giả <code>taskhub</code>: <code>make init-app</code> (290 file đổi, 5 công cụ template xoá, remote <code>template</code>, cây sạch) → <code>make setup MODE=local SUPERADMIN=… VERIFY=1</code> xanh hết (hạ tầng riêng cổng 15532 / 16479 / 5773 / 27118, smoke qua 8301); chạy lại <code>setup</code> vô hại; dọn sạch container / volume thử.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/plans/sp6-agent-skills/README.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#goal">Goal</a></li><li class="lvl2"><a href="#architecture">Architecture</a></li><li class="lvl2"><a href="#global-constraints">Global Constraints</a></li><li class="lvl2"><a href="#tasks">Tasks</a></li><li class="lvl3"><a href="#bổ-sung-sau-review-2026-10-15-d29">Bổ sung sau review (2026-10-15, D29)</a></li><li class="lvl2"><a href="#definition-of-done">Definition of Done</a></li><li class="lvl2"><a href="#self-review">Self-Review</a></li></ul></aside>
+</div>
+</body>
+</html>

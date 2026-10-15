@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is([data-theme="dark"] *, .dark *));
+
+/* Token ngữ nghĩa BizWithAgents — bảng màu thương hiệu: Indigo #4F40DD · Lavender #A99FFF · Honey #F8B44A ·
+   Cream #FFF7ED · Ink #1C1745. Component chỉ dùng token. Ba lớp: @theme (sáng) · tối theo hệ thống
+   khi chưa ép · [data-theme="dark"]. test/lib/theme.test.ts kiểm WCAG AA cho mọi cặp chữ / nền. */
+@theme {
+  --color-background: #FFF7ED;
+  --color-foreground: #1C1745;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1C1745;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1C1745;
+  --color-primary: #4F40DD;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #EEEBFF;
+  --color-secondary-foreground: #1C1745;
+  --color-muted: #F6EEE3;
+  --color-muted-foreground: #5B5680;
+  --color-accent: #F1EDFF;
+  --color-accent-foreground: #1C1745;
+  --color-destructive: #C8322B;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #E9DFD2;
+  --color-input: #DCD0C2;
+  --color-ring: #4F40DD;
+  --color-sidebar: #FFFBF5;
+  --color-sidebar-foreground: #1C1745;
+  --color-sidebar-border: #EFE5D8;
+  --color-sidebar-accent: #F1EDFF;
+  --color-brand: #4F40DD;
+  --color-brand-foreground: #FFFFFF;
+  --color-brand-soft: #A99FFF;
+  --color-brand-muted: #ECE9FF;
+  --color-highlight: #F8B44A;
+  --color-highlight-foreground: #1C1745;
+  --color-positive: #1E7A4C;
+  --color-positive-foreground: #FFFFFF;
+  --color-negative: #C8322B;
+  --color-negative-foreground: #FFFFFF;
+  --color-warning: #9A5B00;
+  --color-warning-foreground: #FFFFFF;
+  --color-chart-1: #4F40DD;
+  --color-chart-2: #1E7A4C;
+  --color-chart-3: #C8322B;
+  --color-chart-4: #B7791F;
+  --color-chart-5: #0E7490;
+  --color-chart-6: #9333EA;
+  --color-chart-7: #BE185D;
+  --color-chart-8: #64748B;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-display: "Nunito", ui-rounded, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(28 23 69 / 0.06), 0 6px 20px -6px rgb(28 23 69 / 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-background: #0E0D16;
+    --color-foreground: #ECEBF5;
+    --color-card: #181725;
+    --color-card-foreground: #ECEBF5;
+    --color-popover: #1E1D2D;
+    --color-popover-foreground: #ECEBF5;
+    --color-primary: #6354F0;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #252436;
+    --color-secondary-foreground: #ECEBF5;
+    --color-muted: #201F2F;
+    --color-muted-foreground: #A3A0BC;
+    --color-accent: #262539;
+    --color-accent-foreground: #ECEBF5;
+    --color-destructive: #F47A7A;
+    --color-destructive-foreground: #0E0D16;
+    --color-border: #2A293D;
+    --color-input: #3A3954;
+    --color-ring: #ADA3FF;
+    --color-sidebar: #12111C;
+    --color-sidebar-foreground: #ECEBF5;
+    --color-sidebar-border: #222131;
+    --color-sidebar-accent: #1F1E2D;
+    --color-brand: #ADA3FF;
+    --color-brand-foreground: #14122B;
+    --color-brand-soft: #4B40B8;
+    --color-brand-muted: #24214B;
+    --color-highlight: #F5B54A;
+    --color-highlight-foreground: #1C1745;
+    --color-positive: #4ACB8B;
+    --color-positive-foreground: #0E0D16;
+    --color-negative: #F47A7A;
+    --color-negative-foreground: #0E0D16;
+    --color-warning: #F5B54A;
+    --color-warning-foreground: #1C1745;
+    --color-chart-1: #8F84FF;
+    --color-chart-2: #4ACB8B;
+    --color-chart-3: #F47A7A;
+    --color-chart-4: #F5B54A;
+    --color-chart-5: #3DBFD9;
+    --color-chart-6: #D08CF0;
+    --color-chart-7: #F07AB0;
+    --color-chart-8: #8E95A8;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-background: #0E0D16;
+  --color-foreground: #ECEBF5;
+  --color-card: #181725;
+  --color-card-foreground: #ECEBF5;
+  --color-popover: #1E1D2D;
+  --color-popover-foreground: #ECEBF5;
+  --color-primary: #6354F0;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #252436;
+  --color-secondary-foreground: #ECEBF5;
+  --color-muted: #201F2F;
+  --color-muted-foreground: #A3A0BC;
+  --color-accent: #262539;
+  --color-accent-foreground: #ECEBF5;
+  --color-destructive: #F47A7A;
+  --color-destructive-foreground: #0E0D16;
+  --color-border: #2A293D;
+  --color-input: #3A3954;
+  --color-ring: #ADA3FF;
+  --color-sidebar: #12111C;
+  --color-sidebar-foreground: #ECEBF5;
+  --color-sidebar-border: #222131;
+  --color-sidebar-accent: #1F1E2D;
+  --color-brand: #ADA3FF;
+  --color-brand-foreground: #14122B;
+  --color-brand-soft: #4B40B8;
+  --color-brand-muted: #24214B;
+  --color-highlight: #F5B54A;
+  --color-highlight-foreground: #1C1745;
+  --color-positive: #4ACB8B;
+  --color-positive-foreground: #0E0D16;
+  --color-negative: #F47A7A;
+  --color-negative-foreground: #0E0D16;
+  --color-warning: #F5B54A;
+  --color-warning-foreground: #1C1745;
+  --color-chart-1: #8F84FF;
+  --color-chart-2: #4ACB8B;
+  --color-chart-3: #F47A7A;
+  --color-chart-4: #F5B54A;
+  --color-chart-5: #3DBFD9;
+  --color-chart-6: #D08CF0;
+  --color-chart-7: #F07AB0;
+  --color-chart-8: #8E95A8;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+}
+
+/* Logo theo theme: mark.svg / lockup.svg trên nền sáng, bản -dark trên nền tối. */
+.theme-dark-only { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-dark-only { display: revert; }
+  :root:not([data-theme="light"]) .theme-light-only { display: none; }
+}
+:root[data-theme="dark"] .theme-dark-only { display: revert; }
+:root[data-theme="dark"] .theme-light-only { display: none; }
+
+:root {
+  color-scheme: light;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-base: 200ms;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+  /* Preflight Tailwind 4 để button = cursor mặc định — mọi thứ bấm được có cursor-pointer. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+/* Số liệu (tiền, đếm, thời lượng) thẳng cột. */
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.animate-fade-up { animation: fade-up var(--duration-base) var(--ease-standard) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

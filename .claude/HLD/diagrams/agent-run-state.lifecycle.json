@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Trạng thái agent run",
+    "quality_profile": "showcase",
+    "output": ".claude/HLD/diagrams/agent-run-state.html"
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "Luồng chính"
+    },
+    {
+      "id": "events",
+      "label": "Lỗi · hết hạn · huỷ"
+    },
+    {
+      "id": "terminal",
+      "label": "Kết thúc lỗi / huỷ"
+    }
+  ],
+  "states": [
+    {
+      "id": "queued",
+      "type": "start",
+      "label": "queued",
+      "sublabel": "publish agent.run",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "width": 120
+    },
+    {
+      "id": "running",
+      "type": "active",
+      "label": "running",
+      "sublabel": "CAS · heartbeat 15 s",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "width": 136
+    },
+    {
+      "id": "waiting",
+      "type": "waiting",
+      "label": "waiting_approval",
+      "sublabel": "thẻ duyệt trong chat",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "width": 140
+    },
+    {
+      "id": "resumed",
+      "type": "active",
+      "label": "running",
+      "sublabel": "agent.resume",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "width": 136
+    },
+    {
+      "id": "done",
+      "type": "success",
+      "label": "done",
+      "sublabel": "agent:end · after_run",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "width": 136
+    },
+    {
+      "id": "failed",
+      "type": "failure",
+      "label": "failed",
+      "sublabel": "agent:error · issue",
+      "lane": "terminal",
+      "col": 0,
+      "width": 136
+    },
+    {
+      "id": "cancelled",
+      "type": "failure",
+      "label": "cancelled",
+      "sublabel": "cờ huỷ Redis",
+      "lane": "terminal",
+      "col": 1,
+      "width": 136
+    }
+  ],
+  "transitions": [
+    {
+      "id": "expire",
+      "from": "waiting",
+      "to": "failed",
+      "label": "duyệt hết hạn 24 h",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight",
+      "labelAt": [
+        402,
+        300
+      ]
+    },
+    {
+      "id": "crash",
+      "from": "running",
+      "to": "failed",
+      "label": "lỗi · 6010 · bị gián đoạn",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "via": [
+        [
+          248,
+          479
+        ]
+      ],
+      "labelAt": [
+        248,
+        380
+      ]
+    },
+    {
+      "id": "cancel",
+      "from": "resumed",
+      "to": "cancelled",
+      "label": "huỷ (kiểm mỗi 0,25 s)",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight",
+      "labelAt": [
+        556,
+        300
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Chạy tối đa một lần",
+      "items": [
+        "CAS queued → running; một run gốc đang mở mỗi phiên",
+        "Duyệt: lưu agent_approvals, resume bằng Command(resume=…)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Kết thúc lỗi",
+      "items": [
+        "Tắt container / quá 90 s không heartbeat → failed (bị gián đoạn)",
+        "Hết key khoẻ → 6010; lỗi sau khi đã stream → failed, không thử lại"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Ghi chú",
+      "items": [
+        "running ở 02 và 04 là cùng một trạng thái",
+        "Huỷ được từ queued / running / waiting_approval"
+      ]
+    }
+  ]
+}

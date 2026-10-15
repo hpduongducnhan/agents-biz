@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Frontend — UI system (ưu tiên điện thoại) · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Frontend</summary><ul><li><a href="../CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="ui-system.html" class="active" aria-current="page" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Frontend</a> <span class='sep'>/</span> <span>Thiết kế</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-13</span><code class="meta-src">.claude/frontend/design/ui-system.md</code></div>
+<article class="prose">
+<h1 id="frontend--ui-system-ưu-tiên-điện-thoại">Frontend — UI system (ưu tiên điện thoại) <a class="anchor" href="#frontend--ui-system-ưu-tiên-điện-thoại" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../CLAUDE.html">frontend/CLAUDE.md</a> · <a href="../../platform/design/decisions/README.html">decisions</a> · <a href="../../platform/architecture/auth-rbac.html">platform/auth-rbac §9</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép từ dự án nguồn ở SP0).</p>
+<ul>
+<li>Token ngữ nghĩa, dark / light ba lớp, i18n, a11y, checklist; <strong>ưu tiên điện thoại</strong>; bảng / thẻ theo R16; JSON theo R17.</li>
+<li>Token sống ở <code>frontend/src/index.css</code>. App làm từ template đổi bảng màu thương hiệu ở đây và trong <code>index.css</code> (giữ test tương phản).</li>
+</ul>
+<hr />
+<h2 id="0-ngôn-ngữ-thị-giác">0. Ngôn ngữ thị giác <a class="anchor" href="#0-ngôn-ngữ-thị-giác" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>App dùng hằng ngày bằng một tay: chữ vừa, vùng bấm rộng, ít chrome, số liệu nổi bật (<code>tabular-nums</code>).</li>
+<li>Palette thương hiệu: brand <code>#4F40DD</code> (Indigo), brand-soft <code>#A99FFF</code> (Lavender), accent <code>#F8B44A</code> (Honey), surface <code>#FFF7ED</code> (Cream), ink <code>#1C1745</code> (Ink). Mọi màu khác là token ngữ nghĩa dẫn xuất (§2), đạt WCAG AA cho mọi cặp chữ / nền.</li>
+<li>Font Nunito (đủ dấu tiếng Việt, bo tròn). Logo: <code>frontend/public/brand/</code> (mark + lockup sáng / tối, PNG 16–512 cho PWA).</li>
+</ul>
+<h2 id="1-nguyên-tắc-bất-biến">1. Nguyên tắc bất biến <a class="anchor" href="#1-nguyên-tắc-bất-biến" aria-label="Liên kết tới mục này">#</a></h2>
+<ol>
+<li>Thiết kế ở 375px trước; không cuộn ngang ở 375 / 768 / 1024 / 1440.</li>
+<li>Chỉ semantic token trong component.</li>
+<li>Nhịp 4 / 8px.</li>
+<li>Motion 120–320ms; tôn trọng <code>prefers-reduced-motion</code>.</li>
+<li>Icon <code>lucide-react</code>, không emoji.</li>
+<li>Không màu đơn kênh: trạng thái / thu chi luôn kèm icon hoặc nhãn.</li>
+</ol>
+<h2 id="2-token">2. Token <a class="anchor" href="#2-token" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Giá trị sống ở <code>frontend/src/index.css</code>; <code>test/lib/theme.test.ts</code> kiểm mọi cặp chữ / nền ≥ 4.5 ở cả hai theme.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Token (<code>--color-*</code>)</th>
+<th>Vai trò</th>
+<th>Sáng</th>
+<th>Tối</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>background</code> / <code>foreground</code></td>
+<td>nền trang / chữ chính</td>
+<td><code>#FFF7ED</code> / <code>#1C1745</code></td>
+<td><code>#0E0D16</code> / <code>#ECEBF5</code></td>
+</tr>
+<tr>
+<td><code>card</code> · <code>popover</code></td>
+<td>mặt nổi: thẻ, bảng · menu, dialog</td>
+<td><code>#FFFFFF</code> · <code>#FFFFFF</code></td>
+<td><code>#181725</code> · <code>#1E1D2D</code></td>
+</tr>
+<tr>
+<td><code>muted</code> / <code>muted-foreground</code></td>
+<td>nền phụ (chip, ô icon) / chữ phụ</td>
+<td><code>#F6EEE3</code> / <code>#5B5680</code></td>
+<td><code>#201F2F</code> / <code>#A3A0BC</code></td>
+</tr>
+<tr>
+<td><code>accent</code> · <code>secondary</code></td>
+<td>hover, mục đang focus · nút phụ</td>
+<td><code>#F1EDFF</code> · <code>#EEEBFF</code></td>
+<td><code>#262539</code> · <code>#252436</code></td>
+</tr>
+<tr>
+<td><code>border</code> · <code>input</code></td>
+<td>viền · viền ô nhập, rãnh switch</td>
+<td><code>#E9DFD2</code> · <code>#DCD0C2</code></td>
+<td><code>#2A293D</code> · <code>#3A3954</code></td>
+</tr>
+<tr>
+<td><code>primary</code> / <code>primary-foreground</code></td>
+<td><strong>nền</strong> nút chính, ô chọn, bong bóng chat của user</td>
+<td><code>#4F40DD</code> / <code>#FFFFFF</code></td>
+<td><code>#6354F0</code> / <code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td><code>brand</code></td>
+<td><strong>chữ / icon</strong> nhấn: link, mục đang chọn, tên chuyên gia</td>
+<td><code>#4F40DD</code></td>
+<td><code>#ADA3FF</code></td>
+</tr>
+<tr>
+<td><code>brand-muted</code></td>
+<td>nền nhấn nhẹ: mục sidebar đang chọn, banner, avatar</td>
+<td><code>#ECE9FF</code></td>
+<td><code>#24214B</code></td>
+</tr>
+<tr>
+<td><code>ring</code></td>
+<td>viền focus</td>
+<td><code>#4F40DD</code></td>
+<td><code>#ADA3FF</code></td>
+</tr>
+<tr>
+<td><code>sidebar</code> · <code>sidebar-border</code> · <code>sidebar-accent</code></td>
+<td>sidebar desktop</td>
+<td><code>#FFFBF5</code> · <code>#EFE5D8</code> · <code>#F1EDFF</code></td>
+<td><code>#12111C</code> · <code>#222131</code> · <code>#1F1E2D</code></td>
+</tr>
+<tr>
+<td><code>highlight</code></td>
+<td>Honey: mục nổi bật, đang chờ</td>
+<td><code>#F8B44A</code></td>
+<td><code>#F5B54A</code></td>
+</tr>
+<tr>
+<td><code>positive</code> · <code>negative</code> (= <code>destructive</code>) · <code>warning</code></td>
+<td>thu · chi, lỗi · cảnh báo</td>
+<td><code>#1E7A4C</code> · <code>#C8322B</code> · <code>#9A5B00</code></td>
+<td><code>#4ACB8B</code> · <code>#F47A7A</code> · <code>#F5B54A</code></td>
+</tr>
+<tr>
+<td><code>chart-1…8</code></td>
+<td>màu chuỗi biểu đồ</td>
+<td>indigo, xanh lá, đỏ, vàng, cyan, tím, hồng, slate</td>
+<td>cùng thứ tự, sáng hơn một nấc</td>
+</tr>
+</tbody>
+</table></div>
+<p>Quy tắc dùng:</p>
+<ul>
+<li><strong><code>primary</code> là màu nền, <code>brand</code> là màu chữ.</strong> Nền đặc có chữ trắng → <code>bg-primary text-primary-foreground</code>; chữ / icon nhấn trên nền trang hay thẻ → <code>text-brand</code>. Ở theme sáng hai token trùng nhau; ở theme tối không có màu nào vừa đủ sáng làm chữ trên nền tối vừa đủ đậm cho chữ trắng đè lên (tích hai tỉ lệ = 1.05 / (L_nền + 0.05) ≈ 19 với nền trang, ≈ 18 với thẻ — dưới 4.5² ≈ 20), nên phải tách.</li>
+<li>Không đặt <code>text-primary</code> trên <code>background</code> / <code>card</code>; không dùng <code>bg-brand</code> cho nút.</li>
+<li>Núm switch dùng <code>bg-primary-foreground</code> (luôn sáng), không dùng <code>bg-card</code>.</li>
+</ul>
+<h2 id="3-layout-theo-bề-rộng">3. Layout theo bề rộng <a class="anchor" href="#3-layout-theo-bề-rộng" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bề rộng</th>
+<th>Điều hướng</th>
+<th>Quản trị / superadmin</th>
+<th>Danh sách (R16)</th>
+<th>Ô nhập</th>
+<th>Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt; md</code> (375)</td>
+<td>Header có nút ☰ mở <strong>ngăn kéo trái</strong> (đủ menu như sidebar) + <strong>cụm nút nổi giữa đáy</strong>: [✨ Trợ lý] nổi bật (+ nút &quot;Thêm nhanh&quot; khi module đăng ký — SP3)</td>
+<td>trong ngăn kéo</td>
+<td><strong>thẻ</strong></td>
+<td>16px (iOS không zoom); ô chat không tự điền</td>
+<td><code>max-h-[90dvh]</code>; Thêm nhanh = bottom sheet</td>
+</tr>
+<tr>
+<td><code>≥ md</code> (768+)</td>
+<td><strong>sidebar</strong> + Header</td>
+<td>nhóm Quản trị + &quot;Hệ thống&quot; (superadmin) trong sidebar; &quot;Hệ thống&quot; chia nhóm con gập / mở Observability · Cấu hình hệ thống · AI</td>
+<td><strong>bảng</strong> cắt chữ + Tooltip</td>
+<td>mặc định</td>
+<td><code>max-h-[90dvh]</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Một bố cục cho mỗi bề rộng, chuyển ở <code>md</code>.</p>
+<ul>
+<li><strong>Đã cân nhắc:</strong> thanh tab dưới 5 mục — trong Chrome / Safari điện thoại nó chồng ngay trên thanh nút của trình duyệt thành &quot;hai thanh 5 nút&quot; (phản hồi thực tế ở dự án nguồn); thanh 3 mục (vẫn là thanh thứ hai).</li>
+</ul>
+<p>Quy tắc:</p>
+<ul>
+<li>Cụm nút nổi (<code>MobileDock</code>): nút ≥ 48px, &quot;Trợ lý&quot; nền <code>primary</code> nổi bật, &quot;Thêm nhanh&quot; nền <code>brand-muted</code>; ẩn ở trang Trợ lý (ô nhập chat ở đáy). Thanh dính đáy của trang (vd &quot;Xác nhận (n)&quot;) đặt trên cụm nút.</li>
+<li>Nội dung có <code>padding-bottom</code> = chiều cao cụm nút + <code>env(safe-area-inset-bottom)</code> (trang Trợ lý chỉ chừa safe-area).</li>
+<li>Chưa chạy như app (không <code>display-mode: standalone</code>) → gợi ý &quot;Thêm vào màn hình chính&quot; ở đầu Tổng quan (tắt được, nhớ trên máy) + mục trong ngăn kéo / menu người dùng mở hướng dẫn iPhone / Android (<code>InstallGuide</code>; Android có nút cài ngay khi Chrome cho).</li>
+<li>Tiêu đề trang chỉ ở Header.</li>
+<li>Header hiện trạng thái kết nối realtime (<code>SocketDot</code>).</li>
+</ul>
+<h2 id="4-pattern-màn-hình">4. Pattern màn hình <a class="anchor" href="#4-pattern-màn-hình" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Danh sách (R16):</strong>
+<ul>
+<li>từ <code>md</code>: <code>&lt;table&gt;</code>; ô chữ dài <code>max-w-[Npx]</code> + <code>&lt;span className=&quot;block truncate&quot;&gt;</code> + Radix <code>Tooltip</code> (trong <code>TooltipProvider delayDuration={300}</code>). Không dùng thuộc tính <code>title</code>.</li>
+<li>dưới <code>md</code>: thẻ, không bảng cuộn ngang.</li>
+<li>luôn đủ loading (skeleton) / trống (<code>EmptyState</code>) / lỗi.</li>
+</ul>
+</li>
+<li><strong>JSON chỉ đọc (R17):</strong> input event log, mẫu issue, trạng thái hệ thống hiện bằng <code>JsonView</code> — thu / mở từng nút, mở / gấp tất cả, copy, <code>maxHeight</code>; chuỗi không phải JSON hiện nguyên chữ.</li>
+<li><strong>Form / dialog:</strong> label luôn hiện, lỗi cạnh field (<code>role=&quot;alert&quot;</code>) kèm &quot;Mã tra cứu: &lt;cid&gt;&quot;, nút khoá khi đang gửi.</li>
+<li><strong>Log tắt:</strong> Event log / Issues khi API trả <code>enabled: false</code> → <code>LogDisabledBanner</code> &quot;Ghi log đang tắt (MONGO_ENABLED=false)&quot;; không bảng, không toast lỗi.</li>
+<li><strong>Realtime:</strong> thay đổi của người khác / agent → toast ngắn + cập nhật đúng phần, không tải lại trang.</li>
+<li><strong>Trang có tab (Agent Studio):</strong> nút cấp tab (Agent mới, Thêm, Thêm từ provider…) nằm <strong>cùng hàng tab, bên phải</strong>, không chiếm một dòng trong nội dung tab.
+<ul>
+<li>trang giữ chỗ đặt nút (<code>studio-actions</code>) cạnh <code>TabsList</code>; tab đưa nút lên bằng <code>TabActions</code> (portal) — render riêng một tab (test) thì nút hiện tại chỗ;</li>
+<li>tab không có nút → chỗ đặt nút ẩn (<code>empty:hidden</code>); thứ tự nút: phụ (outline) trước, chính (đặc) ở mép phải;</li>
+<li>dưới <code>sm</code>: hàng tab cuộn ngang chiếm một dòng, hàng nút ở dòng dưới, rộng hết nội dung, mỗi nút <code>flex-1</code>.</li>
+</ul>
+</li>
+<li><strong>Màn khung cố định (chat Trợ lý):</strong> trang không cuộn, chỉ vùng nội dung tự cuộn.
+<ul>
+<li>gốc trang <code>h-full min-h-0</code> (con trực tiếp của <code>&lt;main&gt;</code> — cao đúng vùng nội dung, đã trừ padding và chỗ của cụm nút nổi); mỗi tầng flex / grid ở giữa có <code>min-h-0</code>;</li>
+<li>thanh công cụ trên và ô nhập ở đáy là <code>shrink-0</code>; danh sách phiên (<code>&lt;ul&gt;</code>) và khung tin nhắn (<code>chat-scroll</code>) là <code>min-h-0 flex-1 overflow-y-auto overscroll-contain</code>;</li>
+<li>tự xuống cuối bằng <code>scrollTop = scrollHeight</code> của chính khung tin nhắn (không <code>scrollIntoView</code> — cuộn lan ra khung ngoài); màn trống (gợi ý) không tự cuộn;</li>
+<li>không dùng <code>sticky</code> cho ô nhập: nó đã là phần tử cuối của cột.</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-theme">5. Theme <a class="anchor" href="#5-theme" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Chọn</th>
+<th><code>data-theme</code> trên <code>&lt;html&gt;</code></th>
+<th>Lớp CSS áp dụng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sáng</td>
+<td><code>light</code></td>
+<td><code>@theme</code></td>
+</tr>
+<tr>
+<td>Tối</td>
+<td><code>dark</code></td>
+<td><code>:root[data-theme=&quot;dark&quot;]</code></td>
+</tr>
+<tr>
+<td><strong>Theo hệ thống</strong> (mặc định)</td>
+<td>không đặt</td>
+<td><code>@media (prefers-color-scheme: dark) :root:not([data-theme=&quot;light&quot;])</code> khi OS tối; còn lại <code>@theme</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Mặc định <strong>theo hệ thống</strong>; nút theme chỉ đổi một attribute, lựa chọn lưu ở <code>ui.store</code>.</p>
+<ul>
+<li><strong>Đã cân nhắc:</strong> biến thể <code>dark:</code> của Tailwind — không khớp khi theme = hệ thống + OS tối, nên style bám token.</li>
+<li>Hai khối tối khai <code>color-scheme: dark</code> (<code>:root</code> khai <code>light</code>) để control gốc của trình duyệt — <code>&lt;select&gt;</code>, ô ngày, thanh cuộn — vẽ đúng theme.</li>
+<li>Meta <code>theme-color</code> tối = <code>background</code> tối (<code>#0E0D16</code>).</li>
+</ul>
+<h3 id="51-bảng-màu-tối">5.1 Bảng màu tối <a class="anchor" href="#51-bảng-màu-tối" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Nền trang</th>
+<th>Nút chính (nền / chữ)</th>
+<th>Tỉ lệ chữ trên nút</th>
+<th>Chữ nhấn</th>
+<th>Token đổi</th>
+<th>File component đổi</th>
+<th>Giữ chất indigo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mực trung tính + nút indigo chữ trắng</strong></td>
+<td><code>#0E0D16</code> (gần đen, ánh tím rất nhạt)</td>
+<td><code>#6354F0</code> / trắng</td>
+<td>5.2</td>
+<td>lavender <code>#ADA3FF</code></td>
+<td>42</td>
+<td>7 (đổi vai <code>primary</code> / <code>brand</code>)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Tím than (bản cũ của dự án nguồn)</td>
+<td><code>#120E2E</code>, thẻ <code>#1C1745</code></td>
+<td><code>#A99FFF</code> / Ink</td>
+<td>8.0</td>
+<td>lavender (trùng nút)</td>
+<td>0</td>
+<td>0</td>
+<td>✓ nhưng ngập tím</td>
+</tr>
+<tr>
+<td>Xám trung tính (zinc)</td>
+<td><code>#111114</code></td>
+<td><code>#6354F0</code> / trắng</td>
+<td>5.2</td>
+<td>lavender</td>
+<td>42</td>
+<td>7</td>
+<td>— (mất ánh thương hiệu ở mặt nền)</td>
+</tr>
+<tr>
+<td>Tối ấm (than nâu, hợp Cream)</td>
+<td><code>#14120F</code></td>
+<td><code>#6354F0</code> / trắng</td>
+<td>5.2</td>
+<td>lavender</td>
+<td>42</td>
+<td>7</td>
+<td>✗ (indigo lệch tông trên nền ấm)</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>mực trung tính + nút indigo chữ trắng</strong>: mặt nền gần như trung tính nên số liệu xanh / đỏ và nút indigo nổi lên, nhìn đồng bộ với theme sáng (nút indigo chữ trắng), vẫn giữ ánh tím nhẹ của logo.</p>
+<ul>
+<li><strong>Đã cân nhắc:</strong> tím than cũ — nền, thẻ, viền đều tím đậm nên mọi thứ chìm vào nhau, nút lavender pastel to bản trông bệt, chữ Cream ấm lệch tông với nền lạnh (chủ dự án chê &quot;xấu, phối màu không phù hợp&quot;); xám zinc — sạch nhưng mất chất thương hiệu; tối ấm — indigo và nền nâu đánh nhau.</li>
+</ul>
+<h2 id="6-i18n--vi--en">6. i18n — vi / en <a class="anchor" href="#6-i18n--vi--en" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>vi</code> mặc định, <code>en</code> dự phòng; mọi chuỗi qua <code>t()</code>; test bắt hai bộ đủ khoá.</li>
+<li>Số / tiền / ngày qua <code>Intl</code> theo locale + múi giờ của user (backend trả UTC).</li>
+</ul>
+<h2 id="7-accessibility">7. Accessibility <a class="anchor" href="#7-accessibility" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Tương phản ≥ 4.5:1 ở cả hai theme; focus luôn thấy (ring = <code>brand</code>).</li>
+<li>Vùng bấm ≥ 44×44px dưới <code>md</code>; nút chỉ có icon phải có <code>aria-label</code>; field có <code>label</code>.</li>
+</ul>
+<h2 id="8-màn-nền">8. Màn nền <a class="anchor" href="#8-màn-nền" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Nội dung</th>
+<th>Ai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/login</code>, <code>/register</code></td>
+<td>form email / mật khẩu, Google (khi bật), logo</td>
+<td>công khai</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Tổng quan: lời chào, lối tắt Trợ lý / Thông báo (module thêm widget — SP3)</td>
+<td>đăng nhập</td>
+</tr>
+<tr>
+<td><code>/assistant</code></td>
+<td>chat với trợ lý (màn đơn giản; superadmin có công tắc gỡ lỗi)</td>
+<td><code>agent.chat</code></td>
+</tr>
+<tr>
+<td><code>/notifications</code></td>
+<td>thông báo, đánh dấu đã đọc</td>
+<td>đăng nhập</td>
+</tr>
+<tr>
+<td><code>/profile</code></td>
+<td>hồ sơ, đổi mật khẩu</td>
+<td>đăng nhập</td>
+</tr>
+<tr>
+<td><code>/admin/users</code></td>
+<td>danh sách user; khoá / mở, gán role, đặt lại mật khẩu (cần <code>user.manage</code>)</td>
+<td><code>user.view</code></td>
+</tr>
+<tr>
+<td><code>/admin/roles</code></td>
+<td>role có sẵn (chỉ xem) + role tự tạo</td>
+<td><code>role.manage</code></td>
+</tr>
+<tr>
+<td><code>/sa/status</code></td>
+<td>trạng thái (<code>JsonView</code>) + thẻ gửi thông báo thử</td>
+<td>superadmin</td>
+</tr>
+<tr>
+<td><code>/sa/events</code>, <code>/sa/issues</code></td>
+<td>event log, issues (banner khi tắt Mongo)</td>
+<td>superadmin</td>
+</tr>
+<tr>
+<td><code>/sa/settings</code></td>
+<td>cài đặt hệ thống</td>
+<td>superadmin</td>
+</tr>
+<tr>
+<td><code>/studio</code>, <code>/sa/traces</code>, <code>/sa/usage</code>, <code>/sa/chat-guard</code></td>
+<td>Agent Studio, trace, usage, chống spam</td>
+<td>superadmin</td>
+</tr>
+<tr>
+<td><code>/403</code></td>
+<td>không có quyền</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="9-checklist-trước-khi-giao-ui">9. Checklist trước khi giao UI <a class="anchor" href="#9-checklist-trước-khi-giao-ui" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li class="task"><input type="checkbox" disabled> 375 / 768 / 1024 / 1440: <code>document.documentElement.scrollWidth &lt;= innerWidth</code></li>
+<li class="task"><input type="checkbox" disabled> Dưới <code>md</code> danh sách là thẻ; từ <code>md</code> bảng có ô cắt chữ + Tooltip, không <code>title</code> (R16)</li>
+<li class="task"><input type="checkbox" disabled> JSON chỉ đọc qua <code>JsonView</code> (R17)</li>
+<li class="task"><input type="checkbox" disabled> Cụm nút nổi đáy không che nội dung cuối trang; dialog ≤ 90dvh</li>
+<li class="task"><input type="checkbox" disabled> Màn khung cố định (chat): <code>main.scrollHeight &lt;= main.clientHeight</code>; chỉ danh sách / khung tin nhắn cuộn; ô nhập không bị thanh tab che</li>
+<li class="task"><input type="checkbox" disabled> Vùng bấm ≥ 44px; focus thấy được bằng bàn phím</li>
+<li class="task"><input type="checkbox" disabled> Icon lucide, không emoji; transition 150–300ms</li>
+<li class="task"><input type="checkbox" disabled> Tương phản ≥ 4.5:1 cả hai theme</li>
+<li class="task"><input type="checkbox" disabled> 0 màu hard-code, 0 chuỗi ngoài từ điển, parity vi / en</li>
+<li class="task"><input type="checkbox" disabled> E2E Playwright qua subagent Sonnet (R22) ở 375 + 1440, console error = 0</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-13</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/frontend/design/ui-system.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#0-ngôn-ngữ-thị-giác">0. Ngôn ngữ thị giác</a></li><li class="lvl2"><a href="#1-nguyên-tắc-bất-biến">1. Nguyên tắc bất biến</a></li><li class="lvl2"><a href="#2-token">2. Token</a></li><li class="lvl2"><a href="#3-layout-theo-bề-rộng">3. Layout theo bề rộng</a></li><li class="lvl2"><a href="#4-pattern-màn-hình">4. Pattern màn hình</a></li><li class="lvl2"><a href="#5-theme">5. Theme</a></li><li class="lvl3"><a href="#51-bảng-màu-tối">5.1 Bảng màu tối</a></li><li class="lvl2"><a href="#6-i18n--vi--en">6. i18n — vi / en</a></li><li class="lvl2"><a href="#7-accessibility">7. Accessibility</a></li><li class="lvl2"><a href="#8-màn-nền">8. Màn nền</a></li><li class="lvl2"><a href="#9-checklist-trước-khi-giao-ui">9. Checklist trước khi giao UI</a></li></ul></aside>
+</div>
+</body>
+</html>

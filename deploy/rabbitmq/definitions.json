@@ -1,0 +1,9 @@
+{
+  "users": [{ "name": "bizwithagents", "password": "bizwithagents-dev", "tags": "administrator" }],
+  "vhosts": [{ "name": "bizwithagents" }, { "name": "bizwithagents_test" }, { "name": "bizwithagents_e2e" }],
+  "permissions": [
+    { "user": "bizwithagents", "vhost": "bizwithagents", "configure": ".*", "write": ".*", "read": ".*" },
+    { "user": "bizwithagents", "vhost": "bizwithagents_test", "configure": ".*", "write": ".*", "read": ".*" },
+    { "user": "bizwithagents", "vhost": "bizwithagents_e2e", "configure": ".*", "write": ".*", "read": ".*" }
+  ]
+}

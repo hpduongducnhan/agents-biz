@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "UC-e · Deploy (push main → Coolify, dự phòng make deploy)",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "output": ".claude/HLD/diagrams/uc-deploy.html"
+  },
+  "participants": [
+    {
+      "id": "dev",
+      "type": "external",
+      "label": "Máy dev"
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "label": "GitHub",
+      "brand": "github"
+    },
+    {
+      "id": "coolify",
+      "type": "cloud",
+      "label": "Coolify"
+    },
+    {
+      "id": "migrate",
+      "type": "backend",
+      "label": "bw-api"
+    },
+    {
+      "id": "svc",
+      "type": "backend",
+      "label": "4 service"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "bw-web"
+    }
+  ],
+  "segments": [
+    {
+      "from": 162,
+      "to": 266,
+      "label": "git push + make deploy (scripts/deploy.sh)"
+    },
+    {
+      "from": 290,
+      "to": 594,
+      "label": "Coolify dựng · chờ finished"
+    },
+    {
+      "from": 618,
+      "to": 794,
+      "label": "smoke_prod.sh"
+    }
+  ],
+  "messages": [
+    {
+      "from": "dev",
+      "to": "github",
+      "y": 180,
+      "label": "git push origin main",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dev",
+      "to": "github",
+      "y": 214,
+      "label": "fetch · cây sạch? HEAD == origin/main? (không → dừng)",
+      "variant": "security"
+    },
+    {
+      "from": "dev",
+      "to": "coolify",
+      "y": 248,
+      "label": "POST /api/v1/deploy {uuid} · Bearer",
+      "variant": "emphasis"
+    },
+    {
+      "from": "coolify",
+      "to": "github",
+      "y": 308,
+      "label": "pull main (GitHub App)",
+      "variant": "default"
+    },
+    {
+      "from": "coolify",
+      "to": "migrate",
+      "y": 342,
+      "label": "build 3 image → bw-api: bw migrate → exec bw api",
+      "variant": "emphasis"
+    },
+    {
+      "from": "migrate",
+      "to": "coolify",
+      "y": 376,
+      "label": "healthy: /health/ready (start_period 180s)",
+      "variant": "return"
+    },
+    {
+      "from": "coolify",
+      "to": "svc",
+      "y": 410,
+      "label": "realtime (không chờ ai) · consumer · worker · scheduler (chờ bw-api)",
+      "variant": "emphasis"
+    },
+    {
+      "from": "svc",
+      "to": "coolify",
+      "y": 444,
+      "label": "bw-realtime /ws/health · 3 service backend healthy",
+      "variant": "return"
+    },
+    {
+      "from": "coolify",
+      "to": "web",
+      "y": 478,
+      "label": "bw-web chạy khi bw-api + bw-realtime healthy",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dev",
+      "to": "coolify",
+      "y": 512,
+      "label": "GET /api/v1/deployments/<id> mỗi 10 s (≤ 90 lần)",
+      "variant": "dashed"
+    },
+    {
+      "from": "coolify",
+      "to": "dev",
+      "y": 546,
+      "label": "finished (failed → dừng, xem log)",
+      "variant": "return"
+    },
+    {
+      "from": "dev",
+      "to": "web",
+      "y": 636,
+      "label": "GET / → id=\"root\"",
+      "variant": "default"
+    },
+    {
+      "from": "dev",
+      "to": "web",
+      "y": 670,
+      "label": "GET /bizwithagents/api/health/ready → success",
+      "variant": "default"
+    },
+    {
+      "from": "dev",
+      "to": "web",
+      "y": 704,
+      "label": "GET /bizwithagents/api/health/pipeline → nhịp tim consume · work · schedule",
+      "variant": "default"
+    },
+    {
+      "from": "dev",
+      "to": "web",
+      "y": 738,
+      "label": "GET /bizwithagents/ws/health → status ok",
+      "variant": "default"
+    },
+    {
+      "from": "web",
+      "to": "dev",
+      "y": 772,
+      "label": "4 dòng ✓ · mỗi mục thử ≤ 30 × 5 s",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "coolify",
+      "from": 242,
+      "to": 552,
+      "type": "cloud"
+    },
+    {
+      "participant": "migrate",
+      "from": 336,
+      "to": 382,
+      "type": "backend"
+    },
+    {
+      "participant": "svc",
+      "from": 404,
+      "to": 450,
+      "type": "backend"
+    },
+    {
+      "participant": "web",
+      "from": 630,
+      "to": 778,
+      "type": "frontend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Chặn deploy sai",
+      "items": [
+        "Còn thay đổi chưa commit hoặc HEAD ≠ origin/main → dừng",
+        "Deploy chồng lấn: chỉ một scheduler giữ khoá leader"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Thứ tự compose",
+      "items": [
+        "bw-api (migrate → api) + bw-realtime → consumer · worker · scheduler → bw-web",
+        "Khởi động lại bw-api: bw migrate chạy lại, Alembic không đổi"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Smoke qua domain thật",
+      "items": [
+        "make smoke-prod URL=https://<slug>.<domain>",
+        "Pipeline xanh = scheduler → worker → consumer đều sống"
+      ]
+    }
+  ]
+}

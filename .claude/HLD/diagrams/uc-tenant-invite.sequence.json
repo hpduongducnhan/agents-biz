@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "UC-b · Mời vào tổ chức, đăng ký, khoá tổ chức",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "output": ".claude/HLD/diagrams/uc-tenant-invite.html",
+    "viewBox": [
+      1180,
+      860
+    ]
+  },
+  "participants": [
+    {
+      "id": "admin",
+      "type": "frontend",
+      "label": "Quản trị"
+    },
+    {
+      "id": "guest",
+      "type": "frontend",
+      "label": "Khách mời"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api"
+    },
+    {
+      "id": "rt",
+      "type": "backend",
+      "label": "realtime"
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "Postgres"
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis"
+    },
+    {
+      "id": "rabbit",
+      "type": "messagebus",
+      "label": "RabbitMQ"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "worker"
+    },
+    {
+      "id": "mail",
+      "type": "external",
+      "label": "SMTP / outbox"
+    }
+  ],
+  "segments": [
+    {
+      "from": 162,
+      "to": 330,
+      "label": "Mời"
+    },
+    {
+      "from": 344,
+      "to": 512,
+      "label": "Nhận lời mời"
+    },
+    {
+      "from": 526,
+      "to": 728,
+      "label": "Superadmin khoá tổ chức"
+    }
+  ],
+  "messages": [
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 180,
+      "label": "admin tổ chức: POST tenant/invite {email, role_id, days}",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 214,
+      "label": "auth_tokens purpose=invite · token SHA-256 · hạn + số lần dùng",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 248,
+      "label": "sau commit: task mail.send",
+      "variant": "dashed"
+    },
+    {
+      "from": "rabbit",
+      "to": "worker",
+      "y": 282,
+      "label": "mail.send · idempotent",
+      "variant": "default"
+    },
+    {
+      "from": "worker",
+      "to": "mail",
+      "y": 316,
+      "label": "thư mời vi / en",
+      "variant": "default"
+    },
+    {
+      "from": "guest",
+      "to": "api",
+      "y": 362,
+      "label": "GET invites/preview?token → tổ chức, vai trò, email che",
+      "variant": "default"
+    },
+    {
+      "from": "guest",
+      "to": "api",
+      "y": 396,
+      "label": "POST auth/register {invite_token, …}",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 430,
+      "label": "user vào đúng tenant + role · user_limit (2111) · token dùng một lần",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "guest",
+      "y": 464,
+      "label": "{user, tokens} · claim tid",
+      "variant": "return"
+    },
+    {
+      "from": "guest",
+      "to": "rt",
+      "y": 498,
+      "label": "bắt tay socket → phòng user:<id> + tenant:<tid>",
+      "variant": "default"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 544,
+      "label": "superadmin: POST tenants/suspend",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 578,
+      "label": "status=suspended · thu hồi refresh token cả tổ chức",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "redis",
+      "y": 612,
+      "label": "SET bw:tenant:disabled:<tid> · TTL đời access",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 646,
+      "label": "sau commit: core:account_disabled → tenant.<tid> · rt:revoke",
+      "variant": "dashed"
+    },
+    {
+      "from": "rabbit",
+      "to": "rt",
+      "y": 680,
+      "label": "bw.rt.out · tenant.<tid>",
+      "variant": "default"
+    },
+    {
+      "from": "rt",
+      "to": "guest",
+      "y": 714,
+      "label": "đăng xuất ngay · đăng nhập lại → 2110",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 172,
+      "to": 256,
+      "type": "backend"
+    },
+    {
+      "participant": "worker",
+      "from": 274,
+      "to": 324,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 354,
+      "to": 472,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 536,
+      "to": 654,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Một user = một tổ chức (D10)",
+      "items": [
+        "claim tid trong JWT; email đã có tài khoản → 2109",
+        "signup_mode: default_tenant · new_tenant · invite_only (D12)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Thư (D14)",
+      "items": [
+        "MAIL_TRANSPORT console → outbox Redis (dev / smoke)",
+        "smtp → aiosmtplib · mẫu theo ngôn ngữ người nhận"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Khoá có hiệu lực ngay",
+      "items": [
+        "REST + socket đọc bw:tenant:disabled → 2110",
+        "phòng tenant:<tid> nhận core:account_disabled"
+      ]
+    }
+  ]
+}

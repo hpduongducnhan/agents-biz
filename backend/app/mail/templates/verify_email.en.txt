@@ -1,0 +1,9 @@
+Subject: Verify your email for {{ app_name }}
+
+Hi {{ name }},
+
+Open the link below to verify your email on {{ app_name }} (the link expires in {{ hours }} hours):
+
+{{ link }}
+
+If you did not sign up, you can ignore this email.

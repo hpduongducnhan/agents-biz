@@ -1,0 +1,7 @@
+Subject: {{ inviter }} mời bạn vào {{ tenant }} trên {{ app_name }}
+
+Chào bạn,
+
+{{ inviter }} mời bạn tham gia {{ tenant }} trên {{ app_name }} với vai trò {{ role }}. Bấm link dưới đây để nhận lời mời (hết hạn sau {{ days }} ngày):
+
+{{ link }}

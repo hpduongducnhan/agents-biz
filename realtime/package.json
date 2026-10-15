@@ -1,0 +1,27 @@
+{
+  "name": "@bw/realtime",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Service realtime Socket.IO ↔ RabbitMQ (cầu nối trong suốt, không logic nghiệp vụ)",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=../.env src/main.ts",
+    "dev": "node --env-file-if-exists=../.env --watch src/main.ts",
+    "test": "node --env-file-if-exists=../.env --test --test-concurrency=1 'test/**/*.test.ts'",
+    "typecheck": "tsc --noEmit",
+    "test:cov": "node --env-file-if-exists=../.env --test --test-concurrency=1 --experimental-test-coverage --test-coverage-lines=90 --test-coverage-exclude='test/**' 'test/**/*.test.ts'"
+  },
+  "dependencies": {
+    "amqplib": "^2.0.1",
+    "jose": "^6.2.12",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "socket.io-client": "^4.8.3",
+    "typescript": "^7.0.2"
+  }
+}

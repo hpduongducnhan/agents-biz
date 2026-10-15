@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="vi" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>SP0 — Chép nền từ dự án nguồn · BizWithAgents</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/highlight.css">
+<link rel="stylesheet" href="../../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="README.html" class="active" aria-current="page" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Plan</span></nav>
+<div class="doc-meta"><span class="badge st-done">Xong</span><span class="meta-date">Cập nhật 2026-10-14</span><code class="meta-src">.claude/platform/plans/sp0-platform-port/README.md</code></div>
+<article class="prose">
+<h1 id="sp0--chép-nền-từ-dự-án-nguồn">SP0 — Chép nền từ dự án nguồn <a class="anchor" href="#sp0--chép-nền-từ-dự-án-nguồn" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../../index.html">CLAUDE.md</a> | <a href="../../design/roadmap.html">roadmap</a> · <a href="../../design/template-v1.html">template-v1 §2</a> · <a href="../../design/decisions/d01-current.html">decisions D9, D16–D19</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> Xong (2026-10-15) — plan dạng đặc tả (D18). Kết quả: <code>make ci</code> xanh, smoke-local 26 / 26 bước cả hai chế độ Mongo.</p>
+<h2 id="goal">Goal <a class="anchor" href="#goal" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Repo <code>BizWithAgents</code> chạy được như một app thật chỉ có phần nền của dự án nguồn (đăng nhập, RBAC, superadmin, thông báo + Web Push, event log / issues, cài đặt hệ thống, credential, agent + Studio + trace / usage, realtime, khung UI ưu tiên điện thoại, PWA, deploy), đổi tên <code>bw</code>, không còn nghiệp vụ ví / nhóm / chia tiền / Drive. Chưa có tenant (SP1), agent chưa có tool nghiệp vụ (SP2–SP3).</p>
+<h2 id="architecture">Architecture <a class="anchor" href="#architecture" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Nguồn: repo dự án nguồn tại commit đang có trên đĩa ngày 2026-10-14.</li>
+<li>Chép bằng script trong scratchpad (luật đổi tên bên dưới), rồi sửa tay chỗ dính nghiệp vụ. Script chính thức <code>make new-app</code> làm ở SP4.</li>
+<li>Migration bắt đầu lại: chỉ giữ migration của phần nền, đánh số lại liền mạch từ <code>0001</code>, bỏ bảng / cột của ví / nhóm.</li>
+</ul>
+<p><strong>Luật đổi tên (D9):</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dự án nguồn</th>
+<th>Template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tên dự án nguồn (3 dạng viết)</td>
+<td><code>bizwithagents</code> · <code>BizWithAgents</code> · <code>bizwithagents</code></td>
+</tr>
+<tr>
+<td>tiền tố <code>mp</code> đứng riêng (<code>mp:</code>, <code>mp.</code>, <code>mp_</code>, <code>&quot;mp&quot;</code>, CLI <code>mp</code>, <code>@mp/…</code>)</td>
+<td><code>bw</code></td>
+</tr>
+<tr>
+<td>service <code>&lt;nguồn&gt;-*</code></td>
+<td><code>bw-*</code></td>
+</tr>
+<tr>
+<td>cổng local 8101 / 8102 / 8103 / 8104</td>
+<td>8201 / 8202 / 8203 / 8204</td>
+</tr>
+<tr>
+<td>cổng container 16801 / 16802 / 16803</td>
+<td>16811 / 16812 / 16813</td>
+</tr>
+<tr>
+<td>domain <code>&lt;nguồn&gt;.&lt;domain&gt;</code></td>
+<td><code>bizwithagents.&lt;domain&gt;</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="global-constraints">Global Constraints <a class="anchor" href="#global-constraints" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Không sửa gì ở dự án nguồn.</li>
+<li>Giữ nguyên hành vi lõi; chỉ xoá / cắt phần dính nghiệp vụ. Tổng quát hoá (registry, tenant) để SP1–SP2.</li>
+<li>Hạ tầng dev / test: <code>deploy/compose.infra.yml</code> (D16) — Postgres <code>127.0.0.1:15432</code>, Redis <code>16379</code>, RabbitMQ <code>5673</code> (+ UI <code>15673</code>), Mongo <code>27018</code>.</li>
+<li>Rule R1–R28 + B1–B13 áp từ task đầu.</li>
+</ul>
+<h2 id="tasks">Tasks <a class="anchor" href="#tasks" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Việc</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>Repo + tài liệu khung</td>
+<td><code>git init</code>, <code>.gitignore</code>, <code>.dockerignore</code>, <code>CLAUDE.md</code> (rule R1–R28 viết lại ví dụ), menu <code>.claude/platform/CLAUDE.md</code>, decisions, roadmap, plan này</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>Hạ tầng local</td>
+<td><code>deploy/compose.infra.yml</code> + <code>deploy/postgres/init.sql</code> + <code>deploy/rabbitmq/definitions.json</code> (vhost <code>bizwithagents</code>, <code>bizwithagents_test</code>, <code>bizwithagents_e2e</code>), <code>.env.example</code> trỏ compose</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>Backend nền</td>
+<td>chép <code>app/{core,auth,system,observability,notifications,credentials,devtools,agent}</code>, <code>main.py</code>, <code>cli.py</code>, <code>domains.py</code>, <code>models/</code>; cắt chỗ import <code>wallet</code> / <code>groups</code> / <code>split</code> / <code>drive</code>; quyền <code>group.create</code> + 8 quyền <code>agent.&lt;toolset&gt;</code> ví bỏ; toolset tạm chỉ <code>lookup</code>; ngữ cảnh agent chỉ còn user + giờ; seed chỉ &quot;Assistant&quot; + <code>general</code></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>Migration</td>
+<td>chép + đánh số lại migration nền, bỏ bảng / cột ví / nhóm (<code>users.currency</code>, <code>group_limit</code>…); <code>bw migrate</code> chạy sạch trên DB trống</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>Test backend</td>
+<td>chép test nền (core, messaging, operations, rules, auth, observability, notifications, system, credentials, devtools, agent, deploy, gốc), bỏ test ví / nhóm / chia tiền / Drive, sửa cho xanh; độ phủ ≥ 90 %</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>Realtime</td>
+<td>chép <code>realtime/</code> + test, đổi tên; bỏ smoke ví / nhóm (<code>smoke_sp2a</code>, <code>smoke_sp5</code>…); <code>make rt-cov</code> ≥ 90 %</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>Frontend</td>
+<td>chép <code>lib/</code>, <code>ui/</code>, <code>layout/</code>, <code>guards/</code>, <code>boot/</code>, <code>stores/</code>, <code>features/{admin,agent,auth,notifications,observability,push,rbac,system}</code>, trang <code>{auth,profile,notifications,admin,sa,settings,assistant,studio,errors,overview}</code>; bỏ phần ví / nhóm; Tổng quan tạm; logo trung tính; <code>make fe-*</code> xanh, độ phủ ≥ 80 %</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>Deploy + scripts</td>
+<td><code>compose.yml</code>, Dockerfile, nginx, <code>dev_stack.sh</code>, <code>stack_env.py</code>, <code>smoke_prod.sh</code>, <code>deploy.sh</code>, <code>notify.sh</code>, <code>docs_site.py</code> + <code>docsite/</code>, <code>check_md.py</code>, <code>seed_agent.py</code>, Makefile</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>Tài liệu domain</td>
+<td>chép + sửa <code>.claude/{backend,frontend,deploy}/</code> và <code>platform/architecture/{auth-rbac,agent-runtime}</code>; <code>make docs</code></td>
+</tr>
+<tr>
+<td>T10</td>
+<td>Kiểm + commit</td>
+<td><code>make ci</code> xanh; <code>make dev-up MONGO=on|off</code> + <code>make smoke-local</code> xanh; grep <code>&lt;tên nguồn&gt;|wallet</code> trong code = 0 (trừ tài liệu nói về nguồn); commit</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="definition-of-done">Definition of Done <a class="anchor" href="#definition-of-done" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>make ci</code> xanh (docs-check, openapi-check, be-lint, be-cov ≥ 90, rt-typecheck, rt-cov ≥ 90, fe-api-check, fe-lint, fe-typecheck, fe-cov ≥ 80, fe-build).</li>
+<li><code>make dev-up MONGO=on</code> + <code>make smoke-local MONGO=on</code>, rồi <code>off</code>, đều xanh.</li>
+<li><code>grep -rniE '&lt;tên nguồn&gt;|wallet|ví tiền' backend/app realtime/src frontend/src</code> = 0.</li>
+</ul>
+<h2 id="self-review">Self-Review <a class="anchor" href="#self-review" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Phần nào chép mà chưa chạy test (vd Google OAuth, Web Push thật) ghi vào roadmap mục &quot;chưa kiểm thật&quot;.</li>
+<li>Mọi chỗ cắt nghiệp vụ trong agent (toolset, ngữ cảnh, chuyên gia) đánh dấu để SP2 thay bằng registry.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-14</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/plans/sp0-platform-port/README.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#goal">Goal</a></li><li class="lvl2"><a href="#architecture">Architecture</a></li><li class="lvl2"><a href="#global-constraints">Global Constraints</a></li><li class="lvl2"><a href="#tasks">Tasks</a></li><li class="lvl2"><a href="#definition-of-done">Definition of Done</a></li><li class="lvl2"><a href="#self-review">Self-Review</a></li></ul></aside>
+</div>
+</body>
+</html>

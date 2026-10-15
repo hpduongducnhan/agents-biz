@@ -1,0 +1,9 @@
+Subject: Xác thực email cho {{ app_name }}
+
+Chào {{ name }},
+
+Bấm link dưới đây để xác thực email của bạn trên {{ app_name }} (link hết hạn sau {{ hours }} giờ):
+
+{{ link }}
+
+Nếu bạn không đăng ký tài khoản, hãy bỏ qua thư này.

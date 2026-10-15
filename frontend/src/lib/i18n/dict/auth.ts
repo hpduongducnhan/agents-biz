@@ -1,0 +1,28 @@
+import type { Pairs } from "../pairs";
+
+export const auth: Pairs = {
+  "auth.login.title": ["Chào mừng trở lại", "Welcome back"],
+  "auth.login.subtitle": ["Đăng nhập để tiếp tục ghi chép", "Sign in to keep tracking"],
+  "auth.login.submit": ["Đăng nhập", "Sign in"],
+  "auth.login.submitting": ["Đang đăng nhập…", "Signing in…"],
+  "auth.login.noAccount": ["Chưa có tài khoản?", "No account yet?"],
+  "auth.login.toRegister": ["Đăng ký", "Sign up"],
+  "auth.register.title": ["Tạo tài khoản", "Create your account"],
+  "auth.register.subtitle": ["Làm việc nhanh hơn cùng trợ lý AI", "Get more done with your AI assistant"],
+  "auth.register.submit": ["Tạo tài khoản", "Create account"],
+  "auth.register.hasAccount": ["Đã có tài khoản?", "Already have an account?"],
+  "auth.register.toLogin": ["Đăng nhập", "Sign in"],
+  "auth.register.closed": ["Đăng ký đang đóng — chỉ email được cho phép mới tạo được tài khoản", "Sign-up is closed — only allowed emails can register"],
+  "auth.register.passwordHint": ["Tối thiểu 8 ký tự", "At least 8 characters"],
+  "auth.field.email": ["Email", "Email"],
+  "auth.field.password": ["Mật khẩu", "Password"],
+  "auth.field.fullName": ["Họ tên", "Full name"],
+  "auth.err.email": ["Email không hợp lệ", "Invalid email"],
+  "auth.err.passwordRequired": ["Nhập mật khẩu", "Enter your password"],
+  "auth.err.nameRequired": ["Nhập họ tên", "Enter your name"],
+  "auth.err.google": ["Đăng nhập Google không thành công", "Google sign-in failed"],
+  "auth.reason.disabled": ["Tài khoản của bạn đã bị khoá. Liên hệ quản trị viên nếu cần mở lại.", "Your account has been disabled. Contact an admin to re-enable it."],
+  "auth.or": ["hoặc", "or"],
+  "auth.google": ["Tiếp tục với Google", "Continue with Google"],
+  "auth.callback.loading": ["Đang hoàn tất đăng nhập…", "Finishing sign-in…"],
+};

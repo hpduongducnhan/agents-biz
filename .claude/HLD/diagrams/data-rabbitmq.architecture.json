@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RabbitMQ · exchange / queue bw.*",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1235,
+      730
+    ],
+    "output": ".claude/HLD/diagrams/data-rabbitmq.html"
+  },
+  "components": [
+    {
+      "id": "p_rtout",
+      "type": "backend",
+      "label": "api · consumer · worker · scheduler",
+      "sublabel": "emit_to_user(s) sau commit",
+      "tag": "realtime ra",
+      "pos": [
+        27,
+        70
+      ],
+      "size": [
+        240,
+        60
+      ]
+    },
+    {
+      "id": "x_rtout",
+      "type": "messagebus",
+      "label": "bw.rt.out",
+      "sublabel": "topic · user.<id> · sup · all",
+      "pos": [
+        347,
+        70
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_rtout",
+      "type": "backend",
+      "label": "realtime (Node)",
+      "sublabel": "Socket.IO → phòng user:<id> · sup",
+      "pos": [
+        951,
+        70
+      ],
+      "size": [
+        258,
+        60
+      ]
+    },
+    {
+      "id": "p_rtin",
+      "type": "backend",
+      "label": "realtime (Node)",
+      "sublabel": "event client + claims",
+      "tag": "realtime vào",
+      "pos": [
+        27,
+        180
+      ],
+      "size": [
+        240,
+        60
+      ]
+    },
+    {
+      "id": "x_rtin",
+      "type": "messagebus",
+      "label": "bw.rt.in",
+      "sublabel": "topic · AE bw.rt.in.unrouted",
+      "pos": [
+        347,
+        180
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "q_rtin",
+      "type": "messagebus",
+      "label": "bw.rt.in.<event>",
+      "sublabel": "queue theo event · luôn ack",
+      "pos": [
+        649,
+        180
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_rtin",
+      "type": "backend",
+      "label": "consumer · @on_ws",
+      "sublabel": "kiểm cũ · khoá · quyền · dữ liệu",
+      "pos": [
+        951,
+        180
+      ],
+      "size": [
+        258,
+        60
+      ]
+    },
+    {
+      "id": "x_unrouted",
+      "type": "messagebus",
+      "label": "bw.rt.in.unrouted",
+      "sublabel": "fanout exchange",
+      "pos": [
+        347,
+        290
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "q_unrouted",
+      "type": "messagebus",
+      "label": "bw.rt.in.unrouted",
+      "sublabel": "queue",
+      "pos": [
+        649,
+        290
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_unrouted",
+      "type": "backend",
+      "label": "consumer",
+      "sublabel": "log ws0501 · không ai nhận",
+      "pos": [
+        951,
+        290
+      ],
+      "size": [
+        258,
+        60
+      ]
+    },
+    {
+      "id": "p_work",
+      "type": "backend",
+      "label": "api · worker",
+      "sublabel": "publish(event, msg) sau commit",
+      "tag": "việc",
+      "pos": [
+        27,
+        400
+      ],
+      "size": [
+        240,
+        60
+      ]
+    },
+    {
+      "id": "q_work",
+      "type": "messagebus",
+      "label": "bw.<event>",
+      "sublabel": "vd bw.system.ping · DLQ <queue>.dlq",
+      "pos": [
+        649,
+        400
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_work",
+      "type": "backend",
+      "label": "consumer · FastStream",
+      "sublabel": "@subscriber · bw consume --lanes",
+      "pos": [
+        951,
+        400
+      ],
+      "size": [
+        258,
+        60
+      ]
+    },
+    {
+      "id": "p_task",
+      "type": "backend",
+      "label": "scheduler · api · consumer",
+      "sublabel": "cron / every (leader) · task.kiq()",
+      "tag": "task",
+      "pos": [
+        27,
+        510
+      ],
+      "size": [
+        240,
+        60
+      ]
+    },
+    {
+      "id": "x_task",
+      "type": "messagebus",
+      "label": "bw.tq",
+      "sublabel": "exchange taskiq",
+      "pos": [
+        347,
+        510
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "q_task",
+      "type": "messagebus",
+      "label": "bw.tq.default · bw.tq.agent-run",
+      "sublabel": "lane = queue · DLQ bw.tq.dead_letter",
+      "pos": [
+        649,
+        510
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_task",
+      "type": "backend",
+      "label": "worker · taskiq",
+      "sublabel": "bw work --lanes",
+      "pos": [
+        951,
+        510
+      ],
+      "size": [
+        258,
+        60
+      ]
+    },
+    {
+      "id": "p_bcast",
+      "type": "backend",
+      "label": "mọi process backend",
+      "sublabel": "broadcast(topic, data)",
+      "tag": "broadcast",
+      "pos": [
+        27,
+        620
+      ],
+      "size": [
+        240,
+        60
+      ]
+    },
+    {
+      "id": "x_bcast",
+      "type": "messagebus",
+      "label": "bw.sys.bcast",
+      "sublabel": "topic",
+      "pos": [
+        347,
+        620
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "q_bcast",
+      "type": "messagebus",
+      "label": "bw.sys.bcast.<proc>.<hex8>",
+      "sublabel": "exclusive · auto-delete · bind #",
+      "pos": [
+        649,
+        620
+      ],
+      "size": [
+        213,
+        60
+      ]
+    },
+    {
+      "id": "c_bcast",
+      "type": "backend",
+      "label": "mọi process backend",
+      "sublabel": "@on_broadcast · xoá cache",
+      "pos": [
+        951,
+        620
+      ],
+      "size": [
+        258,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "RabbitMQ · vhost bizwithagents",
+      "wraps": [
+        "x_rtout",
+        "x_rtin",
+        "x_unrouted",
+        "q_unrouted",
+        "q_work",
+        "x_task",
+        "q_task",
+        "x_bcast",
+        "q_rtin",
+        "q_bcast"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "id": "rtout-pub",
+      "from": "p_rtout",
+      "to": "x_rtout",
+      "label": "publish",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rtout-deliver",
+      "from": "x_rtout",
+      "to": "c_rtout",
+      "label": "bind theo socket",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rtin-pub",
+      "from": "p_rtin",
+      "to": "x_rtin",
+      "label": "publish",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rtin-bind",
+      "from": "x_rtin",
+      "to": "q_rtin",
+      "label": "routing = event",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rtin-deliver",
+      "from": "q_rtin",
+      "to": "c_rtin",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rtin-alt",
+      "from": "x_rtin",
+      "to": "x_unrouted",
+      "label": "alternate-exchange",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        453,
+        265
+      ]
+    },
+    {
+      "id": "unrouted-bind",
+      "from": "x_unrouted",
+      "to": "q_unrouted",
+      "label": "fanout",
+      "variant": "dashed"
+    },
+    {
+      "id": "unrouted-consume",
+      "from": "q_unrouted",
+      "to": "c_unrouted",
+      "variant": "dashed"
+    },
+    {
+      "id": "work-pub",
+      "from": "p_work",
+      "to": "q_work",
+      "label": "publish",
+      "variant": "emphasis"
+    },
+    {
+      "id": "work-consume",
+      "from": "q_work",
+      "to": "c_work",
+      "variant": "emphasis"
+    },
+    {
+      "id": "task-pub",
+      "from": "p_task",
+      "to": "x_task",
+      "label": ".kiq()"
+    },
+    {
+      "id": "task-route",
+      "from": "x_task",
+      "to": "q_task",
+      "label": "lane"
+    },
+    {
+      "id": "task-consume",
+      "from": "q_task",
+      "to": "c_task"
+    },
+    {
+      "id": "bcast-pub",
+      "from": "p_bcast",
+      "to": "x_bcast",
+      "label": "publish"
+    },
+    {
+      "id": "bcast-bind",
+      "from": "x_bcast",
+      "to": "q_bcast",
+      "label": "bind #"
+    },
+    {
+      "id": "bcast-deliver",
+      "from": "q_bcast",
+      "to": "c_bcast",
+      "label": "lọc topic"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Khai cùng tham số",
+      "items": [
+        "Backend và realtime khai bw.rt.in cùng alternate-exchange bw.rt.in.unrouted — lệch → PRECONDITION_FAILED",
+        "Mọi exchange / queue tên bw.* trong vhost bizwithagents, user bizwithagents"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Chiều vào chỉ cho thao tác nhẹ",
+      "items": [
+        "@on_ws: huỷ run, đánh dấu đã đọc, ping — ghi tiền vẫn đi REST",
+        "Kiểm theo thứ tự: cũ (1009) → khoá (2103) → quyền (1005) → dữ liệu (1002); lỗi trả qua sys:error"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Lane = queue",
+      "items": [
+        "LANES: default → bw.tq.default · agent-run → bw.tq.agent-run (bw consume / bw work --lanes)",
+        "Queue subscriber luôn có DLQ <queue>.dlq; bw.rt.in.* không cần (handler luôn ack)",
+        "Nhịp tim: scheduler kick system.ping → worker ghi bw:hb:work + publish → consumer ghi bw:hb:consume"
+      ]
+    }
+  ]
+}

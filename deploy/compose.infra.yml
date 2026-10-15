@@ -1,0 +1,57 @@
+# Hạ tầng dev / test của template (D16): Postgres / Redis / RabbitMQ / Mongo riêng, cổng không đụng hạ tầng chung.
+#   docker compose -f deploy/compose.infra.yml up -d      (make infra-up)
+# Cổng chỉ mở trên 127.0.0.1; dữ liệu nằm trong volume có tên. Chuỗi kết nối mẫu: .env.example.
+name: bizwithagents-infra
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: bizwithagents
+      POSTGRES_PASSWORD: bizwithagents-dev
+      POSTGRES_DB: bizwithagents
+    ports: ["127.0.0.1:15432:5432"]
+    volumes:
+      - pg-data:/var/lib/postgresql
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bizwithagents -d bizwithagents"]
+      interval: 5s
+      retries: 20
+
+  mongo:
+    image: mongo:7  # mongo 8 không chạy trên kernel ≥ 6.19 (đo 2026-10-15)
+    ports: ["127.0.0.1:27018:27017"]
+    volumes: [mongo-data:/data/db]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      retries: 20
+
+  redis:
+    image: redis:8-alpine
+    ports: ["127.0.0.1:16379:6379"]
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 20
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_management load_definitions \"/etc/rabbitmq/definitions.json\""
+    ports: ["127.0.0.1:5673:5672", "127.0.0.1:15673:15672"]
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      retries: 20
+
+volumes:
+  pg-data:
+  mongo-data:
+  redis-data:
+  rabbit-data:

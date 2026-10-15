@@ -1,0 +1,21 @@
+# Build context = gốc repo (deploy/docker/*.Dockerfile). Không đưa secret / đồ build local / tài liệu vào image.
+.git
+.claude
+.superpowers
+.playwright-mcp
+.DS_Store
+.env
+.env.*
+.secrets
+design
+scripts
+
+**/node_modules
+**/.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/.coverage
+**/coverage
+**/dist

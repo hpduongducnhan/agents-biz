@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "UC-c · Một lượt chat với trợ lý",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "output": ".claude/HLD/diagrams/uc-agent-turn.html",
+    "viewBox": [
+      1100,
+      902
+    ]
+  },
+  "participants": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Chat"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api"
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis"
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "Postgres"
+    },
+    {
+      "id": "rabbit",
+      "type": "messagebus",
+      "label": "RabbitMQ"
+    },
+    {
+      "id": "consumer",
+      "type": "backend",
+      "label": "consumer"
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM"
+    },
+    {
+      "id": "mongo",
+      "type": "database",
+      "label": "Mongo"
+    },
+    {
+      "id": "rt",
+      "type": "backend",
+      "label": "realtime"
+    }
+  ],
+  "segments": [
+    {
+      "from": 162,
+      "to": 312,
+      "label": "Nhận tin · api"
+    },
+    {
+      "from": 336,
+      "to": 516,
+      "label": "Router + chuyên gia · lane agent-run"
+    },
+    {
+      "from": 540,
+      "to": 630,
+      "label": "Stream"
+    },
+    {
+      "from": 654,
+      "to": 804,
+      "label": "Tool · duyệt · kết thúc"
+    }
+  ],
+  "messages": [
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 180,
+      "label": "POST agent/send · tổ chức bật trợ lý?",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "redis",
+      "y": 210,
+      "label": "Lua: hạn mức phút / giờ / ngày (agent + tài khoản + tenant)",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 240,
+      "label": "agent_messages (user) + agent_runs queued · theo tenant · commit",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 270,
+      "label": "publish agent.run · lane agent-run",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "browser",
+      "y": 300,
+      "label": "200 run_id",
+      "variant": "return"
+    },
+    {
+      "from": "rabbit",
+      "to": "consumer",
+      "y": 354,
+      "label": "agent.run",
+      "variant": "default"
+    },
+    {
+      "from": "consumer",
+      "to": "pg",
+      "y": 384,
+      "label": "CAS queued → running · heartbeat 15 s · before_run",
+      "variant": "security"
+    },
+    {
+      "from": "consumer",
+      "to": "llm",
+      "y": 414,
+      "label": "router · model rẻ → {steps, clarify}",
+      "variant": "default"
+    },
+    {
+      "from": "consumer",
+      "to": "redis",
+      "y": 444,
+      "label": "chọn key: round_robin bw:rr · auto bw:key:use",
+      "variant": "default"
+    },
+    {
+      "from": "consumer",
+      "to": "llm",
+      "y": 474,
+      "label": "chuyên gia create_agent · stream",
+      "variant": "emphasis"
+    },
+    {
+      "from": "llm",
+      "to": "consumer",
+      "y": 504,
+      "label": "429 → bw:key:cool + key kế · 401 → tắt key + issue",
+      "variant": "security"
+    },
+    {
+      "from": "consumer",
+      "to": "rabbit",
+      "y": 558,
+      "label": "RunEmitter: agent:token / step / route · gom chat_stream_flush_ms",
+      "variant": "emphasis"
+    },
+    {
+      "from": "rabbit",
+      "to": "rt",
+      "y": 588,
+      "label": "bw.rt.out user.<id>",
+      "variant": "default"
+    },
+    {
+      "from": "rt",
+      "to": "browser",
+      "y": 618,
+      "label": "token + bước tool theo thời gian thực",
+      "variant": "return"
+    },
+    {
+      "from": "consumer",
+      "to": "pg",
+      "y": 672,
+      "label": "tool = run_operation(source=agent) · principal của user, scope tenant · hook",
+      "variant": "emphasis"
+    },
+    {
+      "from": "consumer",
+      "to": "rabbit",
+      "y": 702,
+      "label": "confirm → waiting_approval · agent:approval",
+      "variant": "security"
+    },
+    {
+      "from": "browser",
+      "to": "api",
+      "y": 732,
+      "label": "POST agent/decide_approval(s) → agent.resume",
+      "variant": "security"
+    },
+    {
+      "from": "consumer",
+      "to": "mongo",
+      "y": 762,
+      "label": "Tracer → TraceSink: agent_spans · agent_http_raw",
+      "variant": "dashed"
+    },
+    {
+      "from": "consumer",
+      "to": "pg",
+      "y": 792,
+      "label": "messages · run done · cost · after_run",
+      "variant": "emphasis"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 174,
+      "to": 306,
+      "type": "backend"
+    },
+    {
+      "participant": "consumer",
+      "from": 348,
+      "to": 798,
+      "type": "backend"
+    },
+    {
+      "participant": "llm",
+      "from": 408,
+      "to": 510,
+      "type": "external"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Một lượt = một LangGraph run",
+      "items": [
+        "router + subgraph chuyên gia, checkpointer Postgres agent_lg",
+        "1 key mỗi agent mỗi lượt; hết key khoẻ → failed 6010"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Hook vòng đời",
+      "items": [
+        "before_run · before_tool · after_tool · after_run",
+        "block · require_approval · add_context · notify · webhook"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Không phụ thuộc Mongo",
+      "items": [
+        "Chat, run, chi phí ở Postgres; buffer bù ở Redis (after_seq)",
+        "Trace + usage theo tổ chức chỉ ghi khi MONGO_ENABLED=true"
+      ]
+    }
+  ]
+}

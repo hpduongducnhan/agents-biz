@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="vi" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>SP3 — Module mẫu Tasks · BizWithAgents</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/highlight.css">
+<link rel="stylesheet" href="../../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="README.html" class="active" aria-current="page" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Plan</span></nav>
+<div class="doc-meta"><span class="badge st-done">Xong</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/plans/sp3-tasks-module/README.md</code></div>
+<article class="prose">
+<h1 id="sp3--module-mẫu-tasks">SP3 — Module mẫu Tasks <a class="anchor" href="#sp3--module-mẫu-tasks" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../../index.html">CLAUDE.md</a> | <a href="../../design/roadmap.html">roadmap</a> · <a href="../../design/template-v1.html">template-v1 §3.4, §3.6</a> · <a href="../../design/decisions/d01-current.html">decisions</a> · <a href="../../architecture/tenancy.html">tenancy</a> · <a href="../../architecture/agent-runtime.html">agent-runtime</a> · <a href="../sp2-agent-general/README.html">sp2-agent-general</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> <strong>Xong</strong> (2026-10-15) — plan dạng đặc tả (D18). Kết quả ở <a href="../../design/roadmap.html">roadmap</a>; tài liệu module: <a href="../../architecture/tasks-module.html">tasks-module</a>; E2E <code>scripts/e2e/sp3_tasks_ui.py</code>.</p>
+<h2 id="goal">Goal <a class="anchor" href="#goal" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Module nghiệp vụ đầu tiên làm mẫu cho mọi module sau (và cho scaffold SP4): quản lý công việc của một tổ chức — làm được mọi việc bằng web <strong>và</strong> bằng chat, người cùng tổ chức thấy thay đổi ngay, dữ liệu tách theo tenant mà code module không nhắc tới tenant.</p>
+<h2 id="architecture">Architecture <a class="anchor" href="#architecture" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Backend <code>app/tasks/</code></strong> (khuôn template-v1 §3.4):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>models.py</code></td>
+<td><code>Task(TenantScoped)</code>: <code>title</code> ≤ 200 · <code>description</code> (text) · <code>status</code> <code>todo | doing | done | cancelled</code> · <code>priority</code> <code>low | normal | high | urgent</code> · <code>due_at</code> · <code>assignee_id</code> (FK users, SET NULL) · <code>position</code> (float — kéo thả) · <code>created_by</code> · <code>source</code> <code>web | agent</code> · <code>agent_run_id</code> · <code>completed_at</code> · <code>created_at</code> · <code>updated_at</code>; index <code>(tenant_id, status, due_at)</code>, <code>(tenant_id, assignee_id)</code>. <code>TaskComment(TenantScoped)</code>: <code>task_id</code> (CASCADE) · <code>author_id</code> · <code>body</code> ≤ 4 000 · <code>created_at</code></td>
+</tr>
+<tr>
+<td><code>permissions.py</code></td>
+<td><code>tasks.view</code> · <code>tasks.edit</code> · <code>tasks.delete</code>; role: admin = cả ba, member = view + edit, viewer = view</td>
+</tr>
+<tr>
+<td><code>errors.py</code></td>
+<td>dải <code>10001–10099</code> (owner <code>tasks</code> trong <code>ERROR_RANGES</code>): 10001 không tìm thấy việc · 10002 người được giao không cùng tổ chức · 10003 chuyển trạng thái không hợp lệ</td>
+</tr>
+<tr>
+<td><code>ops.py</code></td>
+<td><code>tasks.list</code> (lọc <code>status[]</code>, <code>assignee_id</code> / <code>mine</code>, <code>due</code> <code>overdue | today | week</code>, <code>q</code> chữ, sắp <code>due_at</code> / <code>position</code> / <code>updated_at</code>; R14) · <code>tasks.get</code> · <code>tasks.create</code> · <code>tasks.update</code> · <code>tasks.assign</code> · <code>tasks.set_status</code> · <code>tasks.delete</code> (<code>destructive</code> → qua trợ lý phải duyệt) · <code>tasks.comments</code> / <code>tasks.add_comment</code> · <code>tasks.summary</code> (đếm theo trạng thái, quá hạn, của tôi). Mọi op ghi: <code>invalidates=(&quot;tasks.list&quot;, &quot;tasks.detail&quot;, &quot;tasks.summary&quot;)</code> + <code>ctx.invalidate(..., tenant=True)</code>; <code>agent=True, toolset=&quot;tasks&quot;</code> trừ khi ghi lý do</td>
+</tr>
+<tr>
+<td><code>service.py</code></td>
+<td>luật: <code>done</code> → <code>completed_at</code>; giao việc kiểm user cùng tenant (bảng <code>users</code> đã scope → không thấy là 10002); <code>source=agent</code> + <code>agent_run_id</code> khi <code>ctx.source == &quot;agent&quot;</code></td>
+</tr>
+<tr>
+<td><code>agent.py</code></td>
+<td><code>register_toolset(&quot;tasks&quot;, &quot;Công việc: xem, tạo, sửa, giao, bình luận&quot;, confirm_writes={&quot;tasks.delete&quot;})</code> · <code>register_context(&quot;tasks&quot;, …, router=True)</code> (đếm theo trạng thái + 5 việc gần hạn của tôi) · <code>register_specialist(SpecialistSeed(slug=&quot;tasks&quot;, …))</code> + <code>prompts/tasks.md</code></td>
+</tr>
+<tr>
+<td><code>tasks.py</code></td>
+<td>cron <code>tasks.due_reminders</code> (<code>*/15 * * * *</code>): đọc việc sắp hạn (≤ 24 giờ) / quá hạn bằng <code>ALL_TENANTS</code>, gom theo tenant, thông báo người được giao trong <code>tenant_session</code>; idempotent bằng Redis <code>rkey(&quot;tasks&quot;, tid, &quot;remind&quot;, task_id, mốc)</code></td>
+</tr>
+<tr>
+<td><code>qkeys.py</code></td>
+<td><code>tasks.list</code> · <code>tasks.detail</code> · <code>tasks.summary</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Thông báo: được giao việc / có bình luận mới trên việc của mình → <code>notify_users</code> (kind <code>tasks.assigned</code> / <code>tasks.commented</code>, action mở việc) + Web Push (đã có ở nền). Log <code>loc</code> tiền tố <code>tsk</code>. Migration <code>0009_tasks</code>.</p>
+<p><strong>Frontend — registry module</strong> (D25):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/modules/registry.ts</code></td>
+<td>danh sách manifest module (một dòng mỗi module)</td>
+</tr>
+<tr>
+<td><code>src/modules/&lt;module&gt;/index.ts</code></td>
+<td>manifest: <code>id</code>, <code>nav</code> (mục menu + quyền), <code>routes</code> (trang lazy), <code>quickAdd</code> (nút ở cụm nút nổi + menu), <code>widgets</code> (thẻ trang Tổng quan), <code>dict</code> (i18n vi / en)</td>
+</tr>
+<tr>
+<td><code>layout/nav.ts</code>, <code>boot/router.tsx</code>, <code>MobileDock</code>, <code>OverviewPage</code>, <code>lib/i18n</code></td>
+<td>đọc registry — không sửa lõi khi thêm module</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Frontend <code>src/modules/tasks/</code>:</strong> <code>api.ts</code> · <code>keys.ts</code> · <code>pages/TasksPage.tsx</code> (bộ lọc trên URL; thẻ ở điện thoại / bảng ở desktop — R16; nhóm theo trạng thái) · <code>components/TaskSheet.tsx</code> (chi tiết: sửa nhanh trường, giao việc, đổi trạng thái, bình luận) · <code>components/TaskForm.tsx</code> (hộp thoại tạo / sửa) · <code>components/QuickAdd.tsx</code> (tiêu đề + hạn + người làm) · <code>widgets/MyTasksWidget.tsx</code> (&quot;Việc của tôi&quot;: quá hạn / hôm nay / sắp tới).</p>
+<h2 id="global-constraints">Global Constraints <a class="anchor" href="#global-constraints" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Code module không nhắc tới tenant (trừ cron đọc chéo có lý do — B14); bảng mới kế thừa <code>TenantScoped</code>, test B14 không thêm gì vào <code>PLATFORM</code>.</li>
+<li>Không sửa lõi agent để thêm Tasks — chỉ <code>agent.py</code> của module (kiểm SP2).</li>
+<li>Realtime: người cùng tổ chức thấy thay đổi ngay; tổ chức khác không nhận <code>data:changed</code> của Tasks.</li>
+<li>i18n vi / en đầy đủ; mobile-first 375.</li>
+</ul>
+<h2 id="tasks">Tasks <a class="anchor" href="#tasks" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Việc</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>Backend model + migration + quyền + lỗi + <code>loc</code></td>
+<td><code>0009_tasks</code>; test model, B14 xanh</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>Op + service + realtime</td>
+<td>11 op; test BE: CRUD, lọc, phân trang, quyền theo role, tách tenant (404 chéo tổ chức), giao việc chéo tổ chức → 10002, <code>invalidates</code> + phòng tenant</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>Thông báo + cron nhắc hạn</td>
+<td>test idempotent (chạy cron 2 lần không nhắc trùng), chỉ nhắc đúng tenant</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>Agent</td>
+<td>toolset + ngữ cảnh + chuyên gia + prompt; test LLM giả: tạo / giao / đổi trạng thái / xoá (phải duyệt) qua chat; câu ý định <code>tests/agent_eval/tasks_{vi,en}.yaml</code> ≥ 30 câu mỗi ngôn ngữ (chạy <code>make agent-eval</code> khi có key LLM thật — việc của chủ dự án)</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>Registry module frontend (D25)</td>
+<td>manifest + nav / router / dock / Tổng quan đọc registry; test FE</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>UI Tasks</td>
+<td>trang danh sách, sheet chi tiết, form, Thêm nhanh, widget; test FE (thẻ / bảng, lọc URL, realtime <code>data:changed</code>)</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>Tài liệu</td>
+<td>doc module mẫu <code>architecture/tasks-module.md</code> (khuôn cho module sau), template-v1 trỏ tới, roadmap</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>Kiểm + release</td>
+<td><code>make ci</code>; smoke thêm: tạo việc ở tổ chức A → user tổ chức B không thấy / không nhận realtime; E2E Playwright (subagent — R22): tạo / sửa / giao / bình luận / xoá qua web và qua chat, người cùng tổ chức thấy ngay (2 context), 375 / 1440</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="definition-of-done">Definition of Done <a class="anchor" href="#definition-of-done" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>make ci</code> xanh; smoke-local hai chế độ Mongo xanh (có bước Tasks).</li>
+<li>E2E: mọi việc làm được bằng web và bằng chat; xoá qua chat phải duyệt; người cùng tổ chức thấy ngay không tải lại trang; tổ chức khác không thấy.</li>
+<li>Thêm module mới chỉ cần: package backend + một dòng <code>DOMAINS</code> + thư mục <code>src/modules/&lt;module&gt;/</code> + một dòng <code>registry.ts</code>.</li>
+</ul>
+<h2 id="self-review">Self-Review <a class="anchor" href="#self-review" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li>Cron đọc chéo tenant là ngoại lệ duy nhất của module — đọc bằng <code>ALL_TENANTS</code>, ghi / thông báo trong <code>tenant_session</code> của từng tenant.</li>
+<li><code>position</code> dạng float để chèn giữa không phải đánh lại số; danh sách mặc định sắp theo hạn, kéo thả để SP sau nếu cần.</li>
+<li>Thực tế làm: bỏ op <code>tasks.comments</code> riêng (<code>tasks.get</code> kèm 100 bình luận), thêm <code>tasks.people</code> (trợ lý tìm người theo tên để giao việc); 10 op. Lõi chạy provider ngữ cảnh của module trong session đã scope theo tenant. Test lõi đổi sang &quot;lõi cố định + module tuỳ ý&quot; (miền, dải mã lỗi, toolset, quyền, chuyên gia) để module mới không làm đỏ test lõi.</li>
+<li>Sau E2E: nút gửi bình luận <code>shrink-0</code> (44 px ở 375); ô hạn chiếm cả hàng ở điện thoại; xoá việc tắt query chi tiết ngay khi bắt đầu (<code>data:changed</code> tới trước phản hồi HTTP → từng tải lại 404). Người khác đang mở việc bị xoá vẫn nhận 404 → &quot;Không tìm thấy công việc&quot; (đúng).</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/plans/sp3-tasks-module/README.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#goal">Goal</a></li><li class="lvl2"><a href="#architecture">Architecture</a></li><li class="lvl2"><a href="#global-constraints">Global Constraints</a></li><li class="lvl2"><a href="#tasks">Tasks</a></li><li class="lvl2"><a href="#definition-of-done">Definition of Done</a></li><li class="lvl2"><a href="#self-review">Self-Review</a></li></ul></aside>
+</div>
+</body>
+</html>

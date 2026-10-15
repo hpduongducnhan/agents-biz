@@ -1,0 +1,6 @@
+# Intent cases of the __title_en__ module (English) — the router must pick `__mod__`. Grow to ≥ 30 cases.
+- {text: "create a new __title_en_lower__ item called weekly sync", expect: {steps: [__mod__]}}
+- {text: "list open __title_en_lower__", expect: {steps: [__mod__]}}
+- {text: "mark the weekly sync __title_en_lower__ item as done", expect: {steps: [__mod__]}}
+- {text: "find __title_en_lower__ about the contract", expect: {steps: [__mod__]}}
+- {text: "delete the test __title_en_lower__ item", expect: {steps: [__mod__]}}

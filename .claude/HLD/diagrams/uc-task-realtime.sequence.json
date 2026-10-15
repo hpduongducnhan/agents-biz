@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "UC-d · Tạo việc — người cùng tổ chức thấy ngay, tổ chức khác không thấy",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "output": ".claude/HLD/diagrams/uc-task-realtime.html",
+    "viewBox": [
+      1040,
+      760
+    ]
+  },
+  "participants": [
+    {
+      "id": "a",
+      "type": "frontend",
+      "label": "User A"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api"
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "Postgres"
+    },
+    {
+      "id": "rabbit",
+      "type": "messagebus",
+      "label": "RabbitMQ"
+    },
+    {
+      "id": "rt",
+      "type": "backend",
+      "label": "realtime"
+    },
+    {
+      "id": "b",
+      "type": "frontend",
+      "label": "User B"
+    },
+    {
+      "id": "c",
+      "type": "frontend",
+      "label": "User C"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "worker"
+    }
+  ],
+  "segments": [
+    {
+      "from": 162,
+      "to": 312,
+      "label": "Ghi + scope tenant"
+    },
+    {
+      "from": 320,
+      "to": 500,
+      "label": "Sau commit · realtime"
+    },
+    {
+      "from": 508,
+      "to": 640,
+      "label": "Nhắc hạn"
+    }
+  ],
+  "messages": [
+    {
+      "from": "a",
+      "to": "api",
+      "y": 180,
+      "label": "POST tasks/create {title, due_at, assignee_id}",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 214,
+      "label": "runner scope_session(tid) · before_flush gán tenant_id",
+      "variant": "security"
+    },
+    {
+      "from": "api",
+      "to": "pg",
+      "y": 248,
+      "label": "người làm cùng tổ chức? (users đã scope → 10002)",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "a",
+      "y": 282,
+      "label": "TaskOut",
+      "variant": "return"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 338,
+      "label": "data:changed {tasks.list, tasks.detail, tasks.summary} → tenant.<tid>",
+      "variant": "dashed"
+    },
+    {
+      "from": "api",
+      "to": "rabbit",
+      "y": 372,
+      "label": "core:notification task_assigned → user.<B> (+ Web Push)",
+      "variant": "dashed"
+    },
+    {
+      "from": "rabbit",
+      "to": "rt",
+      "y": 406,
+      "label": "deliver",
+      "variant": "default"
+    },
+    {
+      "from": "rt",
+      "to": "b",
+      "y": 440,
+      "label": "B cùng tổ chức: invalidate [tasks, …] · chuông +1",
+      "variant": "return"
+    },
+    {
+      "from": "c",
+      "to": "api",
+      "y": 474,
+      "label": "C tổ chức khác: GET tasks/get → 404 10001",
+      "variant": "security"
+    },
+    {
+      "from": "worker",
+      "to": "pg",
+      "y": 526,
+      "label": "cron tasks.due_reminders mỗi 15 phút — đọc mọi tổ chức",
+      "variant": "default"
+    },
+    {
+      "from": "worker",
+      "to": "rabbit",
+      "y": 560,
+      "label": "sắp / quá hạn → notify người làm · khoá bw:tasks:<tid>:remind:*",
+      "variant": "dashed"
+    },
+    {
+      "from": "rabbit",
+      "to": "rt",
+      "y": 594,
+      "label": "core:notification → user.<B>",
+      "variant": "default"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 172,
+      "to": 384,
+      "type": "backend"
+    },
+    {
+      "participant": "pg",
+      "from": 206,
+      "to": 262,
+      "type": "database"
+    },
+    {
+      "participant": "rt",
+      "from": 398,
+      "to": 452,
+      "type": "backend"
+    },
+    {
+      "participant": "worker",
+      "from": 518,
+      "to": 572,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Module không nhắc tenant (B14)",
+      "items": [
+        "Task(TenantScoped) · lọc + gán tenant tự động",
+        "SQL thô trên bảng tenant bị test luật chặn"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Realtime-first (R18)",
+      "items": [
+        "invalidates + ctx.invalidate(tenant=True)",
+        "client tải lại theo quyền của mình"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Qua trợ lý giống hệt",
+      "items": [
+        "tool tasks_* = run_operation(source=agent) · xoá phải duyệt",
+        "source=agent + agent_run_id trên việc"
+      ]
+    }
+  ]
+}

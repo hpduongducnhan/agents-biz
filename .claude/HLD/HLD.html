@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="vi" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>BizWithAgents — Thiết kế mức cao (HLD) · BizWithAgents</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/highlight.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="HLD.html" class="active" aria-current="page" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../index.html">Tổng quan</a> <span class='sep'>/</span> <span>HLD</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/HLD/HLD.md</code></div>
+<article class="prose">
+<h1 id="bizwithagents--thiết-kế-mức-cao-hld">BizWithAgents — Thiết kế mức cao (HLD) <a class="anchor" href="#bizwithagents--thiết-kế-mức-cao-hld" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../index.html">CLAUDE.md</a> | <a href="../platform/design/template-v1.html">template-v1</a> · <a href="../platform/design/decisions/README.html">decisions</a> · <a href="../platform/architecture/tenancy.html">tenancy</a> · <a href="../platform/architecture/agent-runtime.html">agent-runtime</a> · <a href="../platform/architecture/tasks-module.html">tasks-module</a> · <a href="../deploy/CLAUDE.html">deploy</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (vẽ theo code ở tag <code>v1.0.0</code>)</p>
+<p>Bộ sơ đồ mức cao cho người mới đọc template. Tên service, cổng, exchange / queue, operation, trạng thái lấy đúng từ code và tài liệu kiến trúc (link ở mỗi mục).</p>
+<p><strong>Cách đọc:</strong></p>
+<ul>
+<li>Mỗi sơ đồ có spec <code>diagrams/&lt;tên&gt;.&lt;loại&gt;.json</code> (archify), và trang tương tác <code>diagrams/&lt;tên&gt;.html</code> (pan / zoom, tìm, sáng / tối). Đổi spec → <code>make diagrams</code>; bản HTML của file này (<a href="HLD.html">HLD.html</a>) nhúng sẵn sơ đồ (R23).</li>
+<li>Chữ trong sơ đồ tiếng Việt; thanh công cụ của viewer tiếng Anh (archify chỉ có <code>en</code> / <code>zh-CN</code>).</li>
+</ul>
+<hr />
+<h2 id="1-tổng-quan">1. Tổng quan <a class="anchor" href="#1-tổng-quan" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Công nghệ</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bw-web</code></td>
+<td>nginx + bundle React 19 (PWA)</td>
+<td>cửa duy nhất: SPA, <code>/bizwithagents/api/*</code> → api, <code>/bizwithagents/ws/*</code> → realtime</td>
+</tr>
+<tr>
+<td><code>bw-api</code></td>
+<td>FastAPI · <code>@operation</code></td>
+<td>REST (envelope R6), <code>bw migrate</code> khi khởi động</td>
+</tr>
+<tr>
+<td><code>bw-consumer</code> · <code>bw-worker</code> · <code>bw-scheduler</code></td>
+<td>FastStream · taskiq</td>
+<td>subscriber + lượt chạy trợ lý · task nền · cron (leader qua Redis)</td>
+</tr>
+<tr>
+<td><code>bw-realtime</code></td>
+<td>Node + Socket.IO</td>
+<td>phòng <code>user:&lt;id&gt;</code> · <code>tenant:&lt;tid&gt;</code> · <code>sup</code>; nhận <code>bw.rt.out</code> từ RabbitMQ</td>
+</tr>
+<tr>
+<td>Postgres · Redis · RabbitMQ · Mongo (tuỳ chọn)</td>
+<td>hạ tầng chung trên server (D19)</td>
+<td>dữ liệu theo tenant · cache / khoá / hạn mức · message · log + trace</td>
+</tr>
+</tbody>
+</table></div>
+<p>Một hành động người dùng = một <code>@operation</code> chạy chung cho web, socket và trợ lý: kiểm quyền → scope tenant → validate → handler → commit → sau commit (realtime, thông báo, event log).</p>
+<h2 id="2-triển-khai-trên-coolify">2. Triển khai trên Coolify <a class="anchor" href="#2-triển-khai-trên-coolify" aria-label="Liên kết tới mục này">#</a></h2>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/deployment.html?embed=1" title="BizWithAgents — triển khai Coolify" loading="lazy" style="aspect-ratio: 1220 / 850; height: calc(100cqw * 850 / 1220 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">BizWithAgents — triển khai Coolify</span><a class="diagram-open" href="diagrams/deployment.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-cyan"><b>Một cửa: bw-web</b><ul><li>Chỉ bw-web có domain; Coolify sinh SERVICE_URL_BW_WEB</li><li>/bizwithagents/api/* → bw-api:16802 · /bizwithagents/ws/* → bw-realtime:16803</li><li>Không service nào publish cổng host</li></ul></div><div class="diagram-card dot-amber"><b>Thứ tự khởi động</b><ul><li>bw-api: bw migrate → exec bw api (idempotent)</li><li>consumer · worker · scheduler chờ bw-api healthy; realtime không chờ ai</li><li>bw-web chờ bw-api + bw-realtime healthy</li></ul></div><div class="diagram-card dot-emerald"><b>DB dùng chung qua IP host, khoá JWT ở env</b><ul><li>Postgres + Mongo: database bizwithagents, user bizwithagents · nối qua IP host:&lt;cổng&gt; (hạ tầng chung — D19)</li><li>Redis: db index trống + key bw: · RabbitMQ: vhost bizwithagents, bw.*</li><li>Khoá JWT: PEM trong env AUTH_PRIVATE_KEY / AUTH_PUBLIC_KEY · Mongo chỉ kết nối khi MONGO_ENABLED=true</li></ul></div></div>
+</figure>
+<p><a href="diagrams/deployment.html">Mở HTML</a></p>
+<ul>
+<li>Người dùng → Cloudflare → Traefik (Coolify) → <code>bw-web</code>; chỉ <code>bw-web</code> có domain (<code>SERVICE_URL_BW_WEB</code>), không service nào publish cổng host. Cổng container 16811–16813.</li>
+<li><code>bw-api</code> chạy <code>bw migrate &amp;&amp; exec bw api</code> (Alembic một chuỗi, đồng bộ quyền + superadmin, seed trợ lý — chạy lại vô hại); consumer / worker / scheduler chờ api healthy.</li>
+<li>Khoá JWT là PEM trong env (<code>bw keys --print</code>); realtime chỉ cần public key.</li>
+<li>Hạ tầng dùng chung, tách namespace từng app: DB <code>bizwithagents</code> (+ <code>_test</code>, <code>_e2e</code>), vhost cùng tên, Redis db riêng + tiền tố <code>bw:</code>, Mongo DB riêng (D19). App mới: clone rồi <code>make init-app</code> đổi cả bộ tên tại chỗ (D27), <code>make setup</code> dựng môi trường (D28), <code>make template-sync</code> kéo bản sửa của template về sau (D29) — làm bằng chat qua skill cho Claude Code / Codex / Gemini (D26, <a href="../platform/playbooks/README.html">playbooks</a>).</li>
+<li>Deploy = push <code>main</code> → Coolify kéo về (R27); <code>make deploy</code> là đường dự phòng (UC-e).</li>
+</ul>
+<h2 id="3-dữ-liệu-và-kết-nối">3. Dữ liệu và kết nối <a class="anchor" href="#3-dữ-liệu-và-kết-nối" aria-label="Liên kết tới mục này">#</a></h2>
+<h3 id="31-postgres--redis">3.1 Postgres + Redis <a class="anchor" href="#31-postgres--redis" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/data-postgres-redis.html?embed=1" title="Kết nối dữ liệu · Postgres + Redis" loading="lazy" style="aspect-ratio: 1190 / 700; height: calc(100cqw * 700 / 1190 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">Kết nối dữ liệu · Postgres + Redis</span><a class="diagram-open" href="diagrams/data-postgres-redis.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Postgres — nguồn sự thật</b><ul><li>Tenant, user, RBAC, lời mời / token một lần, thông báo, cài đặt, agent (cấu hình + hội thoại theo tenant), module (tasks)</li><li>Cấu hình agent + credential (Fernet), agent_sessions / agent_messages / agent_runs / agent_approvals</li><li>agent_usage_hourly · checkpoint LangGraph schema agent_lg (xoá khi run kết thúc)</li></ul></div><div class="diagram-card dot-rose"><b>Redis — key bw:*</b><ul><li>bw:rl:* (lượt agent + đăng nhập) · bw:tok:* (trần token/ngày)</li><li>bw:rr:* · bw:key:cool:* · bw:key:use:* · cờ huỷ run · bw:run:&lt;id&gt;:events</li><li>bw:leader:schedule · bw:hb:&lt;role&gt; · bw:auth:disabled:&lt;uid&gt; · OAuth state · bw:tenant:disabled:&lt;tid&gt; · bw:mail:outbox · bw:tasks:&lt;tid&gt;:remind:*</li></ul></div><div class="diagram-card dot-slate"><b>Ai không kết nối</b><ul><li>realtime không chạm Postgres / Redis — chỉ RabbitMQ + public key</li><li>bw migrate (đầu bw-api) chỉ cần Postgres; scheduler chỉ kick task cron / every, worker chạy thân task</li><li>web chỉ proxy, không giữ kết nối DB</li></ul></div></div>
+</figure>
+<p><a href="diagrams/data-postgres-redis.html">Mở HTML</a></p>
+<ul>
+<li>Postgres: kênh RW / RO, một driver <code>psycopg3</code> (B2). Bảng nghiệp vụ + hội thoại trợ lý kế thừa <code>TenantScoped</code> — lọc / gán <code>tenant_id</code> tự động (<a href="../platform/architecture/tenancy.html">tenancy</a>, B14).</li>
+<li>Redis: cache cài đặt, hạn mức (Lua), dấu khoá tài khoản / tổ chức, leader cron, outbox thư console, khoá idempotent của task.</li>
+</ul>
+<h3 id="32-rabbitmq">3.2 RabbitMQ <a class="anchor" href="#32-rabbitmq" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/data-rabbitmq.html?embed=1" title="RabbitMQ · exchange / queue bw.*" loading="lazy" style="aspect-ratio: 1235 / 730; height: calc(100cqw * 730 / 1235 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">RabbitMQ · exchange / queue bw.*</span><a class="diagram-open" href="diagrams/data-rabbitmq.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-amber"><b>Khai cùng tham số</b><ul><li>Backend và realtime khai bw.rt.in cùng alternate-exchange bw.rt.in.unrouted — lệch → PRECONDITION_FAILED</li><li>Mọi exchange / queue tên bw.* trong vhost bizwithagents, user bizwithagents</li></ul></div><div class="diagram-card dot-cyan"><b>Chiều vào chỉ cho thao tác nhẹ</b><ul><li>@on_ws: huỷ run, đánh dấu đã đọc, ping — ghi tiền vẫn đi REST</li><li>Kiểm theo thứ tự: cũ (1009) → khoá (2103) → quyền (1005) → dữ liệu (1002); lỗi trả qua sys:error</li></ul></div><div class="diagram-card dot-violet"><b>Lane = queue</b><ul><li>LANES: default → bw.tq.default · agent-run → bw.tq.agent-run (bw consume / bw work --lanes)</li><li>Queue subscriber luôn có DLQ &lt;queue&gt;.dlq; bw.rt.in.* không cần (handler luôn ack)</li><li>Nhịp tim: scheduler kick system.ping → worker ghi bw:hb:work + publish → consumer ghi bw:hb:consume</li></ul></div></div>
+</figure>
+<p><a href="diagrams/data-rabbitmq.html">Mở HTML</a></p>
+<ul>
+<li>Một broker, vhost riêng; tên <code>bw.*</code>. Lane taskiq cố định (<code>agent-run</code> riêng cho lượt chạy trợ lý); subscriber FastStream cho sự kiện; <code>bw.rt.out</code> (topic) đưa sự kiện realtime tới service Node theo routing key <code>user.&lt;id&gt;</code> / <code>tenant.&lt;tid&gt;</code> / <code>sup</code> / <code>all</code>.</li>
+</ul>
+<h3 id="33-mongo-chỉ-log--dịch-vụ-ngoài">3.3 Mongo (chỉ log) + dịch vụ ngoài <a class="anchor" href="#33-mongo-chỉ-log--dịch-vụ-ngoài" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/data-mongo-external.html?embed=1" title="Mongo (chỉ log) + dịch vụ ngoài" loading="lazy" style="aspect-ratio: 1235 / 760; height: calc(100cqw * 760 / 1235 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">Mongo (chỉ log) + dịch vụ ngoài</span><a class="diagram-open" href="diagrams/data-mongo-external.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-emerald"><b>Mongo chỉ chứa log</b><ul><li>Không có dữ liệu nghiệp vụ ở Mongo; ai làm gì vẫn truy được qua created_by · source · agent_run_id ở Postgres</li><li>Mọi ghi Mongo đi qua sink; tắt cờ → Noop + cảnh báo obs0001 một lần mỗi process</li><li>api đọc qua LogStore: observability.list_events · list_issues · get_issue; trace agent qua TraceSink</li></ul></div><div class="diagram-card dot-amber"><b>Pool key LLM</b><ul><li>round_robin: INCR bw:rr:&lt;agent&gt; · auto: ít dùng nhất theo weight</li><li>429 → bw:key:cool:&lt;cred&gt; rồi đổi key · 401/403 → tắt key + issue</li><li>Hết key khoẻ → run failed, mã 6010</li></ul></div><div class="diagram-card dot-slate"><b>Google</b><ul><li>OAuth chỉ xác minh email: state ở Redis 10 phút, bắt buộc email_verified</li><li>SMTP: task mail.send (idempotent); console → outbox Redis cho dev / smoke</li><li>scheduler / migrate không có Mongo → sink Noop (obs0002)</li></ul></div></div>
+</figure>
+<p><a href="diagrams/data-mongo-external.html">Mở HTML</a></p>
+<ul>
+<li>Mongo chỉ cho event log, issue, trace + usage trợ lý; <code>MONGO_ENABLED=false</code> → sink no-op, app chạy đủ (R12).</li>
+<li>Ngoài: nhà cung cấp LLM (key mã hoá Fernet, xoay vòng), SMTP (thư — D14), Google OAuth, Web Push.</li>
+</ul>
+<h2 id="4-kiến-trúc-logic">4. Kiến trúc logic <a class="anchor" href="#4-kiến-trúc-logic" aria-label="Liên kết tới mục này">#</a></h2>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/logical-layers.html?embed=1" title="Kiến trúc logic · lớp và @operation" loading="lazy" style="aspect-ratio: 1235 / 770; height: calc(100cqw * 770 / 1235 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">Kiến trúc logic · lớp và @operation</span><a class="diagram-open" href="diagrams/logical-layers.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Một runner cho web và agent</b><ul><li>Kiểm: spec 1001 → đăng nhập 1004 → superadmin / quyền 1005 → tenant → input 1002</li><li>Agent gọi tool = run_operation(source=agent) dưới principal của user</li></ul></div><div class="diagram-card dot-cyan"><b>Sau commit (lỗi chỉ log)</b><ul><li>after_commit → emit → data:changed {invalidates} → notifier → event log</li><li>Event log ghi cả khi lỗi (ok=false), effect ≠ read</li></ul></div><div class="diagram-card dot-emerald"><b>Frontend realtime-first</b><ul><li>Một chỗ mở envelope; 401 → refresh single-flight → gọi lại</li><li>data:changed {keys} → invalidateQueries theo tiền tố mkKeys</li></ul></div></div>
+</figure>
+<p><a href="diagrams/logical-layers.html">Mở HTML</a></p>
+<ul>
+<li>Frontend: trang lõi + module (registry <code>src/modules</code> — D25), TanStack Query với query key theo tiền tố operation; <code>data:changed</code> từ socket → làm mới đúng phần (R18).</li>
+<li>Backend: miền lõi (<code>system</code>, <code>auth</code>, <code>tenants</code>, <code>mail</code>, <code>observability</code>, <code>notifications</code>, <code>credentials</code>, <code>agent</code>) + module (<code>tasks</code>, và module sinh bằng <code>make new-module</code>). Mỗi miền: model · schemas · service · ops · permissions · agent.</li>
+<li>Trợ lý gọi tool = gọi đúng <code>@operation</code> dưới quyền của người chat — không có đường tắt quyền / tenant.</li>
+</ul>
+<h2 id="5-luồng-use-case">5. Luồng use case <a class="anchor" href="#5-luồng-use-case" aria-label="Liên kết tới mục này">#</a></h2>
+<h3 id="5a-đăng-nhập-socket-refresh-bị-khoá">5a. Đăng nhập, socket, refresh, bị khoá <a class="anchor" href="#5a-đăng-nhập-socket-refresh-bị-khoá" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/uc-login-session.html?embed=1" title="UC-a · Đăng nhập và phiên" loading="lazy" style="aspect-ratio: 920 / 910; height: calc(100cqw * 910 / 920 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">UC-a · Đăng nhập và phiên</span><a class="diagram-open" href="diagrams/uc-login-session.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-cyan"><b>Phiên JWT</b><ul><li>Claims {sub, tid, typ, perms, sup, iat, exp}</li><li>Refresh xoay theo family_id, ân hạn 10 s</li></ul></div><div class="diagram-card dot-rose"><b>Khoá có hiệu lực ngay</b><ul><li>REST + @on_ws đọc bw:auth:disabled → 2103</li><li>rt:revoke ngắt socket ở mọi instance</li></ul></div><div class="diagram-card dot-slate"><b>Một cửa web</b><ul><li>Mọi gọi đi qua /bizwithagents/api/* và /bizwithagents/ws/*</li><li>Google OAuth phát cùng loại token</li></ul></div></div>
+</figure>
+<p><a href="diagrams/uc-login-session.html">Mở HTML</a></p>
+<p>JWT EdDSA có claim <code>tid</code>; refresh xoay vòng theo họ; khoá tài khoản có hiệu lực ngay (dấu Redis + <code>rt:revoke</code>) — <a href="../platform/architecture/auth-rbac.html">auth-rbac</a>.</p>
+<h3 id="5b-mời-vào-tổ-chức-đăng-ký-khoá-tổ-chức">5b. Mời vào tổ chức, đăng ký, khoá tổ chức <a class="anchor" href="#5b-mời-vào-tổ-chức-đăng-ký-khoá-tổ-chức" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/uc-tenant-invite.html?embed=1" title="UC-b · Mời vào tổ chức, đăng ký, khoá tổ chức" loading="lazy" style="aspect-ratio: 1180 / 860; height: calc(100cqw * 860 / 1180 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">UC-b · Mời vào tổ chức, đăng ký, khoá tổ chức</span><a class="diagram-open" href="diagrams/uc-tenant-invite.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Một user = một tổ chức (D10)</b><ul><li>claim tid trong JWT; email đã có tài khoản → 2109</li><li>signup_mode: default_tenant · new_tenant · invite_only (D12)</li></ul></div><div class="diagram-card dot-amber"><b>Thư (D14)</b><ul><li>MAIL_TRANSPORT console → outbox Redis (dev / smoke)</li><li>smtp → aiosmtplib · mẫu theo ngôn ngữ người nhận</li></ul></div><div class="diagram-card dot-rose"><b>Khoá có hiệu lực ngay</b><ul><li>REST + socket đọc bw:tenant:disabled → 2110</li><li>phòng tenant:&lt;tid&gt; nhận core:account_disabled</li></ul></div></div>
+</figure>
+<p><a href="diagrams/uc-tenant-invite.html">Mở HTML</a></p>
+<p>Lời mời email / link (token một lần, hạn, số lần dùng), thư qua task <code>mail.send</code>, đăng ký vào đúng tổ chức + vai trò; superadmin khoá tổ chức → mọi người trong tổ chức bị đăng xuất ngay — <a href="../platform/architecture/tenancy.html">tenancy</a>, <a href="../platform/architecture/mail.html">mail</a>.</p>
+<h3 id="5c-một-lượt-chat-với-trợ-lý">5c. Một lượt chat với trợ lý <a class="anchor" href="#5c-một-lượt-chat-với-trợ-lý" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/uc-agent-turn.html?embed=1" title="UC-c · Một lượt chat với trợ lý" loading="lazy" style="aspect-ratio: 1100 / 902; height: calc(100cqw * 902 / 1100 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">UC-c · Một lượt chat với trợ lý</span><a class="diagram-open" href="diagrams/uc-agent-turn.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Một lượt = một LangGraph run</b><ul><li>router + subgraph chuyên gia, checkpointer Postgres agent_lg</li><li>1 key mỗi agent mỗi lượt; hết key khoẻ → failed 6010</li></ul></div><div class="diagram-card dot-amber"><b>Hook vòng đời</b><ul><li>before_run · before_tool · after_tool · after_run</li><li>block · require_approval · add_context · notify · webhook</li></ul></div><div class="diagram-card dot-cyan"><b>Không phụ thuộc Mongo</b><ul><li>Chat, run, chi phí ở Postgres; buffer bù ở Redis (after_seq)</li><li>Trace + usage theo tổ chức chỉ ghi khi MONGO_ENABLED=true</li></ul></div></div>
+</figure>
+<p><a href="diagrams/uc-agent-turn.html">Mở HTML</a></p>
+<p><code>agent.send</code> ghi tin + lượt <code>queued</code> rồi trả ngay; lane <code>agent-run</code> chạy router → chuyên gia → tool; chữ stream qua socket (hoặc gọi một lần khi tắt stream — D23); thao tác nguy hiểm dừng chờ duyệt — <a href="../platform/architecture/agent-runtime.html">agent-runtime</a>.</p>
+<h3 id="5d-tạo-việc--người-cùng-tổ-chức-thấy-ngay">5d. Tạo việc — người cùng tổ chức thấy ngay <a class="anchor" href="#5d-tạo-việc--người-cùng-tổ-chức-thấy-ngay" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/uc-task-realtime.html?embed=1" title="UC-d · Tạo việc — người cùng tổ chức thấy ngay, tổ chức khác không thấy" loading="lazy" style="aspect-ratio: 1040 / 760; height: calc(100cqw * 760 / 1040 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">UC-d · Tạo việc — người cùng tổ chức thấy ngay, tổ chức khác không thấy</span><a class="diagram-open" href="diagrams/uc-task-realtime.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Module không nhắc tenant (B14)</b><ul><li>Task(TenantScoped) · lọc + gán tenant tự động</li><li>SQL thô trên bảng tenant bị test luật chặn</li></ul></div><div class="diagram-card dot-cyan"><b>Realtime-first (R18)</b><ul><li>invalidates + ctx.invalidate(tenant=True)</li><li>client tải lại theo quyền của mình</li></ul></div><div class="diagram-card dot-emerald"><b>Qua trợ lý giống hệt</b><ul><li>tool tasks_* = run_operation(source=agent) · xoá phải duyệt</li><li>source=agent + agent_run_id trên việc</li></ul></div></div>
+</figure>
+<p><a href="diagrams/uc-task-realtime.html">Mở HTML</a></p>
+<p>Khuôn của mọi module: ghi trong session đã scope tenant, <code>data:changed</code> tới phòng tổ chức, thông báo người liên quan, cron đọc chéo tổ chức là ngoại lệ duy nhất — <a href="../platform/architecture/tasks-module.html">tasks-module</a>.</p>
+<h3 id="5e-deploy">5e. Deploy <a class="anchor" href="#5e-deploy" aria-label="Liên kết tới mục này">#</a></h3>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/uc-deploy.html?embed=1" title="UC-e · Deploy (push main → Coolify, dự phòng make deploy)" loading="lazy" style="aspect-ratio: 920 / 892; height: calc(100cqw * 892 / 920 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">UC-e · Deploy (push main → Coolify, dự phòng make deploy)</span><a class="diagram-open" href="diagrams/uc-deploy.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-amber"><b>Chặn deploy sai</b><ul><li>Còn thay đổi chưa commit hoặc HEAD ≠ origin/main → dừng</li><li>Deploy chồng lấn: chỉ một scheduler giữ khoá leader</li></ul></div><div class="diagram-card dot-emerald"><b>Thứ tự compose</b><ul><li>bw-api (migrate → api) + bw-realtime → consumer · worker · scheduler → bw-web</li><li>Khởi động lại bw-api: bw migrate chạy lại, Alembic không đổi</li></ul></div><div class="diagram-card dot-cyan"><b>Smoke qua domain thật</b><ul><li>make smoke-prod URL=https://&lt;slug&gt;.&lt;domain&gt;</li><li>Pipeline xanh = scheduler → worker → consumer đều sống</li></ul></div></div>
+</figure>
+<p><a href="diagrams/uc-deploy.html">Mở HTML</a></p>
+<p>Push <code>main</code> → Coolify build 3 image → api migrate → các service khác lên khi api healthy → smoke qua domain thật (<code>make smoke-prod</code>) — <a href="../deploy/CLAUDE.html">deploy</a>.</p>
+<h2 id="6-vòng-đời-một-lượt-chạy-trợ-lý">6. Vòng đời một lượt chạy trợ lý <a class="anchor" href="#6-vòng-đời-một-lượt-chạy-trợ-lý" aria-label="Liên kết tới mục này">#</a></h2>
+<figure class="diagram">
+<div class="diagram-box"><iframe class="diagram-frame" src="diagrams/agent-run-state.html?embed=1" title="Trạng thái agent run" loading="lazy" style="aspect-ratio: 980 / 660; height: calc(100cqw * 660 / 980 + 1rem)"></iframe></div>
+<figcaption><span class="diagram-title">Trạng thái agent run</span><a class="diagram-open" href="diagrams/agent-run-state.html" target="_blank" rel="noopener">Mở toàn màn hình ↗</a></figcaption>
+<div class="diagram-cards"><div class="diagram-card dot-violet"><b>Chạy tối đa một lần</b><ul><li>CAS queued → running; một run gốc đang mở mỗi phiên</li><li>Duyệt: lưu agent_approvals, resume bằng Command(resume=…)</li></ul></div><div class="diagram-card dot-rose"><b>Kết thúc lỗi</b><ul><li>Tắt container / quá 90 s không heartbeat → failed (bị gián đoạn)</li><li>Hết key khoẻ → 6010; lỗi sau khi đã stream → failed, không thử lại</li></ul></div><div class="diagram-card dot-slate"><b>Ghi chú</b><ul><li>running ở 02 và 04 là cùng một trạng thái</li><li>Huỷ được từ queued / running / waiting_approval</li></ul></div></div>
+</figure>
+<p><a href="diagrams/agent-run-state.html">Mở HTML</a></p>
+<p><code>queued → running → done | failed | cancelled</code>, nhánh <code>waiting_approval</code> giữ checkpoint tới khi mọi yêu cầu duyệt đã quyết hoặc hết hạn; dọn lượt treo bằng cron.</p>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/HLD/HLD.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-tổng-quan">1. Tổng quan</a></li><li class="lvl2"><a href="#2-triển-khai-trên-coolify">2. Triển khai trên Coolify</a></li><li class="lvl2"><a href="#3-dữ-liệu-và-kết-nối">3. Dữ liệu và kết nối</a></li><li class="lvl3"><a href="#31-postgres--redis">3.1 Postgres + Redis</a></li><li class="lvl3"><a href="#32-rabbitmq">3.2 RabbitMQ</a></li><li class="lvl3"><a href="#33-mongo-chỉ-log--dịch-vụ-ngoài">3.3 Mongo (chỉ log) + dịch vụ ngoài</a></li><li class="lvl2"><a href="#4-kiến-trúc-logic">4. Kiến trúc logic</a></li><li class="lvl2"><a href="#5-luồng-use-case">5. Luồng use case</a></li><li class="lvl3"><a href="#5a-đăng-nhập-socket-refresh-bị-khoá">5a. Đăng nhập, socket, refresh, bị khoá</a></li><li class="lvl3"><a href="#5b-mời-vào-tổ-chức-đăng-ký-khoá-tổ-chức">5b. Mời vào tổ chức, đăng ký, khoá tổ chức</a></li><li class="lvl3"><a href="#5c-một-lượt-chat-với-trợ-lý">5c. Một lượt chat với trợ lý</a></li><li class="lvl3"><a href="#5d-tạo-việc--người-cùng-tổ-chức-thấy-ngay">5d. Tạo việc — người cùng tổ chức thấy ngay</a></li><li class="lvl3"><a href="#5e-deploy">5e. Deploy</a></li><li class="lvl2"><a href="#6-vòng-đời-một-lượt-chạy-trợ-lý">6. Vòng đời một lượt chạy trợ lý</a></li></ul></aside>
+</div>
+</body>
+</html>

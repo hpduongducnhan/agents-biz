@@ -1,0 +1,45 @@
+# Secrets — không commit
+.env
+.env.*
+!.env.example
+.secrets/
+*_coolify_token.json
+.mcp.json
+client_secret*.json
+*.apps.googleusercontent.com.json
+JWT_KEYS.json
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# Scratch của công cụ
+.playwright-mcp/
+.superpowers/
+.claude/worktrees/
+/*.png
+debug/
+.dev-stack/
+.e2e/
+
+# biên nhận deliver của archify ≥ 3 (sinh cạnh HTML sơ đồ — không cần lưu)
+.claude/**/diagrams/*.delivery.json
+
+# biên nhận archify chưa xong (deliver lỗi giữa chừng)
+.claude/**/diagrams/*.delivery-pending.json

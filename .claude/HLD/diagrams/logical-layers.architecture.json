@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kiến trúc logic · lớp và @operation",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1235,
+      770
+    ],
+    "output": ".claude/HLD/diagrams/logical-layers.html"
+  },
+  "components": [
+    {
+      "id": "pages",
+      "type": "frontend",
+      "label": "pages/* · modules/*",
+      "sublabel": "registry module (D25) · TanStack",
+      "brand": "react",
+      "pos": [
+        36,
+        50
+      ],
+      "size": [
+        178,
+        60
+      ]
+    },
+    {
+      "id": "qcache",
+      "type": "frontend",
+      "label": "query cache",
+      "sublabel": "TanStack Query · mkKeys",
+      "pos": [
+        267,
+        50
+      ],
+      "size": [
+        178,
+        60
+      ]
+    },
+    {
+      "id": "featapi",
+      "type": "frontend",
+      "label": "features · modules api.ts",
+      "sublabel": "call(op, input)",
+      "pos": [
+        498,
+        50
+      ],
+      "size": [
+        195,
+        60
+      ]
+    },
+    {
+      "id": "libapi",
+      "type": "frontend",
+      "label": "lib/api",
+      "sublabel": "envelope · refresh single-flight",
+      "pos": [
+        746,
+        50
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "socket",
+      "type": "frontend",
+      "label": "lib/realtime",
+      "sublabel": "socket.ts · useRealtime",
+      "pos": [
+        267,
+        170
+      ],
+      "size": [
+        178,
+        60
+      ]
+    },
+    {
+      "id": "realtime",
+      "type": "backend",
+      "label": "realtime (Node)",
+      "sublabel": "Socket.IO · user / tenant / sup",
+      "brand": "node-js",
+      "pos": [
+        36,
+        460
+      ],
+      "size": [
+        195,
+        60
+      ]
+    },
+    {
+      "id": "rest",
+      "type": "backend",
+      "label": "REST · rest.py",
+      "sublabel": "/bizwithagents/api/<miền>/<việc>",
+      "pos": [
+        746,
+        340
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "agentrt",
+      "type": "backend",
+      "label": "Agent runtime",
+      "sublabel": "call_action · principal của user",
+      "pos": [
+        498,
+        340
+      ],
+      "size": [
+        195,
+        60
+      ]
+    },
+    {
+      "id": "runner",
+      "type": "security",
+      "label": "@operation runner",
+      "sublabel": "quyền → scope tenant → validate → session → handler → commit → sau commit",
+      "pos": [
+        498,
+        480
+      ],
+      "size": [
+        453,
+        64
+      ]
+    },
+    {
+      "id": "d_auth",
+      "type": "backend",
+      "label": "auth",
+      "sublabel": "user · JWT · RBAC",
+      "pos": [
+        1022,
+        280
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_tenants",
+      "type": "backend",
+      "label": "tenants",
+      "sublabel": "tổ chức · lời mời · khoá",
+      "pos": [
+        1022,
+        338
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_mail",
+      "type": "backend",
+      "label": "mail",
+      "sublabel": "console / smtp · mẫu vi / en",
+      "pos": [
+        1022,
+        396
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_tasks",
+      "type": "backend",
+      "label": "tasks (module mẫu)",
+      "sublabel": "việc · bình luận · nhắc hạn",
+      "pos": [
+        1022,
+        454
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_agent",
+      "type": "backend",
+      "label": "agent",
+      "sublabel": "chat · Studio · run · trace",
+      "pos": [
+        1022,
+        512
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_obs",
+      "type": "backend",
+      "label": "observability",
+      "sublabel": "event log · issues",
+      "pos": [
+        1022,
+        570
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_notif",
+      "type": "backend",
+      "label": "notifications",
+      "sublabel": "inbox · core:notification",
+      "pos": [
+        1022,
+        628
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "d_system",
+      "type": "backend",
+      "label": "system",
+      "sublabel": "cài đặt · health",
+      "pos": [
+        1022,
+        686
+      ],
+      "size": [
+        178,
+        50
+      ]
+    },
+    {
+      "id": "emit",
+      "type": "messagebus",
+      "label": "realtime emit",
+      "sublabel": "data:changed · core:* → bw.rt.out",
+      "pos": [
+        267,
+        670
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "conns",
+      "type": "database",
+      "label": "connections",
+      "sublabel": "Postgres RW/RO · Redis · Mongo?",
+      "pos": [
+        524,
+        670
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "sinks",
+      "type": "security",
+      "label": "get_sinks()",
+      "sublabel": "event log · issue · Noop khi tắt",
+      "pos": [
+        782,
+        670
+      ],
+      "size": [
+        187,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "frontend/ · React 19 + Vite",
+      "wraps": [
+        "pages",
+        "qcache",
+        "featapi",
+        "libapi",
+        "socket"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "region",
+      "label": "backend/app · Python 3.13",
+      "wraps": [
+        "rest",
+        "agentrt",
+        "runner",
+        "emit",
+        "conns",
+        "sinks",
+        "d_auth",
+        "d_tenants",
+        "d_mail",
+        "d_tasks",
+        "d_agent",
+        "d_obs",
+        "d_notif",
+        "d_system"
+      ],
+      "pad": 18
+    },
+    {
+      "kind": "security-group",
+      "label": "miền · ops.py",
+      "wraps": [
+        "d_auth",
+        "d_tenants",
+        "d_mail",
+        "d_tasks",
+        "d_agent",
+        "d_obs",
+        "d_notif",
+        "d_system"
+      ],
+      "pad": 8
+    }
+  ],
+  "connections": [
+    {
+      "id": "pages-cache",
+      "from": "pages",
+      "to": "qcache",
+      "label": "useQuery"
+    },
+    {
+      "id": "cache-feat",
+      "from": "qcache",
+      "to": "featapi",
+      "label": "queryFn"
+    },
+    {
+      "id": "feat-lib",
+      "from": "featapi",
+      "to": "libapi",
+      "label": "call"
+    },
+    {
+      "id": "lib-rest",
+      "from": "libapi",
+      "to": "rest",
+      "label": "Bearer JWT",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        849,
+        180
+      ]
+    },
+    {
+      "id": "socket-cache",
+      "from": "socket",
+      "to": "qcache",
+      "label": "invalidate",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "rest-runner",
+      "from": "rest",
+      "to": "runner",
+      "label": "source=web",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "agent-runner",
+      "from": "agentrt",
+      "to": "runner",
+      "label": "source=agent",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "r-auth",
+      "from": "runner",
+      "to": "d_auth"
+    },
+    {
+      "id": "r-tenants",
+      "from": "runner",
+      "to": "d_tenants"
+    },
+    {
+      "id": "r-mail",
+      "from": "runner",
+      "to": "d_mail"
+    },
+    {
+      "id": "r-tasks",
+      "from": "runner",
+      "to": "d_tasks"
+    },
+    {
+      "id": "r-agent",
+      "from": "runner",
+      "to": "d_agent"
+    },
+    {
+      "id": "r-obs",
+      "from": "runner",
+      "to": "d_obs"
+    },
+    {
+      "id": "r-notif",
+      "from": "runner",
+      "to": "d_notif"
+    },
+    {
+      "id": "r-system",
+      "from": "runner",
+      "to": "d_system"
+    },
+    {
+      "id": "r-emit",
+      "from": "runner",
+      "to": "emit",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "r-conns",
+      "from": "runner",
+      "to": "conns",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "r-sinks",
+      "from": "runner",
+      "to": "sinks",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "emit-rt",
+      "from": "emit",
+      "to": "realtime",
+      "label": "bw.rt.out",
+      "variant": "emphasis",
+      "fromSide": "left",
+      "toSide": "bottom"
+    },
+    {
+      "id": "rt-socket",
+      "from": "realtime",
+      "to": "socket",
+      "label": "Socket.IO",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Một runner cho web và agent",
+      "items": [
+        "Kiểm: spec 1001 → đăng nhập 1004 → superadmin / quyền 1005 → tenant → input 1002",
+        "Agent gọi tool = run_operation(source=agent) dưới principal của user"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Sau commit (lỗi chỉ log)",
+      "items": [
+        "after_commit → emit → data:changed {invalidates} → notifier → event log",
+        "Event log ghi cả khi lỗi (ok=false), effect ≠ read"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Frontend realtime-first",
+      "items": [
+        "Một chỗ mở envelope; 401 → refresh single-flight → gọi lại",
+        "data:changed {keys} → invalidateQueries theo tiền tố mkKeys"
+      ]
+    }
+  ]
+}

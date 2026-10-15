@@ -1,0 +1,6 @@
+# Câu ý định của module __title_vi__ (tiếng Việt) — router phải chọn chuyên gia `__mod__`. Bổ sung tới ≥ 30 câu.
+- {text: "tạo __title_vi_lower__ mới tên là họp tuần", expect: {steps: [__mod__]}}
+- {text: "liệt kê __title_vi_lower__ đang mở", expect: {steps: [__mod__]}}
+- {text: "đánh dấu __title_vi_lower__ họp tuần là xong", expect: {steps: [__mod__]}}
+- {text: "tìm __title_vi_lower__ có chữ hợp đồng", expect: {steps: [__mod__]}}
+- {text: "xoá __title_vi_lower__ thử nghiệm", expect: {steps: [__mod__]}}

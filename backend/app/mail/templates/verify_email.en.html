@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><body style="margin:0;padding:24px;background:#FFF7ED;font-family:Nunito,Segoe UI,Arial,sans-serif;color:#1C1745">
+<div style="max-width:560px;margin:0 auto;background:#FFFFFF;border-radius:16px;padding:24px">
+<p style="line-height:1.6">Hi {{ name }},</p>
+<p style="line-height:1.6">Open the link below to verify your email on {{ app_name }} (the link expires in {{ hours }} hours):</p>
+<p style="margin:24px 0"><a href="{{ link }}" style="background:#4F40DD;color:#FFFFFF;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:700">Verify email</a></p>
+<p style="font-size:12px;color:#5B5680;word-break:break-all">{{ link }}</p>
+<p style="line-height:1.6">If you did not sign up, you can ignore this email.</p>
+<p style="font-size:12px;color:#5B5680">{{ app_name }}</p></div></body></html>

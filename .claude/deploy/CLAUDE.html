@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="vi" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Deploy — BizWithAgents · BizWithAgents</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/highlight.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Deploy — BizWithAgents</summary><ul><li><a href="CLAUDE.html" class="active" aria-current="page" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../index.html">Tổng quan</a> <span class='sep'>/</span> <span>Deploy — BizWithAgents</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/deploy/CLAUDE.md</code></div>
+<article class="prose">
+<h1 id="deploy--bizwithagents">Deploy — BizWithAgents <a class="anchor" href="#deploy--bizwithagents" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../index.html">CLAUDE.md</a> | <a href="design/coolify.html">coolify</a> · <a href="../platform/design/decisions/d01-current.html">decisions D19</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (D19 — mô hình triển khai giống dự án nguồn, mặc định cho mọi app làm từ template).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Runbook Coolify</strong></td>
+<td><a href="design/coolify.html">coolify</a> — service, image, env, namespace trên hạ tầng chung, mạng một cửa, <code>make deploy</code></td>
+</tr>
+<tr>
+<td><strong>Quét trước khi push</strong></td>
+<td><a href="#qu%C3%A9t-secret--t%C3%AAn-ri%C3%AAng-tr%C6%B0%E1%BB%9Bc-khi-push-d30">mục dưới</a> — <code>make secrets-scan</code> (D30)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="mô-hình-d19">Mô hình (D19) <a class="anchor" href="#mô-hình-d19" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Hạ tầng có sẵn trên server</strong> (<code>&lt;server-ip&gt;</code>): Postgres (prod đi qua PgBouncer <code>6432</code>), Redis, RabbitMQ, Mongo. App <strong>không</strong> mang DB theo.</li>
+<li><strong>Coolify chỉ deploy phần application</strong>: 6 service trong <code>compose.yml</code>, mạng riêng, nối hạ tầng qua IP host.</li>
+<li>Mỗi app một <strong>namespace</strong> trên hạ tầng chung: DB <code>&lt;slug&gt;</code> / <code>&lt;slug&gt;_test</code> / <code>&lt;slug&gt;_e2e</code>, vhost cùng tên, một bộ Redis db riêng (dev / prod · test · stack thử), Mongo DB <code>&lt;slug&gt;</code>, tiền tố key / exchange <code>&lt;prefix&gt;:</code> / <code>&lt;prefix&gt;.</code>.</li>
+<li>Dev local nối <strong>cùng</strong> hạ tầng chung, <code>.env</code> trỏ cùng DB với bản deploy (dữ liệu thật — cẩn thận <code>make migrate</code>). Máy chưa có hạ tầng (máy mới, người clone): <code>make setup</code> (D28 — mặc định <code>MODE=local</code>: <code>make infra-up</code> với <code>deploy/compose.infra.yml</code> cổng 15432 / 16379 / 5673 / 27018, <code>.env</code> từ các dòng <code># compose:</code>, khoá, migrate). App làm từ template dời các cổng này +100 × (<code>PORTS</code> − 82) nên hạ tầng local của nhiều app chạy cùng lúc được — <a href="../platform/playbooks/README.html">playbooks</a>.</li>
+</ul>
+<h2 id="service">Service <a class="anchor" href="#service" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Image</th>
+<th>Lệnh</th>
+<th>Cổng nội bộ</th>
+<th>Health</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bw-api</code></td>
+<td>backend</td>
+<td><code>bw migrate &amp;&amp; exec bw api</code></td>
+<td>16812</td>
+<td><code>/bizwithagents/api/health/ready</code></td>
+</tr>
+<tr>
+<td><code>bw-consumer</code></td>
+<td>backend</td>
+<td><code>bw consume</code></td>
+<td>—</td>
+<td>nhịp tim <code>bw:hb:consume</code></td>
+</tr>
+<tr>
+<td><code>bw-worker</code></td>
+<td>backend</td>
+<td><code>bw work</code></td>
+<td>—</td>
+<td>nhịp tim <code>bw:hb:work</code></td>
+</tr>
+<tr>
+<td><code>bw-scheduler</code></td>
+<td>backend</td>
+<td><code>bw schedule</code></td>
+<td>—</td>
+<td>nhịp tim <code>bw:hb:schedule</code> (1 bản — khoá leader)</td>
+</tr>
+<tr>
+<td><code>bw-realtime</code></td>
+<td>realtime</td>
+<td><code>node src/main.ts</code></td>
+<td>16813</td>
+<td><code>/bizwithagents/ws/health</code></td>
+</tr>
+<tr>
+<td><code>bw-web</code></td>
+<td>web</td>
+<td>nginx</td>
+<td>16811</td>
+<td><code>wget /</code> — <strong>cửa duy nhất</strong>, có domain</td>
+</tr>
+</tbody>
+</table></div>
+<p>Stack chạy mạng riêng (tắt Connect To Predefined Network), nối hạ tầng chung qua <code>&lt;server-ip&gt;</code>. Khoá JWT là PEM trong env <code>AUTH_PRIVATE_KEY</code> / <code>AUTH_PUBLIC_KEY</code>, sinh bằng <code>bw keys --print</code>. Cổng container dải 168xx (mỗi app một dải — <code>make new-app</code>), Traefik vẫn 80 / 443 — <a href="design/coolify.html">coolify §2, §4</a>.</p>
+<h2 id="namespace-của-template">Namespace của template <a class="anchor" href="#namespace-của-template" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Postgres</td>
+<td>DB <code>bizwithagents</code> (dev = prod) · <code>bizwithagents_test</code> · <code>bizwithagents_e2e</code></td>
+</tr>
+<tr>
+<td>Mongo</td>
+<td>DB <code>bizwithagents</code> · <code>bizwithagents_test</code> · <code>bizwithagents_e2e</code></td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>db <strong>10</strong> (dev = prod) · <strong>11</strong> (test) · <strong>12</strong> (stack thử), key tiền tố <code>bw:</code> — chọn db còn trống trên hạ tầng chung (<code>INFO keyspace</code>)</td>
+</tr>
+<tr>
+<td>RabbitMQ</td>
+<td>vhost <code>bizwithagents</code> · <code>bizwithagents_test</code> · <code>bizwithagents_e2e</code>, user <code>bizwithagents</code></td>
+</tr>
+<tr>
+<td>Cổng local</td>
+<td>frontend <strong>8201</strong> · api <strong>8202</strong> · realtime <strong>8203</strong> · docker smoke 8204</td>
+</tr>
+<tr>
+<td>Chạy</td>
+<td><code>make api</code> · <code>make realtime</code> · <code>make fe-dev</code> → mở <code>http://localhost:8201</code>. <code>make consume</code> / <code>work</code> / <code>schedule</code> local sẽ nhận việc của bản deploy — chỉ chạy khi cần</td>
+</tr>
+<tr>
+<td>Stack chạy thử</td>
+<td><code>make dev-up MONGO=on|off</code> · <code>make dev-status</code> · <code>make dev-down</code> — namespace <strong><code>bizwithagents_e2e</code></strong>, Redis db 12, khoá JWT riêng ở <code>.dev-stack/keys/</code>, superadmin <code>superadmin@test.local</code>; web <code>127.0.0.1:8201</code> (bundle build + proxy); log + pid ở <code>.dev-stack/</code> — dùng cho smoke-local và E2E, <strong>không</strong> đụng dữ liệu thật</td>
+</tr>
+<tr>
+<td>Tài khoản test</td>
+<td><code>bw seed-test-users</code> — <a href="../platform/architecture/auth-rbac.html">platform/auth-rbac §10</a>; chỉ chạy trên DB <code>_test</code> / <code>_e2e</code> / <code>_dev</code> (<code>make dev-up</code> tự chạy)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Việc chờ chủ dự án:</strong> tạo namespace <code>bizwithagents*</code> trên hạ tầng chung (Postgres cần quyền tạo DB — Claude không đọc secret của app khác). Trong lúc chờ, <code>.env</code> local trỏ <code>deploy/compose.infra.yml</code>.</p>
+<p><code>.env</code> (không commit, quyền 600): bản deploy sinh từ <code>.secrets/prod.env</code> (host <code>127.0.0.1</code>, Postgres nối thẳng 5432). Test tự chuyển sang <code>*_test</code> và chặn tên khác. MCP DB của dự án khai ở <code>.mcp.json</code> (không commit — có token / mật khẩu).</p>
+<h2 id="bản-deploy">Bản deploy <a class="anchor" href="#bản-deploy" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server Coolify</td>
+<td><code>https://coolify.&lt;domain&gt;</code> (server <code>&lt;server-ip&gt;</code>)</td>
+</tr>
+<tr>
+<td>Repo</td>
+<td>GitHub private <code>&lt;owner&gt;/&lt;slug&gt;</code>, branch <code>main</code> — chủ dự án tạo; GitHub App của Coolify được cấp quyền repo</td>
+</tr>
+<tr>
+<td>Project / environment</td>
+<td><code>&lt;slug&gt;</code> / <code>production</code></td>
+</tr>
+<tr>
+<td>Application uuid</td>
+<td>ghi ở <code>.secrets/coolify.env</code> (<code>COOLIFY_APP_UUID</code>) — không ghi vào tài liệu</td>
+</tr>
+<tr>
+<td>Env</td>
+<td><code>.secrets/prod.env</code> (không commit) — toàn bộ biến production, dán vào Coolify bằng Developer view</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td><code>http://&lt;slug&gt;.&lt;domain&gt;</code> gắn cho <code>bw-web</code>, không kèm cổng (image web chỉ mở <code>16811</code>); trình duyệt dùng <code>https://</code> (Cloudflare)</td>
+</tr>
+<tr>
+<td>Tunnel</td>
+<td>Cloudflare Tunnel → public hostname <code>&lt;slug&gt;.&lt;domain&gt;</code> → <code>http://&lt;server-ip&gt;:80</code></td>
+</tr>
+<tr>
+<td>Deploy</td>
+<td>commit + push <code>main</code> → webhook GitHub App → Coolify tự deploy (R27); <code>make deploy</code> chỉ dự phòng (cần <code>.secrets/coolify.env</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Không ghi mật khẩu, token, URL có mật khẩu, domain / IP thật vào file này — <code>&lt;domain&gt;</code> / <code>&lt;server-ip&gt;</code> là chỗ giữ, giá trị thật ở <code>.secrets/</code>. Bài học lần deploy đầu của dự án nguồn (đã sửa sẵn trong template): env bắt buộc rỗng thì <code>bw-api</code> dừng ở <code>bw migrate</code>; PEM trong env có thể bị lưu thành <code>\\n</code>; Traefik chọn nhầm cổng 80 nếu image web mở nhiều cổng; webhook GitHub App phải trỏ đúng domain Coolify.</p>
+<h2 id="quét-secret--tên-riêng-trước-khi-push-d30">Quét secret + tên riêng trước khi push (D30) <a class="anchor" href="#quét-secret--tên-riêng-trước-khi-push-d30" aria-label="Liên kết tới mục này">#</a></h2>
+<p><code>make secrets-scan</code> (nằm trong <code>make ci</code>) — <code>scripts/secrets_scan.sh</code>, thoát 1 khi có phát hiện:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bước</th>
+<th>Công cụ</th>
+<th>Phạm vi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Secret</td>
+<td><strong>gitleaks</strong> (luật mặc định + ngoại lệ ở <code>.gitleaks.toml</code>)</td>
+<td>lịch sử git mọi nhánh / tag + thay đổi chưa commit (staged và chưa staged)</td>
+</tr>
+<tr>
+<td>Tên riêng</td>
+<td><code>git grep</code> / <code>git log -p</code> theo <code>.secrets/private-terms.txt</code> (không commit; mỗi dòng một chuỗi)</td>
+<td>file đang track + lịch sử — domain, IP, tên dự án khác, email</td>
+</tr>
+<tr>
+<td>Key còn sống</td>
+<td><strong>trufflehog</strong> <code>--results=verified,unknown</code> (tuỳ chọn)</td>
+<td>lịch sử git; key tìm thấy được gửi tới đúng nhà cung cấp để kiểm</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bảng mặc định (R11)</strong> — thiếu công cụ / cấu hình thì in cảnh báo kèm <code>DEFAULTS_APPLIED</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Thiếu</th>
+<th>Hành vi</th>
+<th>Nguồn thật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gitleaks</code> trong PATH</td>
+<td>chạy image <code>ghcr.io/gitleaks/gitleaks:v8.30.1</code> (<code>GITLEAKS_VERSION</code>); không có cả Docker → thoát 2</td>
+<td>binary từ <a href="https://github.com/gitleaks/gitleaks/releases" target="_blank" rel="noopener">releases</a></td>
+</tr>
+<tr>
+<td><code>.secrets/private-terms.txt</code></td>
+<td>bỏ bước tên riêng</td>
+<td><code>PRIVATE_TERMS_FILE</code></td>
+</tr>
+<tr>
+<td><code>trufflehog</code></td>
+<td>bỏ bước key còn sống</td>
+<td>binary từ <a href="https://github.com/trufflesecurity/trufflehog/releases" target="_blank" rel="noopener">releases</a></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Báo sai → thêm ngoại lệ <strong>hẹp</strong> vào <code>.gitleaks.toml</code> (đúng giá trị giả, ghi file + lý do); không bỏ qua cả thư mục.</li>
+<li>Tài liệu chỉ ghi chỗ giữ <code>&lt;domain&gt;</code> / <code>&lt;server-ip&gt;</code> / <code>&lt;user&gt;</code>; giá trị thật của bản deploy ở <code>.secrets/</code> (không commit).</li>
+<li>Hook tuỳ chọn trên máy: <code>printf '#!/bin/sh\nexec make -s secrets-scan\n' &gt; .git/hooks/pre-push &amp;&amp; chmod +x .git/hooks/pre-push</code>.</li>
+</ul>
+<h2 id="smoke">Smoke <a class="anchor" href="#smoke" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Profile (lệnh)</th>
+<th>Cửa web</th>
+<th>Ghi dữ liệu</th>
+<th>Kiểm cache header</th>
+<th>IP thật lấy từ</th>
+<th>Lượt Mongo tắt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>local</code></strong> — <code>make dev-up MONGO=on|off</code> rồi <code>make smoke-local MONGO=on|off</code></td>
+<td>proxy Vite <code>127.0.0.1:8201</code></td>
+<td>có — chỉ namespace <code>bizwithagents_e2e</code>: user <code>smoke-*@smoke.test</code> bị khoá cuối lượt, role <code>smoke-*</code>, chuyên gia <code>smoke_helper</code>, tổ chức <code>Smoke *</code> + admin <code>owner-*@smoke.test</code></td>
+<td>✗</td>
+<td><code>X-Forwarded-For</code></td>
+<td>✓ (<code>MONGO=off</code>)</td>
+</tr>
+<tr>
+<td><strong><code>prod</code></strong> — <code>make smoke-prod</code></td>
+<td>domain thật</td>
+<td><strong>không</strong></td>
+<td>✓ (+ <code>cf-cache-status</code>)</td>
+<td>Cloudflare ghi đè</td>
+<td>theo cấu hình Coolify</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Dùng <strong><code>local</code></strong> mỗi lần sửa backend / frontend, ở cả hai chế độ Mongo; <strong><code>prod</code></strong> sau mỗi lần push <code>main</code> khi Coolify deploy xong (R27) — <code>make deploy</code> (dự phòng) tự gọi.</p>
+<p>Mỗi profile kiểm:</p>
+<ul>
+<li><strong>Chung:</strong> bundle + SPA fallback; ready + chế độ Mongo; pipeline; ws health; <code>public_info</code>; PWA (manifest + <code>sw.js</code>); token sai → <code>unauthorized</code> (websocket tới được server).</li>
+<li><strong><code>local</code> thêm:</strong> đăng nhập / đăng ký superadmin; đăng ký user; rate limit theo IP + email; socket + <code>core:rbac_updated</code>; <code>core:notification</code>; lỗi có chủ đích (<code>devtools.raise_error</code>); event log / issues (hoặc <code>enabled:false</code>); <code>system.status</code>; agent (gọi tool, override &quot;hỏi duyệt&quot; → duyệt, trace); router (2 bước, hỏi lại, handoff); tenant (tạo tổ chức + mời admin → thư ở outbox console → đăng ký bằng link mời; admin tổ chức mới chỉ thấy user của mình, socket tổ chức khác không nhận <code>data:changed</code>); quên mật khẩu qua outbox → đặt lại → token dùng lần hai <code>2114</code>; trợ lý theo tổ chức (phiên chat của tổ chức khác → 404 <code>6004</code>; tắt trợ lý cho tổ chức → <code>agent.send</code> 403 <code>6023</code>, <code>list_agents</code> rỗng, <code>auth.me</code> báo); Tasks (việc tạo ở tổ chức mới → tổ chức khác <code>tasks.get</code> 404 <code>10001</code>, không thấy trong danh sách, socket không nhận <code>data:changed</code>); khoá user → socket bị ngắt. Cần <code>MAIL_TRANSPORT=console</code> (mặc định).</li>
+<li><strong><code>prod</code> thêm:</strong> phiên bản = commit vừa deploy (nếu đặt <code>SMOKE_EXPECT_VERSION</code>); không có <code>/devtools/*</code>; có <code>.secrets/smoke.env</code> thì đăng nhập → me → socket → (superadmin) log + status → đăng xuất.</li>
+</ul>
+<p><strong>Bảng mặc định (R11)</strong> — dòng <code>smoke: profile=… base=… mongo=… admin=… login=… version=… run=…</code> in giá trị đang hiệu lực ở đầu mỗi lượt:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Biến</th>
+<th>Mặc định</th>
+<th>Nguồn thật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SMOKE_EXPECT_MONGO</code></td>
+<td>bắt buộc ở <code>local</code>; <code>on</code> ở <code>prod</code></td>
+<td><code>make smoke-local MONGO=…</code></td>
+</tr>
+<tr>
+<td><code>SMOKE_ADMIN_EMAIL</code> / <code>SMOKE_ADMIN_PASSWORD</code></td>
+<td><code>local</code>: <code>superadmin@test.local</code> / <code>SEED_PASSWORD</code> → <code>password123</code></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>SMOKE_EMAIL</code> / <code>SMOKE_PASSWORD</code></td>
+<td>không đặt → bỏ bước đăng nhập prod</td>
+<td><code>.secrets/smoke.env</code></td>
+</tr>
+<tr>
+<td><code>SMOKE_EXPECT_VERSION</code></td>
+<td>không đặt → bỏ kiểm phiên bản</td>
+<td><code>deploy.sh</code> (= HEAD); tự đặt khi chạy tay sau push</td>
+</tr>
+<tr>
+<td><code>SMOKE_RATE_LIMIT</code></td>
+<td>khác <code>1</code> → bỏ kiểm rate limit trên prod</td>
+<td><code>.secrets/smoke.env</code></td>
+</tr>
+<tr>
+<td><code>SMOKE_RUN_ID</code></td>
+<td>6 hex ngẫu nhiên (email / role / IP giả của lượt)</td>
+<td>env</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong><code>.secrets/smoke.env</code></strong> (không commit; chủ dự án tự tạo): nên là tài khoản riêng không có role.</li>
+<li>Script: <code>realtime/scripts/{smoke_lib,smoke_io,smoke_e2e,smoke_agent,smoke_router,smoke_pwa,smoke_tenant}.ts</code>, <code>scripts/dev_stack.sh</code> + <code>scripts/stack_env.py</code>, <code>scripts/smoke_prod.sh</code>.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/deploy/CLAUDE.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#mô-hình-d19">Mô hình (D19)</a></li><li class="lvl2"><a href="#service">Service</a></li><li class="lvl2"><a href="#namespace-của-template">Namespace của template</a></li><li class="lvl2"><a href="#bản-deploy">Bản deploy</a></li><li class="lvl2"><a href="#quét-secret--tên-riêng-trước-khi-push-d30">Quét secret + tên riêng trước khi push (D30)</a></li><li class="lvl2"><a href="#smoke">Smoke</a></li></ul></aside>
+</div>
+</body>
+</html>

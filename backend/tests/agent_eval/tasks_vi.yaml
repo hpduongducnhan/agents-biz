@@ -1,0 +1,33 @@
+# Câu ý định của module mẫu Tasks (tiếng Việt) — router phải chọn chuyên gia `tasks` ở bước đầu.
+- {text: "tạo việc gọi khách hàng thứ Sáu giao cho Lan", expect: {steps: [tasks]}}
+- {text: "thêm việc chuẩn bị báo cáo tháng", expect: {steps: [tasks]}}
+- {text: "nhắc tôi gửi hợp đồng cho anh Nam ngày mai", expect: {steps: [tasks]}}
+- {text: "tuần này còn việc gì quá hạn", expect: {steps: [tasks]}}
+- {text: "việc của tôi hôm nay là gì", expect: {steps: [tasks]}}
+- {text: "liệt kê các việc chưa xong", expect: {steps: [tasks]}}
+- {text: "đánh dấu việc báo cáo tháng là xong", expect: {steps: [tasks]}}
+- {text: "chuyển việc kiểm kho sang đang làm", expect: {steps: [tasks]}}
+- {text: "huỷ việc đặt phòng họp", expect: {steps: [tasks]}}
+- {text: "mở lại việc sửa website", expect: {steps: [tasks]}}
+- {text: "giao việc làm slide cho Minh", expect: {steps: [tasks]}}
+- {text: "đổi hạn việc gửi báo giá sang thứ Hai", expect: {steps: [tasks]}}
+- {text: "bỏ hạn của việc dọn kho", expect: {steps: [tasks]}}
+- {text: "nâng ưu tiên việc thu nợ lên khẩn cấp", expect: {steps: [tasks]}}
+- {text: "xoá việc test thử", expect: {steps: [tasks]}}
+- {text: "bình luận vào việc hợp đồng là đã gửi bản nháp", expect: {steps: [tasks]}}
+- {text: "việc nào đang giao cho Lan", expect: {steps: [tasks]}}
+- {text: "còn bao nhiêu việc đang mở", expect: {steps: [tasks]}}
+- {text: "có việc gì đến hạn hôm nay không", expect: {steps: [tasks]}}
+- {text: "tìm việc liên quan đến hợp đồng", expect: {steps: [tasks]}}
+- {text: "chi tiết việc gửi báo giá", expect: {steps: [tasks]}}
+- {text: "ai đang làm việc kiểm kho", expect: {steps: [tasks]}}
+- {text: "tôi đã làm xong việc gọi khách rồi", expect: {steps: [tasks]}}
+- {text: "tạo 3 việc: mua giấy, in tài liệu, gửi thư", expect: {steps: [tasks]}}
+- {text: "việc gấp nhất của tôi là gì", expect: {steps: [tasks]}}
+- {text: "những việc sắp tới hạn trong 7 ngày", expect: {steps: [tasks]}}
+- {text: "ghi chú vào việc sửa website: khách muốn đổi màu", expect: {steps: [tasks]}}
+- {text: "bỏ giao việc làm slide", expect: {steps: [tasks]}}
+- {text: "tổ chức mình còn bao nhiêu việc quá hạn", expect: {steps: [tasks]}}
+- {text: "lên việc họp tổng kết chiều thứ Năm lúc 3 giờ", expect: {steps: [tasks]}}
+- {text: "việc nào chưa có người làm", expect: {steps: [tasks]}}
+- {text: "sửa tên việc 'gọi khách' thành 'gọi lại khách cũ'", expect: {steps: [tasks]}}

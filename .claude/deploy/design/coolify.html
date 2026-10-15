@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app) · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Deploy — BizWithAgents</summary><ul><li><a href="../CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="coolify.html" class="active" aria-current="page" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Deploy — BizWithAgents</a> <span class='sep'>/</span> <span>Thiết kế</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/deploy/design/coolify.md</code></div>
+<article class="prose">
+<h1 id="deploy--bộ-deploy-docker-cho-coolify-một-compose-chỉ-app">Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app) <a class="anchor" href="#deploy--bộ-deploy-docker-cho-coolify-một-compose-chỉ-app" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../CLAUDE.html">deploy/CLAUDE.md</a> · <a href="../../platform/design/decisions/README.html">decisions</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép từ dự án nguồn ở SP0; mô hình D19 — mạng riêng, migrate trong api, khoá ở env, cổng container 168xx, domain không kèm cổng) — code: <code>compose.yml</code>, <code>deploy/docker/</code>, <code>bw keys --print</code>, <code>scripts/deploy.sh</code>, <code>scripts/smoke_prod.sh</code>.</p>
+<hr />
+<h2 id="1-phạm-vi">1. Phạm vi <a class="anchor" href="#1-phạm-vi" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Một resource Coolify</strong> (project <code>bizwithagents</code>, environment <code>production</code>) dựng từ <code>compose.yml</code> ở gốc repo, branch <code>main</code>.</li>
+<li><strong>Chỉ app, mạng riêng</strong> (D19). Postgres, MongoDB, Redis, RabbitMQ là instance đã cài trên server (<code>&lt;server-ip&gt;</code> — IP LAN), <strong>dùng chung với các app khác</strong> nhưng database / vhost / db index riêng (§4.3) — app nối qua IP host, URL qua env. <code>deploy/compose.infra.yml</code> là hạ tầng dự phòng cho máy dev chưa có hạ tầng.</li>
+<li>Mạng: <strong>Cloudflare Tunnel → Traefik của Coolify → service <code>web</code></strong> (§5). Domain <code>&lt;slug&gt;.&lt;domain&gt;</code>.</li>
+</ul>
+<h2 id="2-service">2. Service <a class="anchor" href="#2-service" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Image</th>
+<th>Lệnh</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bw-api</code></td>
+<td>backend</td>
+<td><code>sh -c &quot;bw migrate &amp;&amp; exec bw api&quot;</code></td>
+<td>Mỗi lần container khởi động: migration (Alembic, về sau đồng bộ quyền / superadmin / seed — idempotent) rồi mới thành api. Lỗi → container thoát, Docker chạy lại. Healthcheck <code>/&lt;SERVICE_PATH&gt;/api/health/ready</code> (Postgres / Redis RW + RO, Mongo theo cờ, RabbitMQ), <code>start_period</code> 180 s cho migration</td>
+</tr>
+<tr>
+<td><code>bw-consumer</code></td>
+<td>backend</td>
+<td><code>bw consume</code></td>
+<td>nhận việc từ RabbitMQ; ghi nhịp tim <code>bw:hb:consume</code>. Healthcheck (cả worker / scheduler): nhịp tim của role trên Redis mới hơn 90 s (<code>start_period</code> 120 s) — Coolify hết báo <code>running:unknown</code></td>
+</tr>
+<tr>
+<td><code>bw-worker</code></td>
+<td>backend</td>
+<td><code>bw work</code></td>
+<td>chạy task (taskiq, mọi lane gồm <code>agent-run</code>); ghi nhịp tim <code>bw:hb:work</code></td>
+</tr>
+<tr>
+<td><code>bw-scheduler</code></td>
+<td>backend</td>
+<td><code>bw schedule</code></td>
+<td>cron + nhịp tim — chỉ <strong>1 bản</strong> hiệu lực nhờ khoá leader Redis</td>
+</tr>
+<tr>
+<td><code>bw-realtime</code></td>
+<td>realtime</td>
+<td><code>node src/main.ts</code></td>
+<td>healthcheck <code>/&lt;SERVICE_PATH&gt;/ws/health</code>; chỉ cần RabbitMQ + public key</td>
+</tr>
+<tr>
+<td><code>bw-web</code></td>
+<td>web</td>
+<td>nginx</td>
+<td><strong>cửa duy nhất ra ngoài</strong>: bundle FE + proxy API / realtime (§5)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Thứ tự lên: <code>bw-api</code> + <code>bw-realtime</code> (không chờ ai) → <code>bw-consumer</code> / <code>bw-worker</code> / <code>bw-scheduler</code> chờ <code>bw-api</code> healthy (schema đã ở head) → <code>bw-web</code> chờ <code>bw-api</code> + <code>bw-realtime</code> healthy.</p>
+<p><strong>Tên và mạng:</strong> mọi service mang tiền tố <strong><code>bw-</code></strong> (<code>make new-app</code> đổi theo tiền tố của app). Stack <strong>không</strong> bật Connect To Predefined Network → chỉ ở mạng riêng của resource; Coolify tự nối Traefik vào mạng này nên domain vẫn tới <code>bw-web</code>. Domain gắn cho <code>bw-web</code> → Coolify sinh <code>SERVICE_URL_BW_WEB</code> (gạch ngang thành gạch dưới) — compose dựng <code>GOOGLE_REDIRECT_URI</code> + <code>FRONTEND_AUTH_CALLBACK_URL</code> từ biến này. Mỗi role <strong>một</strong> container; scale để sau (§8).</p>
+<p><code>restart: unless-stopped</code> ở mọi service — lần đầu chạy trên vhost RabbitMQ mới, <code>bw-consumer</code> có thể chết một lần vì khai queue quorum <code>bw.sys.ping</code> đúng lúc <code>bw-scheduler</code> đang tạo nó (<code>noproc</code>); Docker khởi động lại là xong.</p>
+<h2 id="3-image">3. Image <a class="anchor" href="#3-image" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Build context = gốc repo; <code>.dockerignore</code> loại <code>.git</code>, <code>.claude</code>, <code>.env*</code>, <code>.secrets</code>, <code>design</code>, <code>scripts</code>, <code>node_modules</code>, <code>.venv</code>, <code>dist</code>, <code>coverage</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deploy/docker/backend.Dockerfile</code></td>
+<td><code>python:3.13-slim</code> 2 stage: Poetry cài dependency <code>main</code> vào <code>.venv</code> → copy <code>backend/app</code>, <code>backend/migrations</code> → biên dịch bytecode. Chạy user <code>bw</code> (uid 10001). Một image cho mọi role, lệnh đặt ở compose</td>
+</tr>
+<tr>
+<td><code>deploy/docker/realtime.Dockerfile</code></td>
+<td><code>node:26-slim</code>, <code>npm ci --omit=dev</code>, chạy thẳng TypeScript (type stripping), user <code>node</code></td>
+</tr>
+<tr>
+<td><code>deploy/docker/web.Dockerfile</code></td>
+<td><code>node:26-slim</code> build bundle với build-arg <code>SERVICE_PATH</code> (<code>VITE_API_BASE_URL</code> / <code>VITE_WS_PATH</code> suy ra) → <code>nginx:alpine</code> chép sang <code>scratch</code> (image chỉ <code>EXPOSE 16811</code>) + <code>deploy/docker/nginx/default.conf.template</code>. Logo nằm ở <code>frontend/public/brand/</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-cấu-hình">4. Cấu hình <a class="anchor" href="#4-cấu-hình" aria-label="Liên kết tới mục này">#</a></h2>
+<h3 id="41-biến-môi-trường-điền-trên-coolify">4.1 Biến môi trường (điền trên Coolify) <a class="anchor" href="#41-biến-môi-trường-điền-trên-coolify" aria-label="Liên kết tới mục này">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Biến</th>
+<th>Bắt buộc</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POSTGRES_RW_URL</code></td>
+<td>✓</td>
+<td><code>postgresql+psycopg://&lt;user&gt;:&lt;pw&gt;@&lt;server-ip&gt;:6432/bizwithagents</code> — qua PgBouncer, kèm <code>POSTGRES_PGBOUNCER=true</code></td>
+</tr>
+<tr>
+<td><code>REDIS_RW_URL</code></td>
+<td>✓</td>
+<td><code>redis://:&lt;pw&gt;@&lt;host-redis&gt;:6379/&lt;db index riêng&gt;</code></td>
+</tr>
+<tr>
+<td><code>RABBITMQ_URL</code></td>
+<td>✓</td>
+<td><code>amqp://bizwithagents:&lt;pw&gt;@&lt;host-rabbit&gt;:5672/bizwithagents</code></td>
+</tr>
+<tr>
+<td><code>SUPERADMIN_EMAILS</code></td>
+<td>✓</td>
+<td>danh sách email superadmin, phân tách dấu phẩy — nguồn sự thật của superadmin</td>
+</tr>
+<tr>
+<td><code>AUTH_PRIVATE_KEY</code> · <code>AUTH_PUBLIC_KEY</code></td>
+<td>✓</td>
+<td>PEM khoá ký JWT — sinh bằng <code>bw keys --print</code> (§4.2)</td>
+</tr>
+<tr>
+<td><code>MONGO_ENABLED</code></td>
+<td></td>
+<td>mặc định <code>true</code>; <code>false</code> = tắt trace / event log / issues, nghiệp vụ vẫn chạy</td>
+</tr>
+<tr>
+<td><code>MONGO_RW_URL</code> · <code>MONGO_DB_NAME</code></td>
+<td>khi <code>MONGO_ENABLED=true</code></td>
+<td><code>mongodb://bizwithagents:&lt;pw&gt;@&lt;server-ip&gt;:27017/?authSource=bizwithagents</code> · <code>bizwithagents</code></td>
+</tr>
+<tr>
+<td><code>SERVICE_URL_BW_WEB</code></td>
+<td>Coolify tự sinh</td>
+<td>URL công khai của <code>bw-web</code> theo domain gắn cho service — dựng <code>GOOGLE_REDIRECT_URI</code> + <code>FRONTEND_AUTH_CALLBACK_URL</code></td>
+</tr>
+<tr>
+<td><code>SERVICE_PATH</code></td>
+<td></td>
+<td>mặc định <code>bizwithagents</code>; đổi → web build lại</td>
+</tr>
+<tr>
+<td><code>POSTGRES_RO_URL</code> · <code>MONGO_RO_URL</code> · <code>REDIS_RO_URL</code></td>
+<td></td>
+<td>replica đọc; trống = dùng RW</td>
+</tr>
+<tr>
+<td><code>POSTGRES_POOL_SIZE</code> · <code>POSTGRES_MAX_OVERFLOW</code></td>
+<td></td>
+<td>compose đặt 3 / 5 mỗi kênh mỗi process (Postgres dùng chung với các app khác)</td>
+</tr>
+<tr>
+<td><code>POSTGRES_PGBOUNCER</code></td>
+<td></td>
+<td><code>true</code> khi đi qua PgBouncer transaction mode</td>
+</tr>
+<tr>
+<td><code>CREDENTIAL_KEYS</code></td>
+<td>✓ (prod)</td>
+<td>khoá Fernet mã hoá credential của agent; không tự sinh, phải backup. <strong>Nguồn sự thật = giá trị trong Coolify</strong>; <code>.secrets/credential_keys.env</code> = bản sao lưu của giá trị đó (quyền 600) — đổi khoá trên Coolify thì chép lại. Đổi khoá khi đã có credential: thêm khoá mới vào <strong>đầu</strong> danh sách (giữ khoá cũ) → <code>bw credentials rotate</code></td>
+</tr>
+<tr>
+<td><code>GOOGLE_CLIENT_ID</code> · <code>GOOGLE_CLIENT_SECRET</code></td>
+<td></td>
+<td>đăng nhập Google — xem <em>Lựa chọn: scheme</em> (§6)</td>
+</tr>
+<tr>
+<td><code>PUBLIC_URL</code></td>
+<td></td>
+<td>URL công khai <code>https://&lt;slug&gt;.&lt;domain&gt;</code> — có giá trị thì dựng URL callback Google + frontend từ đây thay <code>SERVICE_URL_BW_WEB</code></td>
+</tr>
+<tr>
+<td><code>REAL_IP_HEADER</code></td>
+<td></td>
+<td>mặc định <code>CF-Connecting-IP</code></td>
+</tr>
+<tr>
+<td><code>LOG_LEVEL</code> · <code>LOG_JSON</code> · <code>LOG_REDACT_KEYS</code></td>
+<td></td>
+<td>mặc định <code>INFO</code> · <code>true</code></td>
+</tr>
+<tr>
+<td><code>API_WORKERS</code></td>
+<td></td>
+<td>số worker uvicorn của <code>bw-api</code> (mặc định 1)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Compose tự đặt: <code>ENV=prod</code>, <code>CORS_ALLOW_ORIGINS=[]</code> (cùng origin), <code>FORWARDED_ALLOW_IPS=*</code>, <code>BUILD_VERSION=${SOURCE_COMMIT}</code>, cổng container <code>16812</code> (api) / <code>16813</code> (realtime) / <code>16811</code> (web, <code>WEB_PORT</code>) — dải 168xx; Traefik vẫn nghe 80 / 443. Host trong 4 URL DB là <strong><code>&lt;server-ip&gt;</code></strong> (§4.3).</p>
+<h3 id="42-khoá-ký-jwt">4.2 Khoá ký JWT <a class="anchor" href="#42-khoá-ký-jwt" aria-label="Liên kết tới mục này">#</a></h3>
+<ul>
+<li>Khoá nằm ở env Coolify, <strong>không</strong> có volume. Sinh một lần trên máy chủ dự án — Claude không chạy lệnh này, để private key không đi qua chat:<div class="code"><span class="code-lang">bash</span><div class="hl"><pre><span></span><span class="nb">cd</span><span class="w"> </span>backend<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>bw<span class="w"> </span>keys<span class="w"> </span>--print
+<span class="c1"># AUTH_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\n…\n-----END PRIVATE KEY-----</span>
+<span class="c1"># AUTH_PUBLIC_KEY=-----BEGIN PUBLIC KEY-----\n…\n-----END PUBLIC KEY-----</span>
+</pre></div>
+</div>
+Dán nguyên 2 dòng vào Environment Variables. PEM một dòng có <code>\n</code> được backend (<code>Settings</code>) và realtime (<code>pemFromEnv</code>) đưa về nhiều dòng; dán PEM nhiều dòng (ô <em>Multiline</em>) cũng được. Coolify có khi lưu thành <code>\\n</code> (gạch ngược kép) — cả hai bên đổi mọi <code>\…\n</code> thành xuống dòng và bỏ <code>\</code> còn sót (PEM không chứa <code>\</code>).</li>
+<li><code>bw-api</code> dùng cả hai (ký + kiểm token); <code>bw-realtime</code> chỉ nhận <code>AUTH_PUBLIC_KEY</code>. Consumer / worker / scheduler nhận chung anchor env nhưng không dùng khoá.</li>
+<li>Thiếu một trong hai → Coolify không cho deploy (<code>:?</code>); <code>bw migrate</code> cũng dừng (<code>config_problems</code>).</li>
+<li><strong>Xoay khoá:</strong> <code>bw keys --print</code> lấy cặp mới → thay cả hai biến → redeploy → mọi người đăng nhập lại.</li>
+<li>Local không đổi: <code>make migrate</code> chạy <code>bw keys</code> sinh file <code>.secrets/jwt_*.pem</code> nếu chưa có.</li>
+</ul>
+<h3 id="43-db-trên-server--database--namespace-riêng">4.3 DB trên server — database / namespace riêng <a class="anchor" href="#43-db-trên-server--database--namespace-riêng" aria-label="Liên kết tới mục này">#</a></h3>
+<p>Dùng chung instance với các app khác; mỗi thành phần một mật khẩu riêng (<code>openssl rand -hex 24</code>).</p>
+<p><strong>Postgres chỉ nghe <code>localhost</code>:</strong> app đi qua <strong>PgBouncer <code>&lt;server-ip&gt;:6432</code></strong> (<code>* = host=localhost</code>, <code>auth_type = md5</code>, user của app có trong <code>userlist.txt</code> và là thành viên của role chủ DB), kèm <code>POSTGRES_PGBOUNCER=true</code>. RabbitMQ user <code>bizwithagents</code> — mất mật khẩu thì <code>rabbitmqctl change_password bizwithagents …</code> rồi sửa <code>.secrets/prod.env</code> + <code>.env</code> + Coolify. Giá trị thật của bản deploy (domain, IP, user, tên container) chỉ ghi ở <code>.secrets/</code> — không ghi vào tài liệu. Bảng dưới là cách tạo namespace cho lần dựng mới.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>DB</th>
+<th>Tạo</th>
+<th>Cần</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Postgres ≥ 16</td>
+<td><code>CREATE ROLE bizwithagents LOGIN PASSWORD '…'; CREATE DATABASE bizwithagents OWNER bizwithagents;</code></td>
+<td>user <strong>sở hữu database</strong> (migration tạo extension <code>citext</code>)</td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td><code>use bizwithagents</code> · <code>db.createUser({user: &quot;bizwithagents&quot;, pwd: &quot;…&quot;, roles: [{role: &quot;readWrite&quot;, db: &quot;bizwithagents&quot;}]})</code></td>
+<td><code>readWrite</code> trên <code>bizwithagents</code></td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>chọn <strong>ba</strong> db index <strong>trống</strong> (dev / prod · test · stack thử — <code>INFO keyspace</code>, rồi <code>-n &lt;db&gt; DBSIZE</code> → 0)</td>
+<td>mọi key có tiền tố <code>bw:</code></td>
+</tr>
+<tr>
+<td>RabbitMQ</td>
+<td><code>rabbitmqctl add_vhost bizwithagents</code> · <code>add_user bizwithagents '…'</code> · <code>set_permissions -p bizwithagents bizwithagents &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</code></td>
+<td>quyền <code>.*</code> trên vhost (app tự khai exchange / queue <code>bw.*</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Host = <code>&lt;server-ip&gt;</code></strong> + cổng mà instance nghe trên LAN (thường 5432 / 27017 / 6379 / 5672), <strong>không</strong> dùng hostname nội bộ trên mạng <code>coolify</code> — stack BizWithAgents không ở mạng đó. Kiểm trước từ một máy trong LAN: <code>nc -zv &lt;server-ip&gt; &lt;cổng&gt;</code> cho từng DB. Không mở được → DB chưa publish cổng ra host (resource Coolify: bật <em>Make it publicly available</em>) hoặc firewall chặn.</p>
+<h2 id="5-mạng-một-cửa-web">5. Mạng: một cửa <code>web</code> <a class="anchor" href="#5-mạng-một-cửa-web" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="code"><span class="code-lang"></span><div class="hl"><pre><span></span>Trình duyệt ─HTTPS→ Cloudflare ─Tunnel→ Traefik (Coolify, &lt;server-ip&gt;:80) ─→ bw-web:16811 (nginx)
+                                                                              ├─ /                    → bundle FE (SPA fallback)
+                                                                              ├─ /bizwithagents/api/       → bw-api:16812
+                                                                              └─ /bizwithagents/ws/        → bw-realtime:16813 (WebSocket)
+bw-api / consumer / worker / scheduler / realtime ─→ &lt;server-ip&gt;:&lt;cổng&gt; (Postgres · Mongo · Redis · RabbitMQ dùng chung)
+</pre></div>
+</div>
+<ul>
+<li>Chỉ <code>bw-web</code> có domain; api / realtime / backend không mở cổng. Cùng origin → không CORS.</li>
+<li>Mạng riêng của stack: tên <code>bw-api</code> / <code>bw-realtime</code> chỉ phân giải trong stack này. Kiểm sau deploy: <code>docker exec &lt;container bw-web&gt; nslookup bw-api 127.0.0.11</code> → một IP.</li>
+<li><strong>Điểm vào của tunnel:</strong> <code>cloudflared</code> chạy trong container riêng → origin của public hostname là <strong>IP LAN của server</strong> (<code>http://&lt;server-ip&gt;:80</code>), <strong>không</strong> phải <code>localhost:80</code>. Tunnel giữ nguyên header <code>Host</code> nên Traefik định tuyến đúng.</li>
+<li><strong>IP thật:</strong> nginx lấy IP từ <code>REAL_IP_HEADER</code> (<code>CF-Connecting-IP</code>), gửi <code>X-Forwarded-For</code> / <code>X-Real-IP</code>; uvicorn tin header đó (<code>FORWARDED_ALLOW_IPS=*</code>, an toàn vì api chỉ nhận từ web) → rate limit đăng nhập và log <code>http.ip</code> đúng người dùng.</li>
+<li>nginx phân giải lại <code>bw-api</code> / <code>bw-realtime</code> qua DNS Docker mỗi 10 s → container tạo lại không làm web trả 502.</li>
+<li>Cache: <code>/assets/*</code> <code>immutable</code> 1 năm; <code>index.html</code> <code>no-cache</code> → bản mới hiện ngay.</li>
+<li>Giới hạn: <code>/api/</code> <code>proxy_read_timeout 120s</code> (Cloudflare cắt 524 sau 100 s không có byte); <code>client_max_body_size 2m</code>; WebSocket <code>proxy_read_timeout 1h</code>.</li>
+</ul>
+<h2 id="6-runbook-coolify">6. Runbook Coolify <a class="anchor" href="#6-runbook-coolify" aria-label="Liên kết tới mục này">#</a></h2>
+<ol>
+<li><strong>Repo:</strong> GitHub private <code>&lt;owner&gt;/&lt;slug&gt;</code> (branch <code>main</code>); GitHub App của Coolify (dùng chung cho mọi app trên Coolify này) được cấp quyền repo. Webhook của GitHub App phải trỏ <code>https://coolify.&lt;domain&gt;/webhooks/source/github/events</code> (event <code>push</code>) — trỏ sai domain thì GitHub giao lỗi 502 và push không tự deploy (R27). Kiểm ở GitHub App → Advanced → Recent Deliveries.</li>
+<li><strong>Resource mới</strong> trong project <code>&lt;slug&gt;</code> → Application → <em>Private Repository (with GitHub App)</em> → repo của app, branch <code>main</code>.</li>
+<li><strong>Build Pack</strong> = Docker Compose · <strong>Base Directory</strong> <code>/</code> · <strong>Docker Compose Location</strong> <code>/compose.yml</code>.</li>
+<li><strong>Domain:</strong> chỉ service <code>bw-web</code> → <code>http://&lt;slug&gt;.&lt;domain&gt;</code>, <strong>không</strong> kèm cổng: image web chỉ khai <code>EXPOSE 16811</code> và compose <code>expose: [&quot;16811&quot;]</code> → Coolify ghi label cổng cho Traefik. Service khác để trống (đặc biệt <code>bw-api</code>).</li>
+<li><strong>Environment Variables:</strong> bảng §4.1 (6 biến bắt buộc + <code>MONGO_*</code>; host DB <code>&lt;server-ip&gt;</code> — §4.3; khoá từ <code>bw keys --print</code> — §4.2). Bộ đầy đủ ở <code>.secrets/prod.env</code> → dán vào <strong>Developer view</strong>. Coolify tự tạo mọi key <code>${VAR:?}</code> của compose với giá trị <strong>rỗng</strong> nên compose không chặn — biến bắt buộc nào rỗng thì <code>bw-api</code> dừng ở <code>bw migrate</code> (<code>boot0501 … chưa cấu hình</code>), realtime thoát ngay. Kiểm <code>SERVICE_URL_BW_WEB</code> = <code>http://&lt;slug&gt;.&lt;domain&gt;</code> (không kèm cổng — dựng <code>GOOGLE_REDIRECT_URI</code> / <code>FRONTEND_AUTH_CALLBACK_URL</code>).</li>
+<li><strong>Settings:</strong> <strong>tắt</strong> Connect To Predefined Network, bật <strong>Include Source Commit in Build</strong> (Coolify mới truyền <code>SOURCE_COMMIT</code> → <code>BUILD_VERSION</code> → <code>/health/live</code> báo đúng commit; tắt thì báo <code>dev</code> và <code>make deploy</code> không chứng minh được bản mới). Ghi lại <strong>application uuid</strong> (trên URL trang app) vào <code>.secrets/coolify.env</code> (§6.1).</li>
+<li><strong>Cloudflare Tunnel:</strong> public hostname <code>&lt;slug&gt;.&lt;domain&gt;</code> → <code>http://&lt;server-ip&gt;:80</code> (§5).</li>
+<li><strong>Deploy</strong> → thứ tự lên: <code>bw-api</code> (migration rồi api) + <code>bw-realtime</code> healthy → <code>bw-consumer</code>, <code>bw-worker</code>, <code>bw-scheduler</code> → <code>bw-web</code> healthy. Log từng service ở tab Logs (JSON, có <code>loc</code>, <code>cid</code>); log migration nằm ở đầu log <code>bw-api</code>.</li>
+<li><strong>Kiểm:</strong> <code>make smoke-prod URL=https://&lt;slug&gt;.&lt;domain&gt;</code> → 4 dòng <code>✓</code>; mở trang thấy logo + 5 đèn xanh.</li>
+</ol>
+<h3 id="61-make-deploy">6.1 <code>make deploy</code> <a class="anchor" href="#61-make-deploy" aria-label="Liên kết tới mục này">#</a></h3>
+<p><code>.secrets/coolify.env</code> (không commit — <code>.gitignore</code> có <code>.secrets/</code>):</p>
+<div class="code"><span class="code-lang">dotenv</span><div class="hl"><pre><span></span>COOLIFY_URL=https://coolify.&lt;domain&gt;
+COOLIFY_TOKEN=&lt;token API Coolify, quyền deploy + read&gt;
+COOLIFY_APP_UUID=&lt;application uuid — §6 bước 6&gt;
+PUBLIC_URL=https://&lt;slug&gt;.&lt;domain&gt;
+</pre></div>
+</div>
+<p><code>scripts/deploy.sh</code> (<code>make deploy</code>):</p>
+<ol>
+<li>Từ chối khi còn thay đổi chưa commit, hoặc <code>HEAD</code> khác <code>origin/main</code> (deploy đúng thứ đã push).</li>
+<li><code>POST /api/v1/deploy {uuid}</code> (Bearer token).</li>
+<li>Chờ <code>GET /api/v1/deployments/&lt;id&gt;</code> tới <code>finished</code> (tối đa <code>DEPLOY_POLLS</code> × <code>DEPLOY_POLL_SEC</code> = 90 × 10 s). <code>failed</code> / <code>cancelled*</code> <strong>hoặc hết giờ</strong> → thoát lỗi, không smoke bản cũ.</li>
+<li><code>EXPECT_VERSION=&lt;commit vừa push&gt; scripts/smoke_prod.sh $PUBLIC_URL</code>: web (<code>id=&quot;root&quot;</code>), <strong>phiên bản</strong> (<code>/health/live</code> <code>data.version</code> = commit — chờ tới khi container mới lên), <code>api/health/ready</code>, <code>api/health/pipeline</code> (nhịp tim), <code>ws/health</code> — mỗi mục thử lại tới ~2,5 phút (<code>SMOKE_TRIES</code> × <code>SMOKE_SLEEP</code>). Không ghi dữ liệu. <code>make smoke-prod URL=…</code> không đặt <code>EXPECT_VERSION</code> thì bỏ mục phiên bản.</li>
+</ol>
+<p>Test: <code>backend/tests/deploy/test_scripts.py</code> chạy hai script với server HTTP giả (Coolify + domain) và repo git tạm.</p>
+<h3 id="62-dạng-json-của-api-coolify">6.2 Dạng JSON của API Coolify <a class="anchor" href="#62-dạng-json-của-api-coolify" aria-label="Liên kết tới mục này">#</a></h3>
+<p><code>deploy.sh</code> đọc <code>deployments[0].deployment_uuid</code> của <code>POST /api/v1/deploy</code> và <code>status</code> của <code>GET /api/v1/deployments/&lt;id&gt;</code>. Đã kiểm trên Coolify thật (dự án nguồn); khác tên trường thì sửa hai dòng <code>python3 -c</code> trong script và ghi dạng đúng vào đây.</p>
+<h3 id="lựa-chọn-scheme-của-domain-trong-ô-domains-của-coolify">Lựa chọn: scheme của domain trong ô Domains của Coolify <a class="anchor" href="#lựa-chọn-scheme-của-domain-trong-ô-domains-của-coolify" aria-label="Liên kết tới mục này">#</a></h3>
+<p>Scheme ở ô Domains điều khiển hai thứ không liên quan nhau:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Label Traefik</strong></td>
+<td><code>https://</code> sinh thêm router <code>https</code> kèm <code>tls.certresolver=letsencrypt</code>; middleware <code>redirect-to-https</code> chỉ gắn vào router <code>http</code> khi &quot;Force HTTPS&quot; bật</td>
+</tr>
+<tr>
+<td><strong><code>SERVICE_URL_BW_WEB</code></strong></td>
+<td>Coolify ghi đè biến này bằng scheme của domain <strong>đầu tiên</strong>, mỗi lần deploy → dựng <code>GOOGLE_REDIRECT_URI</code> + <code>FRONTEND_AUTH_CALLBACK_URL</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Origin</th>
+<th>Cert Let's Encrypt</th>
+<th>Lặp redirect</th>
+<th>Đăng nhập Google</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>http://</code></strong></td>
+<td>HTTP</td>
+<td>✗ (không cần)</td>
+<td>✗</td>
+<td>✗ (Google từ chối redirect <code>http://</code>)</td>
+</tr>
+<tr>
+<td><code>https://</code> + tắt Force HTTPS</td>
+<td>HTTP</td>
+<td>xin qua tunnel (thừa)</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>https://</code> + bật Force HTTPS</td>
+<td>—</td>
+<td>—</td>
+<td>✓ (hỏng)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong><code>http://</code></strong> vì HTTPS kết thúc ở Cloudflare; đăng nhập Google dùng <code>PUBLIC_URL</code> (bên dưới) nên không cần đổi scheme.</p>
+<ul>
+<li><strong>Đã cân nhắc:</strong> <code>https://</code> + tắt Force HTTPS — <strong>đổi sang khi bật Google OAuth</strong>; <code>https://</code> + bật Force HTTPS — lặp redirect qua tunnel.</li>
+</ul>
+<p><strong>Bật đăng nhập Google:</strong></p>
+<ol>
+<li>Chủ dự án: OAuth client (Web) — origin <code>https://&lt;slug&gt;.&lt;domain&gt;</code>, redirect <code>https://&lt;slug&gt;.&lt;domain&gt;/bizwithagents/api/auth/google/callback</code>; dán <code>GOOGLE_CLIENT_ID</code> / <code>GOOGLE_CLIENT_SECRET</code> vào Coolify.</li>
+<li><s>Đổi domain sang <code>https://</code> + tắt Force HTTPS</s> → <strong>thay bằng env <code>PUBLIC_URL=https://&lt;slug&gt;.&lt;domain&gt;</code></strong>: app dựng <code>GOOGLE_REDIRECT_URI</code> = <code>https://…/bizwithagents/api/auth/google/callback</code> và <code>FRONTEND_AUTH_CALLBACK_URL</code> = <code>https://…/auth/callback</code> từ biến này; domain Coolify giữ <code>http://</code>, Force HTTPS không ảnh hưởng (router <code>http</code> không có redirect khi domain là <code>http://</code>). Redeploy để nhận env.</li>
+<li><code>make smoke-prod</code>; superadmin bật &quot;Đăng nhập Google&quot; ở <code>/sa/settings</code> (chỉ bật được khi đủ env — <code>google_configured</code>).</li>
+</ol>
+<p><strong>Cập nhật bản chạy (R27):</strong> commit + push <code>main</code> → Coolify tự deploy qua webhook GitHub App → theo dõi deployment tới <code>finished</code> → <code>make smoke-prod URL=https://&lt;slug&gt;.&lt;domain&gt;</code>. <code>make deploy</code> chỉ khi webhook không chạy. Migration chạy lại ở đầu <code>bw-api</code> mỗi lần container khởi động.
+<strong>Quay lại bản cũ:</strong> redeploy commit cũ trong Deployments của Coolify — migration không tự downgrade.</p>
+<h2 id="7-kiểm-chứng">7. Kiểm chứng <a class="anchor" href="#7-kiểm-chứng" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Kiểm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make be-test</code> · <code>cd backend &amp;&amp; poetry run pytest tests/deploy -q</code></td>
+<td>cấu trúc <code>compose.yml</code>: 6 service <code>bw-*</code>, không publish cổng, không volume / mạng ngoài, env bắt buộc <code>:?</code> (cả khoá JWT), Mongo tuỳ cờ, thứ tự healthcheck, <code>bw-web</code> là cửa duy nhất, upstream mặc định của image web khớp compose</td>
+</tr>
+<tr>
+<td><code>make smoke-prod URL=…</code></td>
+<td>4 mục qua domain thật, không ghi dữ liệu</td>
+</tr>
+<tr>
+<td><code>make deploy</code></td>
+<td>deploy + chờ + smoke</td>
+</tr>
+<tr>
+<td>Unit test</td>
+<td><code>bw keys</code> (sinh / giữ / env thắng / cấu hình nửa vời), <code>bw keys --print</code> → env một dòng đọc lại được qua <code>Settings</code>, <code>bw migrate</code> chạy lại không lỗi</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Sau mỗi lần push <code>main</code> (Coolify tự deploy — R27): <code>make smoke-prod</code> = 4 kiểm cơ bản rồi smoke đầu-cuối profile <code>prod</code> (không ghi dữ liệu) — <a href="../CLAUDE.html">deploy, mục Smoke</a>.</li>
+<li><strong>Phiên bản đang chạy:</strong> compose đặt <code>BUILD_VERSION=${SOURCE_COMMIT:-dev}</code>; bật <strong>Include Source Commit in Build</strong> → <code>curl -s https://&lt;slug&gt;.&lt;domain&gt;/bizwithagents/api/health/live</code> trả <code>version</code> là SHA.</li>
+<li><strong>Cloudflare:</strong> không đặt quy tắc cache cho HTML (<code>index.html</code> phải <code>cf-cache-status</code> khác <code>HIT</code>); WebSockets bật (tab Network).</li>
+<li><strong><code>ENV</code></strong> trên Coolify phải là <code>prod</code> (mặc định của compose) — smoke prod kiểm <code>/devtools/*</code> → 404.</li>
+</ul>
+<h2 id="8-để-sau">8. Để sau <a class="anchor" href="#8-để-sau" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Scale:</strong> replica &gt; 1, tách consumer / worker theo lane. <code>bw-api</code> &gt; 1 bản → bọc migration bằng <code>pg_advisory_lock</code> để các bản không chạy Alembic cùng lúc.</li>
+<li>Instance realtime khởi động <strong>sau</strong> lệnh khoá tài khoản (<code>rt:revoke</code>) không biết lệnh đó — socket của user bị khoá nối vào instance ấy vẫn nhận tới khi token hết hạn.</li>
+<li>Giới hạn CPU / RAM từng service.</li>
+</ul>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/deploy/design/coolify.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-phạm-vi">1. Phạm vi</a></li><li class="lvl2"><a href="#2-service">2. Service</a></li><li class="lvl2"><a href="#3-image">3. Image</a></li><li class="lvl2"><a href="#4-cấu-hình">4. Cấu hình</a></li><li class="lvl3"><a href="#41-biến-môi-trường-điền-trên-coolify">4.1 Biến môi trường (điền trên Coolify)</a></li><li class="lvl3"><a href="#42-khoá-ký-jwt">4.2 Khoá ký JWT</a></li><li class="lvl3"><a href="#43-db-trên-server--database--namespace-riêng">4.3 DB trên server — database / namespace riêng</a></li><li class="lvl2"><a href="#5-mạng-một-cửa-web">5. Mạng: một cửa web</a></li><li class="lvl2"><a href="#6-runbook-coolify">6. Runbook Coolify</a></li><li class="lvl3"><a href="#61-make-deploy">6.1 make deploy</a></li><li class="lvl3"><a href="#62-dạng-json-của-api-coolify">6.2 Dạng JSON của API Coolify</a></li><li class="lvl3"><a href="#lựa-chọn-scheme-của-domain-trong-ô-domains-của-coolify">Lựa chọn: scheme của domain trong ô Domains của Coolify</a></li><li class="lvl2"><a href="#7-kiểm-chứng">7. Kiểm chứng</a></li><li class="lvl2"><a href="#8-để-sau">8. Để sau</a></li></ul></aside>
+</div>
+</body>
+</html>

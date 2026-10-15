@@ -1,0 +1,27 @@
+import type { Pairs } from "../pairs";
+
+export const sa: Pairs = {
+  "sa.status.services": ["Thành phần", "Components"],
+  "sa.status.failed": ["Không lấy được trạng thái", "Could not load status"],
+  "sa.status.version": ["Phiên bản {v}", "Version {v}"],
+  "sa.status.detail": ["Chi tiết hệ thống", "System details"],
+  "sa.status.mongoOn": ["Mongo đang bật", "Mongo enabled"],
+  "sa.status.mongoOff": ["Mongo đang tắt", "Mongo disabled"],
+  "sa.test.title": ["Gửi thông báo thử", "Send a test notification"],
+  "sa.test.desc": ["Kiểm hộp thông báo + realtime tới đúng người", "Check the inbox and realtime delivery for a user"],
+  "sa.test.titleField": ["Tiêu đề", "Title"],
+  "sa.test.body": ["Nội dung (tuỳ chọn)", "Message (optional)"],
+  "sa.test.send": ["Gửi thử", "Send test"],
+  "sa.test.sent": ["Đã gửi tới {email}", "Sent to {email}"],
+  "sa.settings.access": ["Truy cập", "Access"],
+  "sa.settings.google": ["Đăng nhập Google", "Google sign-in"],
+  "sa.settings.googleHint": ["Google chỉ xác minh email; quyền do app quản", "Google only verifies email; the app manages access"],
+  "sa.settings.googleMissing": ["Chưa cấu hình GOOGLE_CLIENT_ID trên máy chủ", "GOOGLE_CLIENT_ID is not configured on the server"],
+  "sa.settings.limits": ["Tham số", "Parameters"],
+  "sa.settings.isDefault": ["đang dùng mặc định", "using default"],
+  "sa.settings.invalid": ["Nhập số nguyên ≥ 0", "Enter a whole number ≥ 0"],
+  "sa.settings.saved": ["Đã lưu cài đặt", "Settings saved"],
+  "sa.settings.field.event_log_ttl_days": ["Giữ event log (ngày)", "Keep event log (days)"],
+  "sa.settings.field.span_ttl_days": ["Giữ trace (ngày)", "Keep traces (days)"],
+  "sa.settings.field.raw_http_ttl_days": ["Giữ HTTP thô của trace (ngày)", "Keep raw trace HTTP (days)"],
+};

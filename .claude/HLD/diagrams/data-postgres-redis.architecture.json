@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kết nối dữ liệu · Postgres + Redis",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1190,
+      700
+    ],
+    "output": ".claude/HLD/diagrams/data-postgres-redis.html"
+  },
+  "components": [
+    {
+      "id": "postgres",
+      "type": "database",
+      "label": "Postgres · DB bizwithagents",
+      "sublabel": "kênh RW / RO · nghiệp vụ · chat · run · usage · schema agent_lg",
+      "brand": "postgresql",
+      "pos": [
+        295,
+        40
+      ],
+      "size": [
+        600,
+        70
+      ]
+    },
+    {
+      "id": "migrate",
+      "type": "backend",
+      "label": "bw-api · migrate",
+      "sublabel": "bw migrate lúc khởi động",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api",
+      "sublabel": "bw api · @operation",
+      "pos": [
+        270,
+        300
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "consumer",
+      "type": "backend",
+      "label": "consumer",
+      "sublabel": "lane agent-run · @on_ws",
+      "pos": [
+        500,
+        300
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "worker",
+      "sublabel": "taskiq · chạy task cron",
+      "pos": [
+        730,
+        300
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "scheduler",
+      "type": "backend",
+      "label": "scheduler",
+      "sublabel": "leader · chỉ kick cron",
+      "pos": [
+        960,
+        300
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis · db index riêng",
+      "sublabel": "mọi key có tiền tố bw:",
+      "brand": "redis",
+      "pos": [
+        295,
+        570
+      ],
+      "size": [
+        600,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "migrate-pg",
+      "from": "migrate",
+      "to": "postgres",
+      "label": "Alembic · seed · đồng bộ quyền",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelSegment": 0
+    },
+    {
+      "id": "api-pg",
+      "from": "api",
+      "to": "postgres",
+      "label": "@operation RW / RO theo effect",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelSegment": 0
+    },
+    {
+      "id": "consumer-pg",
+      "from": "consumer",
+      "to": "postgres",
+      "label": "run · tin nhắn · agent_lg · usage",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelAt": [
+        595,
+        252
+      ]
+    },
+    {
+      "id": "worker-pg",
+      "from": "worker",
+      "to": "postgres",
+      "label": "nhắc hạn · dọn run · gửi thư",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelSegment": 0,
+      "variant": "emphasis"
+    },
+    {
+      "id": "scheduler-pg",
+      "from": "scheduler",
+      "to": "postgres",
+      "label": "chỉ ping (ROLE_NEEDS)",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelSegment": 0,
+      "variant": "dashed"
+    },
+    {
+      "id": "api-redis",
+      "from": "api",
+      "to": "redis",
+      "label": "rate limit · OAuth state · gperm",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelSegment": 0
+    },
+    {
+      "id": "consumer-redis",
+      "from": "consumer",
+      "to": "redis",
+      "label": "xoay key · cờ huỷ · buffer live",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        595,
+        415
+      ]
+    },
+    {
+      "id": "worker-redis",
+      "from": "worker",
+      "to": "redis",
+      "label": "nhịp tim bw:hb:work",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelSegment": 0
+    },
+    {
+      "id": "scheduler-redis",
+      "from": "scheduler",
+      "to": "redis",
+      "label": "khoá leader · bw:hb:schedule",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelSegment": 0
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Postgres — nguồn sự thật",
+      "items": [
+        "Tenant, user, RBAC, lời mời / token một lần, thông báo, cài đặt, agent (cấu hình + hội thoại theo tenant), module (tasks)",
+        "Cấu hình agent + credential (Fernet), agent_sessions / agent_messages / agent_runs / agent_approvals",
+        "agent_usage_hourly · checkpoint LangGraph schema agent_lg (xoá khi run kết thúc)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Redis — key bw:*",
+      "items": [
+        "bw:rl:* (lượt agent + đăng nhập) · bw:tok:* (trần token/ngày)",
+        "bw:rr:* · bw:key:cool:* · bw:key:use:* · cờ huỷ run · bw:run:<id>:events",
+        "bw:leader:schedule · bw:hb:<role> · bw:auth:disabled:<uid> · OAuth state · bw:tenant:disabled:<tid> · bw:mail:outbox · bw:tasks:<tid>:remind:*"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Ai không kết nối",
+      "items": [
+        "realtime không chạm Postgres / Redis — chỉ RabbitMQ + public key",
+        "bw migrate (đầu bw-api) chỉ cần Postgres; scheduler chỉ kick task cron / every, worker chạy thân task",
+        "web chỉ proxy, không giữ kết nối DB"
+      ]
+    }
+  ]
+}

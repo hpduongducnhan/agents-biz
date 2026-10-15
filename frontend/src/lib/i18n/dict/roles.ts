@@ -1,0 +1,28 @@
+import type { Pairs } from "../pairs";
+
+export const roles: Pairs = {
+  "roles.create": ["Tạo role", "Create role"],
+  "roles.edit": ["Sửa role", "Edit role"],
+  "roles.view": ["Xem role có sẵn", "View built-in role"],
+  "roles.name": ["Tên role", "Role name"],
+  "roles.description": ["Mô tả", "Description"],
+  "roles.permissions": ["Quyền", "Permissions"],
+  "roles.users": ["Người dùng", "Users"],
+  "roles.permCount": ["{n} quyền", "{n} permissions"],
+  "roles.userCount": ["{n} người dùng", "{n} users"],
+  "roles.builtin": ["Có sẵn", "Built-in"],
+  "roles.builtinHint": ["Role có sẵn — quyền do hệ thống quản, không sửa được", "Built-in role — permissions are managed by the system"],
+  "roles.allIn": ["Chọn cả nhóm {domain}", "Select all in {domain}"],
+  "roles.saved": ["Đã lưu role", "Role saved"],
+  "roles.deleted": ["Đã xoá role", "Role deleted"],
+  "roles.deleteConfirm": ["Xoá role \"{name}\"? Người đang có role này sẽ mất các quyền của nó.", "Delete role \"{name}\"? Users holding it lose its permissions."],
+  "roles.empty": ["Chưa có role", "No roles yet"],
+  "roles.chatLimit": ["Tin chat / ngày", "Chats / day"],
+  "roles.limitDefault": ["mặc định", "default"],
+  "roles.limits": ["Hạn mức", "Limits"],
+  "roles.limitsTitle": ["Hạn mức của role \"{name}\"", "Limits of role \"{name}\""],
+  "roles.limitsHint": ["Người có nhiều role dùng hạn mức lớn nhất. Hạn mức đặt riêng cho từng user (trang Người dùng) thắng role.", "Users with several roles get the highest limit. A per-user override (Users page) beats roles."],
+  "roles.limitsSaved": ["Đã lưu hạn mức", "Limits saved"],
+  "limits.unsetHint": ["Để trống = theo mặc định hệ thống ({n})", "Empty = system default ({n})"],
+  "limits.invalid": ["Nhập số nguyên 0–1000 hoặc để trống", "Enter a whole number 0–1000 or leave empty"],
+};

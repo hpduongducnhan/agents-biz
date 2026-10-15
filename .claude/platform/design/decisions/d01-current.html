@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="vi" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Quyết định D1 → · BizWithAgents</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/highlight.css">
+<link rel="stylesheet" href="../../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../../index.html">Trang review</a>
+<details class="nav-group" open><summary>Platform</summary><ul><li><a href="../../CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="d01-current.html" class="active" aria-current="page" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../../plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Backend</summary><ul><li><a href="../../../backend/CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../../backend/architecture/connections.html" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../../backend/architecture/observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../../CLAUDE.html">Platform</a> <span class='sep'>/</span> <span>Thiết kế</span></nav>
+<div class="doc-meta"><span class="meta-date">Cập nhật 2026-10-15</span><code class="meta-src">.claude/platform/design/decisions/d01-current.md</code></div>
+<article class="prose">
+<h1 id="quyết-định-d1-">Quyết định D1 → <a class="anchor" href="#quyết-định-d1-" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../../index.html">CLAUDE.md</a> | <a href="README.html">decisions</a> · <a href="../template-v1.html">template-v1</a> · <a href="../roadmap.html">roadmap</a></p>
+</blockquote>
+<hr />
+<h2 id="d1--template--module-mẫu--công-cụ-tạo-module--2026-10-14">D1 — Template + module mẫu + công cụ tạo module · 2026-10-14 <a class="anchor" href="#d1--template--module-mẫu--công-cụ-tạo-module--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> repo là một template chạy được như app thật, kèm một module mẫu chạy trọn các tầng và lệnh / skill tạo module mới. App mới = copy template + đổi tên.
+<strong>Lý do:</strong> mỗi app sau chỉ thêm nghiệp vụ; module mẫu là khuôn cho scaffold.
+<strong>Đã loại:</strong> chỉ có khung (phải tự dò cách làm); một repo chung cho nhiều app (các app dính chặt nhau khi deploy / nâng cấp).</p>
+<h2 id="d2--giữ-nguyên-stack-của-dự-án-nguồn--2026-10-14">D2 — Giữ nguyên stack của dự án nguồn · 2026-10-14 <a class="anchor" href="#d2--giữ-nguyên-stack-của-dự-án-nguồn--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> Python 3.13 FastAPI + FastStream / taskiq trên RabbitMQ, service realtime Node + Socket.IO, React 19 + Vite + TanStack Query + Zustand + Tailwind 4 + Radix, Postgres + Redis (+ Mongo theo cờ), LangChain v1 / LangGraph, deploy Coolify.
+<strong>Lý do:</strong> đã chạy thật trên prod, rủi ro thấp nhất.
+<strong>Đã loại:</strong> bỏ RabbitMQ / Mongo, gộp realtime vào Python (phải viết lại, mất phần đã chạy thật).</p>
+<h2 id="d3--tenant-đơn-giản-chỉ-để-tách-dữ-liệu-khách-hàng--2026-10-14">D3 — Tenant đơn giản: chỉ để tách dữ liệu khách hàng · 2026-10-14 <a class="anchor" href="#d3--tenant-đơn-giản-chỉ-để-tách-dữ-liệu-khách-hàng--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> tenant là ranh giới dữ liệu; agent giữ <strong>một bộ như dự án nguồn</strong> dùng chung cho mọi tenant. Chủ dự án chỉnh lại sau câu trả lời ban đầu &quot;workspace, quyền theo từng workspace&quot;.
+<strong>Lý do:</strong> hệ đa tenant nhiều tầng quá phức tạp để tích hợp agent; nhu cầu chính là tách dữ liệu từng khách hàng.
+<strong>Đã loại:</strong> user ở nhiều workspace với role theo workspace; cấu hình agent riêng từng tenant.</p>
+<h2 id="d4--web-ưu-tiên-điện-thoại--pwa-không-native--2026-10-14">D4 — Web ưu tiên điện thoại + PWA, không native · 2026-10-14 <a class="anchor" href="#d4--web-ưu-tiên-điện-thoại--pwa-không-native--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> một codebase web, thiết kế 375px trước, cài được lên màn hình chính, Web Push.
+<strong>Đã loại:</strong> chuẩn bị sẵn cho app native; làm app Expo ngay.</p>
+<h2 id="d5--đăng-nhập-email--mật-khẩu-google-lời-mời--2026-10-14">D5 — Đăng nhập: email + mật khẩu, Google, lời mời · 2026-10-14 <a class="anchor" href="#d5--đăng-nhập-email--mật-khẩu-google-lời-mời--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> email + mật khẩu (xác thực email, quên mật khẩu), Google OAuth, mời vào tenant bằng email hoặc link.
+<strong>Đã loại:</strong> magic link / OTP (để sau).</p>
+<h2 id="d6--mang-sang-đầy-đủ-hệ-thống-tài-liệu--rule-của-dự-án-nguồn--2026-10-14">D6 — Mang sang đầy đủ hệ thống tài liệu + rule của dự án nguồn · 2026-10-14 <a class="anchor" href="#d6--mang-sang-đầy-đủ-hệ-thống-tài-liệu--rule-của-dự-án-nguồn--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> giữ rule R1–R28 + rule riêng backend / frontend, nhật ký <code>D&lt;n&gt;</code>, plan theo SP (package R25), HLD + sơ đồ archify, <code>make docs</code> / <code>docs-check</code>; viết lại ví dụ, bỏ nội dung nghiệp vụ của dự án nguồn.
+<strong>Đã loại:</strong> bản rút gọn (mất phần kiểm tự động link / backlink / số dòng).</p>
+<h2 id="d7--đa-ngôn-ngữ-mặc-định-vi-có-en--2026-10-14">D7 — Đa ngôn ngữ, mặc định <code>vi</code>, có <code>en</code> · 2026-10-14 <a class="anchor" href="#d7--đa-ngôn-ngữ-mặc-định-vi-có-en--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> mọi chuỗi FE qua <code>t()</code>, từ điển <code>[vi, en]</code>; mail theo <code>users.locale</code>; agent trả lời theo ngôn ngữ của user.
+<strong>Đã loại:</strong> chỉ tiếng Việt; chỉ tiếng Anh.</p>
+<h2 id="d8--module-mẫu-tasks--2026-10-14">D8 — Module mẫu: Tasks · 2026-10-14 <a class="anchor" href="#d8--module-mẫu-tasks--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> quản lý công việc (trạng thái, ưu tiên, hạn, người làm, bình luận, nhắc hạn, chuyên gia agent).
+<strong>Lý do:</strong> thể hiện đủ mọi tầng: CRUD, quyền, realtime, việc nền, thông báo, agent + duyệt.
+<strong>Đã loại:</strong> Notes (ít realtime / việc nền); Flashcard (ít phân quyền).</p>
+<h2 id="d9--tên-cố-định-bw--make-new-app-đổi-tên--2026-10-14">D9 — Tên cố định <code>bw</code> + <code>make new-app</code> đổi tên · 2026-10-14 <a class="anchor" href="#d9--tên-cố-định-bw--make-new-app-đổi-tên--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> template mang tên cố định (<code>BizWithAgents</code> / slug <code>bizwithagents</code> / tiền tố <code>bw</code>, cổng local 8201–8204, container 16811–16813); <code>make new-app</code> chép + đổi tên một lần.
+<strong>Lý do:</strong> template tự chạy và test được như app thật; code giữ chuỗi literal; hai app dùng chung hạ tầng không đụng tiền tố.
+<strong>Đã loại:</strong> tên đọc từ env lúc chạy (chuỗi ghép động, khó grep); cookiecutter (template không chạy thẳng được).</p>
+<h2 id="d10--mỗi-user-thuộc-đúng-một-tenant--2026-10-14">D10 — Mỗi user thuộc đúng một tenant · 2026-10-14 <a class="anchor" href="#d10--mỗi-user-thuộc-đúng-một-tenant--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> <code>users.tenant_id</code> NOT NULL, claim <code>tid</code> trong JWT; không có bộ chuyển tenant; một email chỉ ở một tenant.
+<strong>Lý do:</strong> agent và tool không phải biết tenant — lấy từ người đang chat.
+<strong>Đã loại:</strong> user ở nhiều tenant + role theo tenant (cần tham số tenant ở tool, bộ chuyển ở UI).</p>
+<h2 id="d11--tách-dữ-liệu-bằng-bộ-lọc-tự-động-ở-session--2026-10-14">D11 — Tách dữ liệu bằng bộ lọc tự động ở session · 2026-10-14 <a class="anchor" href="#d11--tách-dữ-liệu-bằng-bộ-lọc-tự-động-ở-session--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> model module kế thừa <code>TenantScoped</code>; session của op / việc nền mang <code>tenant_id</code>; SQLAlchemy <code>do_orm_execute</code> + <code>with_loader_criteria</code> tự thêm điều kiện, <code>before_flush</code> tự gán / kiểm; xem chéo chỉ qua <code>ctx.cross_tenant()</code> của superadmin. Test luật cấm SQL thô trên bảng tenant.
+<strong>Lý do:</strong> quên lọc vẫn an toàn; không thêm gì vào migration; một choke-point.
+<strong>Đã loại:</strong> tự lọc từng query (quên là lộ dữ liệu); Postgres RLS (policy mỗi bảng, khó gỡ lỗi); schema / DB riêng mỗi tenant (nặng).</p>
+<h2 id="d12--signup_mode-quyết-định-người-đăng-ký-vào-tenant-nào--2026-10-14">D12 — <code>signup_mode</code> quyết định người đăng ký vào tenant nào · 2026-10-14 <a class="anchor" href="#d12--signup_mode-quyết-định-người-đăng-ký-vào-tenant-nào--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> <code>default_tenant</code> (mặc định — chạy như dự án nguồn) · <code>new_tenant</code> (mỗi người đăng ký có tenant riêng, là admin) · <code>invite_only</code>. Lời mời (email / link) chạy ở mọi chế độ. Role dùng chung mọi tenant, chỉ superadmin tạo role mới.
+<strong>Đã loại:</strong> role riêng từng tenant (để TẦM NHÌN).</p>
+<h2 id="d13--realtime-phòng-tenanttid--2026-10-14">D13 — Realtime: phòng <code>tenant:&lt;tid&gt;</code> · 2026-10-14 <a class="anchor" href="#d13--realtime-phòng-tenanttid--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> socket join phòng tenant lúc bắt tay theo claim <code>tid</code>; <code>ctx.invalidate(keys, tenant=True)</code> phát một message; sự kiện riêng vẫn tới <code>user:&lt;id&gt;</code>.
+<strong>Lý do:</strong> user không đổi tenant nên không có join / leave động; <code>data:changed</code> chỉ mang key nên phát cả tenant không lộ dữ liệu.
+<strong>Đã loại:</strong> gửi tới từng <code>user:&lt;id&gt;</code> (N message, phải tra danh sách user).</p>
+<h2 id="d14--mail-console--smtp--2026-10-14">D14 — Mail: <code>console</code> + <code>smtp</code> · 2026-10-14 <a class="anchor" href="#d14--mail-console--smtp--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> interface transport; <code>console</code> (dev, có trang xem thư) và <code>smtp</code> (<code>aiosmtplib</code>); mẫu Jinja2 theo locale; gửi qua task idempotent. <code>email_verification</code> mặc định <code>soft</code>.
+<strong>Đã loại:</strong> chỉ HTTP API một nhà cung cấp (không chạy local được nếu thiếu tài khoản).</p>
+<h2 id="d15--module--package-thường--registry-tĩnh--2026-10-14">D15 — Module = package thường + registry tĩnh · 2026-10-14 <a class="anchor" href="#d15--module--package-thường--registry-tĩnh--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> backend <code>app/&lt;module&gt;/</code> thêm vào <code>DOMAINS</code>; frontend <code>src/modules/&lt;module&gt;/</code> thêm vào <code>modules/registry.ts</code>. Module đăng ký quyền, toolset, ngữ cảnh, chuyên gia, menu, &quot;Thêm nhanh&quot;, widget qua hàm registry.
+<strong>Đã loại:</strong> hệ plugin nạp động (phức tạp, migration theo module).</p>
+<h2 id="d16--hạ-tầng-local-mặc-định-bằng-deploycomposeinfrayml--2026-10-14">D16 — Hạ tầng local mặc định bằng <code>deploy/compose.infra.yml</code> · 2026-10-14 <a class="anchor" href="#d16--hạ-tầng-local-mặc-định-bằng-deploycomposeinfrayml--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> Postgres / Redis / RabbitMQ / Mongo chạy bằng compose riêng của template trên cổng không đụng hạ tầng chung (15432 / 16379 / 5673 + 15673 / 27018); hạ tầng chung trên server là tuỳ chọn. Dev không bao giờ trỏ DB prod.
+<strong>Lý do:</strong> clone về máy mới chạy được ngay; không đụng dữ liệu thật.
+<strong>Đã loại:</strong> dev = prod như D41 của dự án nguồn.</p>
+<h2 id="d17--thứ-tự-thi-công-chép-trọn-nền-trước-tổng-quát-hoá-sau--2026-10-14--claude-tự-quyết-uỷ-quyền-r28">D17 — Thứ tự thi công: chép trọn nền trước, tổng quát hoá sau · 2026-10-14 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d17--thứ-tự-thi-công-chép-trọn-nền-trước-tổng-quát-hoá-sau--2026-10-14--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> thay thứ tự SP trong <a href="../template-v1.html">template-v1 §4</a>: SP0 chép <strong>trọn</strong> phần nền (core, auth, system, observability, notifications, credentials, devtools, agent; realtime; frontend nền; deploy; tài liệu) rồi chạy test xanh; sau đó mới làm tenant + mail (SP1), tổng quát hoá agent (SP2), Tasks (SP3), scaffold (SP4), phát hành (SP5).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Code tạm phải viết để cắt phụ thuộc chéo</th>
+<th>Test nguồn chạy lại được ngay</th>
+<th>Số lần sửa cùng một file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chép trọn nền một lần</strong></td>
+<td>~0</td>
+<td>phần lớn</td>
+<td>1–2</td>
+</tr>
+<tr>
+<td>Chép từng mảng theo SP cũ</td>
+<td>nhiều (core → observability, notifications → auth, system → auth / nhóm)</td>
+<td>ít (phải stub)</td>
+<td>2–3</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>chép trọn nền</strong>: các miền nền của dự án nguồn import chéo nhau, tách theo SP cũ phải viết stub rồi bỏ.</p>
+<h2 id="d18--plan-dạng-đặc-tả--2026-10-14--claude-tự-quyết-uỷ-quyền-r28">D18 — Plan dạng đặc tả · 2026-10-14 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d18--plan-dạng-đặc-tả--2026-10-14--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> plan SP là package R25 (<code>README.md</code> + <code>tNN-*.md</code> khi cần) dạng <strong>đặc tả</strong> (mục tiêu, file, giao diện, bước, DoD), không chép sẵn toàn bộ code mẫu vào plan.
+<strong>Lý do:</strong> phần lớn việc là chép từ dự án nguồn — code nguồn đã có, plan chỉ cần ghi chép gì / sửa gì.
+<strong>Đã loại:</strong> plan kèm code đầy đủ từng bước (gấp đôi khối lượng mà không thêm thông tin).</p>
+<h2 id="d19--mô-hình-triển-khai-mặc-định-giống-dự-án-nguồn-thay-d16--2026-10-14">D19 — Mô hình triển khai mặc định giống dự án nguồn (thay D16) · 2026-10-14 <a class="anchor" href="#d19--mô-hình-triển-khai-mặc-định-giống-dự-án-nguồn-thay-d16--2026-10-14" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> mọi app làm từ template mặc định dùng <strong>hạ tầng có sẵn trên server</strong> (Postgres — prod qua PgBouncer <code>6432</code>, Redis, RabbitMQ, Mongo); Coolify chỉ deploy <strong>phần application</strong> (6 service trong <code>compose.yml</code>, mạng riêng, nối hạ tầng qua IP host — như D36 / D40 của dự án nguồn). Mỗi app được cấp namespace riêng trên hạ tầng chung: DB <code>&lt;slug&gt;</code> / <code>&lt;slug&gt;_test</code> / <code>&lt;slug&gt;_e2e</code>, vhost cùng tên, một bộ Redis db riêng (dev / prod · test · stack thử), Mongo DB <code>&lt;slug&gt;</code>. Dev local nối cùng hạ tầng chung (<code>.env</code> trỏ vào cùng DB với bản deploy — như D41 của dự án nguồn). <code>deploy/compose.infra.yml</code> chỉ là <strong>dự phòng</strong> cho máy chưa có hạ tầng.
+<strong>Lý do:</strong> chủ dự án: &quot;thường sẽ có hạ tầng sẵn, chỉ cần deploy phần application như đang làm với Coolify&quot;.
+<strong>Redis db của template:</strong> 10 (dev / prod) · 11 (test) · 12 (stack thử) — các db còn trống trên hạ tầng chung (đo 2026-10-14). <code>make new-app</code> phải nhận bộ số Redis db mới cho từng app (test xoá sạch db test của mình).
+<strong>Đã loại:</strong> D16 — compose infra làm mặc định.</p>
+<h2 id="d20--phiên-chính-tự-làm-cả-test-không-mở-subagent-thay-r22--r26-kế-thừa-từ-dự-án-nguồn--2026-10-15">D20 — Phiên chính tự làm cả test, không mở subagent (thay R22 / R26 kế thừa từ dự án nguồn) · 2026-10-15 <a class="anchor" href="#d20--phiên-chính-tự-làm-cả-test-không-mở-subagent-thay-r22--r26-kế-thừa-từ-dự-án-nguồn--2026-10-15" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> phiên chính đọc code, viết code, viết + chạy test (unit, tích hợp, Playwright), debug. Không mở subagent trừ khi chủ dự án yêu cầu.
+<strong>Lý do:</strong> chủ dự án: &quot;tự làm đi, đừng spam agent, tốn token&quot;.
+<strong>Đã loại:</strong> giao test cho một subagent Sonnet (R26 của dự án nguồn).</p>
+<h2 id="d21--cho-phép-một-subagent-sonnet-55-cho-test-playwright-bổ-sung-d20--2026-10-15">D21 — Cho phép một subagent Sonnet 5.5 cho test Playwright (bổ sung D20) · 2026-10-15 <a class="anchor" href="#d21--cho-phép-một-subagent-sonnet-55-cho-test-playwright-bổ-sung-d20--2026-10-15" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> test giao diện Playwright (E2E 375 / 1440) giao cho <strong>một</strong> subagent <code>model: sonnet</code>, <code>effort: medium</code> (R22). Mọi việc khác vẫn do phiên chính tự làm (D20).
+<strong>Lý do:</strong> chủ dự án: &quot;cho phép mở sub agent khi chạy test playwright với sonnet 5.5&quot;.</p>
+<h2 id="d22--dữ-liệu-agent-theo-tenant-bảng-hội-thoại-tenantscoped-usage--chặn--hạn-mức-giữ-toàn-nền-tảng--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D22 — Dữ liệu agent theo tenant: bảng hội thoại <code>TenantScoped</code>, usage / chặn / hạn mức giữ toàn nền tảng · 2026-10-15 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d22--dữ-liệu-agent-theo-tenant-bảng-hội-thoại-tenantscoped-usage--chặn--hạn-mức-giữ-toàn-nền-tảng--2026-10-15--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Bảng <code>TenantScoped</code></th>
+<th>Migration backfill</th>
+<th>Op Studio / <code>/sa/*</code> phải <code>cross_tenant</code></th>
+<th>Báo cáo chi phí theo tenant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. Hội thoại scoped, số liệu toàn nền tảng có cột <code>tenant_id</code></strong></td>
+<td><code>agent_sessions</code> · <code>agent_messages</code> · <code>agent_runs</code> · <code>agent_approvals</code></td>
+<td>4 bảng + 1 cột usage</td>
+<td>ít (op superadmin đã không scope)</td>
+<td>✓ (<code>group by tenant_id</code>)</td>
+</tr>
+<tr>
+<td>B. Mọi bảng agent có người dùng đều scoped</td>
+<td>thêm usage / chặn / hạn mức user</td>
+<td>7 bảng</td>
+<td>nhiều (chặn spam + usage là màn superadmin)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>C. Không scope, lọc theo <code>user_id</code> như dự án nguồn</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>A</strong>: dữ liệu người dùng đọc / ghi qua trợ lý tự nằm trong tenant (D11); <code>agent_usage_hourly</code> thêm cột <code>tenant_id</code> (khoá chính) để <code>/sa/usage</code> lọc / gộp theo khách hàng; <code>agent_chat_blocks</code> · <code>agent_user_limits</code> là công cụ của superadmin nên giữ toàn nền tảng (ghi lý do ở <code>PLATFORM</code> của test B14). Span trace (Mongo) mang <code>tenant_id</code>.
+<strong>Đã cân nhắc:</strong> B — scope bảng chỉ superadmin đọc chỉ thêm <code>cross_tenant</code> khắp nơi; C — một lỗi lọc <code>user_id</code> là lộ dữ liệu khách khác, trái D11.</p>
+<h2 id="d23--mang-sp17-của-dự-án-nguồn-trả-lời-dạng-stream--trang-cài-đặt-ai-vào-sp2--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D23 — Mang SP17 của dự án nguồn (trả lời dạng stream + trang Cài đặt AI) vào SP2 · 2026-10-15 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d23--mang-sp17-của-dự-án-nguồn-trả-lời-dạng-stream--trang-cài-đặt-ai-vào-sp2--2026-10-15--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Khối lượng</th>
+<th>Lệch so với dự án nguồn sau SP2</th>
+<th>Rủi ro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chép SP17 (D111–D113 của dự án nguồn) trong SP2</strong></td>
+<td>~1 500 dòng (gồm test)</td>
+<td>0</td>
+<td>thấp — dự án nguồn đã chạy E2E 88 / 88</td>
+</tr>
+<tr>
+<td>Để sau v1</td>
+<td>0</td>
+<td>tăng dần</td>
+<td>về sau khó chép vì runtime agent đã tổng quát hoá</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>chép trong SP2</strong>: công tắc <code>chat_stream</code> (mặc định bật) + <code>chat_stream_flush_ms</code>, tắt = gọi mô hình một lần; chữ hiện đều tay ở màn chat đơn giản; trang <code>/sa/ai-settings</code> gom cài đặt trợ lý (dùng chung <code>system.*_settings</code>).
+<strong>Đã cân nhắc:</strong> để sau v1 — roadmap đã ghi &quot;cân nhắc khi dự án nguồn code xong&quot;; dự án nguồn xong 2026-10-15.</p>
+<h2 id="d24--bỏ-bảng-agent_usage_hourly-khỏi-template-thay-một-phần-d22--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D24 — Bỏ bảng <code>agent_usage_hourly</code> khỏi template (thay một phần D22) · 2026-10-15 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d24--bỏ-bảng-agent_usage_hourly-khỏi-template-thay-một-phần-d22--2026-10-15--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<p><strong>Quyết định:</strong> xoá model + migration <code>0006_agent_usage</code>; chi phí AI theo tổ chức đọc từ document Mongo <code>agent_llm_calls</code> (mang <code>tenant_id</code>) qua <code>usage.summary group_by=tenant</code>. <code>agent_runs.cost</code> (Postgres, theo tenant) vẫn cộng mỗi lượt.
+<strong>Lý do:</strong> bảng đã thôi ghi từ SP6 của dự án nguồn (D64 bên dự án nguồn) — thêm <code>tenant_id</code> vào bảng không ai ghi là vô nghĩa; template chưa deploy nên bỏ migration không ảnh hưởng dữ liệu.
+<strong>Đã loại:</strong> giữ bảng + thêm cột như D22 ghi (bảng chết, test phải nuôi).</p>
+<h2 id="d25--registry-module-ở-frontend-manifest-tĩnh-mỗi-module--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D25 — Registry module ở frontend: manifest tĩnh mỗi module · 2026-10-15 · Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d25--registry-module-ở-frontend-manifest-tĩnh-mỗi-module--2026-10-15--claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Chỗ lõi phải sửa khi thêm module</th>
+<th>Lazy load trang</th>
+<th>Scaffold sinh được</th>
+<th>Độ phức tạp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manifest tĩnh <code>src/modules/&lt;m&gt;/index.ts</code> + một dòng <code>registry.ts</code></strong> (nav, routes, quickAdd, widgets, dict)</td>
+<td>1 dòng</td>
+<td>✓ (<code>lazy()</code> trong manifest)</td>
+<td>✓</td>
+<td>thấp</td>
+</tr>
+<tr>
+<td>Sửa thẳng <code>nav.ts</code> / <code>router.tsx</code> / <code>MobileDock</code> / Tổng quan / i18n cho từng module</td>
+<td>5 file</td>
+<td>✓</td>
+<td>khó (chèn vào nhiều file)</td>
+<td>thấp nhưng dễ lệch</td>
+</tr>
+<tr>
+<td>Nạp động theo cấu hình lúc chạy</td>
+<td>0</td>
+<td>✓</td>
+<td>✓</td>
+<td>cao</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>manifest tĩnh</strong> — khớp D15 (package thường + registry tĩnh) ở backend; SP4 scaffold chỉ cần sinh thư mục + thêm một dòng.
+<strong>Đã cân nhắc:</strong> sửa thẳng từng file (đúng như dự án nguồn làm, nhưng mỗi module chạm 5 chỗ lõi); nạp động (không cần cho template).</p>
+<h2 id="d26--skill-dùng-chung-cho-claude-code--codex--gemini--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D26 — Skill dùng chung cho Claude Code / Codex / Gemini · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án <a class="anchor" href="#d26--skill-dùng-chung-cho-claude-code--codex--gemini--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Agent dùng được</th>
+<th>Chạy trên Windows</th>
+<th>Lệch giữa các bản</th>
+<th>Công sức</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bản gốc <code>.agents/skills/</code> + bản sao <code>.claude/skills/</code>, <code>skills-check</code> trong CI</strong></td>
+<td>Claude Code · Codex · Gemini</td>
+<td>✓</td>
+<td>CI bắt</td>
+<td>thấp</td>
+</tr>
+<tr>
+<td>Symlink <code>.claude/skills</code> → <code>.agents/skills</code></td>
+<td>như trên nếu agent theo symlink</td>
+<td>✗ (symlink git)</td>
+<td>0</td>
+<td>thấp</td>
+</tr>
+<tr>
+<td>Chỉ <code>.claude/skills/</code></td>
+<td>Claude Code</td>
+<td>✓</td>
+<td>—</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>bản gốc <code>.agents/skills/</code> + bản sao kiểm bằng CI</strong>: <code>.agents/skills</code> là chỗ chuẩn Agent Skills mà Codex và Gemini CLI cùng đọc; Claude Code đọc <code>.claude/skills</code>. <code>AGENTS.md</code> (Codex tự nạp; Gemini qua <code>.gemini/settings.json</code>) trỏ CLAUDE.md làm luật chung.
+<strong>Đã cân nhắc:</strong> symlink (Codex theo symlink, Gemini / Claude chưa chắc; Windows hỏng); chỉ Claude (chủ dự án muốn dùng cả Gemini / OpenAI).</p>
+<h2 id="d27--tạo-app-sau-khi-clone-đổi-tên-tại-chỗ-giữ-lịch-sử-remote-template--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D27 — Tạo app sau khi clone: đổi tên tại chỗ, giữ lịch sử, remote <code>template</code> · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án <a class="anchor" href="#d27--tạo-app-sau-khi-clone-đổi-tên-tại-chỗ-giữ-lịch-sử-remote-template--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Bước người dùng</th>
+<th>Kéo bản sửa của template về sau</th>
+<th>Lịch sử git</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>make init-app</code> tại chỗ, commit đổi tên, <code>origin</code> → <code>template</code></strong></td>
+<td>clone → nói &quot;tạo app&quot;</td>
+<td><code>git fetch template</code> + merge (có xung đột ở dòng đổi tên)</td>
+<td>giữ của template</td>
+</tr>
+<tr>
+<td>Tại chỗ, xoá <code>.git</code> rồi <code>git init</code></td>
+<td>clone → nói &quot;tạo app&quot;</td>
+<td>✗</td>
+<td>mới</td>
+</tr>
+<tr>
+<td>Chỉ <code>make new-app DEST=…</code> (chép sang thư mục khác)</td>
+<td>clone template → tạo app ở thư mục khác</td>
+<td>✗</td>
+<td>mới</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>tại chỗ, giữ lịch sử + remote <code>template</code></strong>: đúng luồng &quot;pull về rồi đổi tên&quot;; còn đường lấy bản sửa của template. Chặn chạy nhầm trên bản template (thư mục tên <code>bizwithagents</code>) và khi cây git còn thay đổi chưa commit. <code>make new-app</code> vẫn giữ cho người tạo nhiều app từ một bản template.
+<strong>Đã cân nhắc:</strong> lịch sử mới (mất đường cập nhật từ template); chỉ chép (thêm một thư mục thừa).</p>
+<h2 id="d28--make-setup-một-lệnh-dựng-môi-trường-hạ-tầng-local-hoặc-chung--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D28 — <code>make setup</code>: một lệnh dựng môi trường, hạ tầng local hoặc chung · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án <a class="anchor" href="#d28--make-setup-một-lệnh-dựng-môi-trường-hạ-tầng-local-hoặc-chung--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Chế độ</th>
+<th>Cần gì</th>
+<th>Tự động hoàn toàn</th>
+<th>Dùng khi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>local</code> (mặc định của <code>setup</code>)</strong></td>
+<td>Docker</td>
+<td>✓ (<code>make infra-up</code>, <code>.env</code> dùng dòng <code># compose:</code>)</td>
+<td>máy mới, máy người clone</td>
+</tr>
+<tr>
+<td><code>shared</code> (D19)</td>
+<td>DB / vhost / Redis db do chủ dự án tạo trên hạ tầng chung</td>
+<td>✗ (điền mật khẩu vào <code>.env</code> rồi chạy lại)</td>
+<td>máy có hạ tầng chung, server</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ <code>setup</code> chạy lại vô hại, ghi <code>CREDENTIAL_KEYS</code> bền vào <code>.env</code> (thiếu khoá thì mỗi process dev tự sinh khoá tạm riêng → key LLM thêm ở Studio không giải mã được ở worker), không in secret (R21). D19 vẫn là mặc định khi deploy.
+<strong>Đã cân nhắc:</strong> script hỏi tương tác (agent không trả lời được prompt TTY); chỉ hướng dẫn trong tài liệu (người dùng muốn làm bằng chat).
+<strong>Kèm theo:</strong> đổi tên app dời cổng hạ tầng local + LLM giả +100 × (<code>PORTS</code> − 82) (Postgres 15432, Redis 16379, RabbitMQ 5673 / 15673, Mongo 27018, LLM giả 8799) — hạ tầng local của nhiều app chạy song song, không trùng nhau / trùng cổng app; DB dev không seed user test (luật <code>seed-test-users</code> chỉ cho <code>_test</code> / <code>_e2e</code>) — superadmin đầu tiên = đăng ký bằng email trong <code>SUPERADMIN_EMAILS</code>.</p>
+<h2 id="d29--kéo-bản-sửa-của-template-về-app-đã-đổi-tên-make-template-sync--2026-10-15--chủ-dự-án-duyệt-đề-xuất-sau-review-sp6">D29 — Kéo bản sửa của template về app đã đổi tên: <code>make template-sync</code> · 2026-10-15 · chủ dự án duyệt đề xuất sau review SP6 <a class="anchor" href="#d29--kéo-bản-sửa-của-template-về-app-đã-đổi-tên-make-template-sync--2026-10-15--chủ-dự-án-duyệt-đề-xuất-sau-review-sp6" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>File mới của template vào app mang tên app</th>
+<th>Xung đột giả ở dòng đã đổi tên</th>
+<th>Lần sau tính từ</th>
+<th>Công sức</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>make template-sync</code>: đổi tên bản template đã đồng bộ + bản mới bằng luật của <code>init-app</code>, <code>cherry-pick</code> phần chênh</strong></td>
+<td>✓</td>
+<td>✗</td>
+<td><code>template_commit</code> trong <code>.template.json</code></td>
+<td>~1 buổi</td>
+</tr>
+<tr>
+<td><code>git merge template/main</code> + grep tay</td>
+<td>✗ (lọt khi quên grep, git không báo)</td>
+<td>✓ mọi dòng template sửa có tên</td>
+<td>merge-base</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Chỉ playbook hướng dẫn sửa tay</td>
+<td>✗</td>
+<td>✓</td>
+<td>—</td>
+<td>thấp</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong><code>make template-sync</code></strong>: app ghi <code>.template.json</code> (tham số đổi tên + <code>template_commit</code>) lúc <code>init-app</code> / <code>new-app</code>; lệnh lấy <code>new_app.py</code> + <code>template_sync.py</code> mới nhất từ remote <code>template</code> (<code>git archive</code> → <code>debug/</code>, luật đổi tên luôn mới), dựng hai cây đã đổi tên, <code>cherry-pick</code> lên app → xung đột chỉ còn ở chỗ app và template cùng sửa; chặn khi cây chưa sạch / đang dở; cuối cùng kiểm còn tên template ở file vừa đổi (R11 — không âm thầm). App tạo bằng <code>new-app DEST</code> dùng được sau <code>git remote add template &lt;url&gt;</code>. <code>new-app-check</code> đi đường clone → <code>init-app</code> → template có bản sửa → <code>make template-sync</code>.
+<strong>Đã cân nhắc:</strong> merge thẳng (tên template lọt qua file mới mà không xung đột; xung đột ở mọi dòng có tên); merge commit đã đổi tên thay <code>cherry-pick</code> (cần lịch sử chung giả, khó đọc hơn).
+<strong>Kèm theo (review SP6):</strong> <code>make new-app</code> tự kiểm công cụ + cài <code>backend/.venv</code> (bản clone mới chưa có → <code>not found</code>); <code>init-app</code> / <code>new-app</code> kiểm công cụ ở chế độ <code>shared</code> (đổi tên không cần Docker); <code>README.md</code> gốc cho người mở repo trên GitHub.</p>
+<h2 id="d30--repo-public-quét-secret--tên-riêng-trước-push-tài-liệu-không-ghi-hạ-tầng-thật--2026-10-15--chủ-dự-án-chốt-phạm-vi-dọn-công-cụ-claude-tự-quyết-uỷ-quyền-r28">D30 — Repo public: quét secret + tên riêng trước push, tài liệu không ghi hạ tầng thật · 2026-10-15 · chủ dự án chốt phạm vi dọn; công cụ Claude tự quyết (uỷ quyền R28) <a class="anchor" href="#d30--repo-public-quét-secret--tên-riêng-trước-push-tài-liệu-không-ghi-hạ-tầng-thật--2026-10-15--chủ-dự-án-chốt-phạm-vi-dọn-công-cụ-claude-tự-quyết-uỷ-quyền-r28" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Công cụ</th>
+<th>Quét lịch sử git</th>
+<th>Kiểm key còn sống</th>
+<th>Chạy offline</th>
+<th>Cài</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gitleaks + trufflehog (tuỳ chọn)</strong></td>
+<td>✓</td>
+<td>✓ (trufflehog)</td>
+<td>✓ (gitleaks)</td>
+<td>1 binary mỗi công cụ, hoặc Docker</td>
+</tr>
+<tr>
+<td>chỉ trufflehog</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗ (luật generic yếu, ít bắt secret dạng <code>KEY = &quot;…&quot;</code>)</td>
+<td>1 binary</td>
+</tr>
+<tr>
+<td>detect-secrets (Yelp)</td>
+<td>✗ (theo baseline file)</td>
+<td>✗</td>
+<td>✓</td>
+<td>Python, baseline phải commit</td>
+</tr>
+<tr>
+<td>chỉ GitHub secret scanning</td>
+<td>✓ sau khi push</td>
+<td>một phần</td>
+<td>—</td>
+<td>0 — nhưng chỉ báo <strong>sau</strong> khi đã lộ</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>gitleaks làm bước bắt buộc trong <code>make ci</code>, trufflehog tuỳ chọn</strong>: gitleaks bắt cả secret dạng generic (lần quét đầu báo 10 chỗ — đều là giá trị giả trong test / PEM giữ chỗ trong tài liệu, đã ghi ngoại lệ hẹp), chạy offline trước push; trufflehog chỉ báo key còn sống nên ít báo sai. Thêm bước <strong>tên riêng</strong> đọc <code>.secrets/private-terms.txt</code> — danh sách nằm ngoài repo nên chặn được tên dự án khác / domain / IP mà không phải ghi chúng vào code (<code>test_no_source_refs.py</code> thôi chứa tên dự án nguồn).
+<strong>Phạm vi dọn (chủ dự án chốt):</strong> tên dự án nguồn → &quot;dự án nguồn&quot;; domain → <code>&lt;domain&gt;</code> / <code>example.com</code>, <code>make smoke-prod</code> lấy <code>PUBLIC_URL</code> từ <code>.secrets/coolify.env</code>; IP / user DB / container / Redis db của app khác → chỗ giữ, giá trị thật ở <code>.secrets/</code>. Lịch sử git làm lại từ một commit (repo cũ còn email công ty và tên riêng ở các commit trước) — <code>template_commit</code> của app tạo trước mốc này không còn trong remote, <code>make template-sync</code> của các app đó phải đặt lại <code>.template.json</code>.
+<strong>Đã cân nhắc:</strong> viết lại lịch sử bằng <code>git filter-repo</code> (giữ 8 commit nhưng phải lọc cả nội dung lẫn email, dễ sót); chỉ dựa GitHub secret scanning (báo sau khi đã public).</p>
+<h2 id="d31--không-port-nghiệp-vụ--realtime-sang-go-giữ-python--node--2026-10-15--chủ-dự-án-chốt">D31 — Không port nghiệp vụ / realtime sang Go, giữ Python + Node · 2026-10-15 · chủ dự án chốt <a class="anchor" href="#d31--không-port-nghiệp-vụ--realtime-sang-go-giữ-python--node--2026-10-15--chủ-dự-án-chốt" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Tải mục tiêu ~10k user, ~2k DAU. Ước lượng (giả định ~100 request / người / ngày): trung bình ~2–3 req/s, giờ cao điểm ~8 → ~25 req/s, ~200–500 socket đồng thời; lượt chat chủ yếu chờ LLM (I/O).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phương án</th>
+<th>Công sức</th>
+<th>Dư tải ở 2k DAU</th>
+<th>Lõi (RBAC / tenant / envelope)</th>
+<th>Agent gọi nghiệp vụ</th>
+<th>Rủi ro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Giữ Python + Node, đo rồi chỉnh</strong></td>
+<td>giờ – ngày</td>
+<td>≥ 10×</td>
+<td>1 bản</td>
+<td>cùng process (<code>@operation(agent=True)</code>)</td>
+<td>thấp</td>
+</tr>
+<tr>
+<td>Nghiệp vụ + realtime Go, agent Python</td>
+<td>nhiều tuần (~12k dòng app + test)</td>
+<td>lớn hơn, không cần tới</td>
+<td>2 bản (35 op của agent vẫn cần lõi) hoặc Go làm cửa duy nhất</td>
+<td>qua mạng (danh mục op + gọi thay user)</td>
+<td>cao</td>
+</tr>
+<tr>
+<td>Chỉ realtime sang Go</td>
+<td>~0,8k dòng TS</td>
+<td>như trên</td>
+<td>1 bản</td>
+<td>cùng process</td>
+<td>thấp, lợi ít</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Chọn <strong>giữ stack</strong>: ở quy mô này nút cổ chai là truy vấn DB / index, pool kết nối, chi phí + rate limit LLM — đổi ngôn ngữ không giải quyết. Không tạo branch <code>pythonnodejs</code> / <code>pygo</code>.
+<strong>Xem lại khi đo thấy:</strong> CPU <code>bw-api</code> bão hoà dù <code>API_WORKERS</code> = số core mà p95 vẫn chậm; RAM cả stack vượt ngân sách server (thử gộp <code>consumer</code> / <code>worker</code> / <code>scheduler</code> vào một process trước); socket đồng thời hàng chục nghìn mỗi instance. Đo bằng load test (k6 / Locust) trên <code>make dev-up</code>.
+<strong>Đã cân nhắc:</strong> port toàn bộ kể cả agent sang Go (hệ AI của Go chưa trưởng thành, mất checkpointer / trace LangGraph).</p>
+<hr />
+<p><em>Cập nhật: 2026-10-15</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/platform/design/decisions/d01-current.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#d1--template--module-mẫu--công-cụ-tạo-module--2026-10-14">D1 — Template + module mẫu + công cụ tạo module · 2026-10-14</a></li><li class="lvl2"><a href="#d2--giữ-nguyên-stack-của-dự-án-nguồn--2026-10-14">D2 — Giữ nguyên stack của dự án nguồn · 2026-10-14</a></li><li class="lvl2"><a href="#d3--tenant-đơn-giản-chỉ-để-tách-dữ-liệu-khách-hàng--2026-10-14">D3 — Tenant đơn giản: chỉ để tách dữ liệu khách hàng · 2026-10-14</a></li><li class="lvl2"><a href="#d4--web-ưu-tiên-điện-thoại--pwa-không-native--2026-10-14">D4 — Web ưu tiên điện thoại + PWA, không native · 2026-10-14</a></li><li class="lvl2"><a href="#d5--đăng-nhập-email--mật-khẩu-google-lời-mời--2026-10-14">D5 — Đăng nhập: email + mật khẩu, Google, lời mời · 2026-10-14</a></li><li class="lvl2"><a href="#d6--mang-sang-đầy-đủ-hệ-thống-tài-liệu--rule-của-dự-án-nguồn--2026-10-14">D6 — Mang sang đầy đủ hệ thống tài liệu + rule của dự án nguồn · 2026-10-14</a></li><li class="lvl2"><a href="#d7--đa-ngôn-ngữ-mặc-định-vi-có-en--2026-10-14">D7 — Đa ngôn ngữ, mặc định vi, có en · 2026-10-14</a></li><li class="lvl2"><a href="#d8--module-mẫu-tasks--2026-10-14">D8 — Module mẫu: Tasks · 2026-10-14</a></li><li class="lvl2"><a href="#d9--tên-cố-định-bw--make-new-app-đổi-tên--2026-10-14">D9 — Tên cố định bw + make new-app đổi tên · 2026-10-14</a></li><li class="lvl2"><a href="#d10--mỗi-user-thuộc-đúng-một-tenant--2026-10-14">D10 — Mỗi user thuộc đúng một tenant · 2026-10-14</a></li><li class="lvl2"><a href="#d11--tách-dữ-liệu-bằng-bộ-lọc-tự-động-ở-session--2026-10-14">D11 — Tách dữ liệu bằng bộ lọc tự động ở session · 2026-10-14</a></li><li class="lvl2"><a href="#d12--signup_mode-quyết-định-người-đăng-ký-vào-tenant-nào--2026-10-14">D12 — signup_mode quyết định người đăng ký vào tenant nào · 2026-10-14</a></li><li class="lvl2"><a href="#d13--realtime-phòng-tenanttid--2026-10-14">D13 — Realtime: phòng tenant:&lt;tid&gt; · 2026-10-14</a></li><li class="lvl2"><a href="#d14--mail-console--smtp--2026-10-14">D14 — Mail: console + smtp · 2026-10-14</a></li><li class="lvl2"><a href="#d15--module--package-thường--registry-tĩnh--2026-10-14">D15 — Module = package thường + registry tĩnh · 2026-10-14</a></li><li class="lvl2"><a href="#d16--hạ-tầng-local-mặc-định-bằng-deploycomposeinfrayml--2026-10-14">D16 — Hạ tầng local mặc định bằng deploy/compose.infra.yml · 2026-10-14</a></li><li class="lvl2"><a href="#d17--thứ-tự-thi-công-chép-trọn-nền-trước-tổng-quát-hoá-sau--2026-10-14--claude-tự-quyết-uỷ-quyền-r28">D17 — Thứ tự thi công: chép trọn nền trước, tổng quát hoá sau · 2026-10-14 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d18--plan-dạng-đặc-tả--2026-10-14--claude-tự-quyết-uỷ-quyền-r28">D18 — Plan dạng đặc tả · 2026-10-14 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d19--mô-hình-triển-khai-mặc-định-giống-dự-án-nguồn-thay-d16--2026-10-14">D19 — Mô hình triển khai mặc định giống dự án nguồn (thay D16) · 2026-10-14</a></li><li class="lvl2"><a href="#d20--phiên-chính-tự-làm-cả-test-không-mở-subagent-thay-r22--r26-kế-thừa-từ-dự-án-nguồn--2026-10-15">D20 — Phiên chính tự làm cả test, không mở subagent (thay R22 / R26 kế thừa từ dự án nguồn) · 2026-10-15</a></li><li class="lvl2"><a href="#d21--cho-phép-một-subagent-sonnet-55-cho-test-playwright-bổ-sung-d20--2026-10-15">D21 — Cho phép một subagent Sonnet 5.5 cho test Playwright (bổ sung D20) · 2026-10-15</a></li><li class="lvl2"><a href="#d22--dữ-liệu-agent-theo-tenant-bảng-hội-thoại-tenantscoped-usage--chặn--hạn-mức-giữ-toàn-nền-tảng--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D22 — Dữ liệu agent theo tenant: bảng hội thoại TenantScoped, usage / chặn / hạn mức giữ toàn nền tảng · 2026-10-15 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d23--mang-sp17-của-dự-án-nguồn-trả-lời-dạng-stream--trang-cài-đặt-ai-vào-sp2--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D23 — Mang SP17 của dự án nguồn (trả lời dạng stream + trang Cài đặt AI) vào SP2 · 2026-10-15 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d24--bỏ-bảng-agent_usage_hourly-khỏi-template-thay-một-phần-d22--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D24 — Bỏ bảng agent_usage_hourly khỏi template (thay một phần D22) · 2026-10-15 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d25--registry-module-ở-frontend-manifest-tĩnh-mỗi-module--2026-10-15--claude-tự-quyết-uỷ-quyền-r28">D25 — Registry module ở frontend: manifest tĩnh mỗi module · 2026-10-15 · Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d26--skill-dùng-chung-cho-claude-code--codex--gemini--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D26 — Skill dùng chung cho Claude Code / Codex / Gemini · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án</a></li><li class="lvl2"><a href="#d27--tạo-app-sau-khi-clone-đổi-tên-tại-chỗ-giữ-lịch-sử-remote-template--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D27 — Tạo app sau khi clone: đổi tên tại chỗ, giữ lịch sử, remote template · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án</a></li><li class="lvl2"><a href="#d28--make-setup-một-lệnh-dựng-môi-trường-hạ-tầng-local-hoặc-chung--2026-10-15--claude-tự-quyết-theo-yêu-cầu-chủ-dự-án">D28 — make setup: một lệnh dựng môi trường, hạ tầng local hoặc chung · 2026-10-15 · Claude tự quyết theo yêu cầu chủ dự án</a></li><li class="lvl2"><a href="#d29--kéo-bản-sửa-của-template-về-app-đã-đổi-tên-make-template-sync--2026-10-15--chủ-dự-án-duyệt-đề-xuất-sau-review-sp6">D29 — Kéo bản sửa của template về app đã đổi tên: make template-sync · 2026-10-15 · chủ dự án duyệt đề xuất sau review SP6</a></li><li class="lvl2"><a href="#d30--repo-public-quét-secret--tên-riêng-trước-push-tài-liệu-không-ghi-hạ-tầng-thật--2026-10-15--chủ-dự-án-chốt-phạm-vi-dọn-công-cụ-claude-tự-quyết-uỷ-quyền-r28">D30 — Repo public: quét secret + tên riêng trước push, tài liệu không ghi hạ tầng thật · 2026-10-15 · chủ dự án chốt phạm vi dọn; công cụ Claude tự quyết (uỷ quyền R28)</a></li><li class="lvl2"><a href="#d31--không-port-nghiệp-vụ--realtime-sang-go-giữ-python--node--2026-10-15--chủ-dự-án-chốt">D31 — Không port nghiệp vụ / realtime sang Go, giữ Python + Node · 2026-10-15 · chủ dự án chốt</a></li></ul></aside>
+</div>
+</body>
+</html>

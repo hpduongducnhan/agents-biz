@@ -1,0 +1,36 @@
+# Bộ ý định tiếng Việt cho router "Assistant". `bw agent-eval` chạy bằng model thật (cần key):
+# đạt khi ≥ 95 % câu đúng chuyên gia ở bước đầu. `expect.steps` = slug theo thứ tự; `expect.clarify: true` = phải hỏi lại.
+# `history` = các tin trước (assistant có `agent` = slug chuyên gia đã trả lời).
+# Nền tảng chỉ có chuyên gia `general`; mỗi sản phẩm thêm câu cho chuyên gia của mình khi `register_specialist`.
+
+# ── general: chào hỏi, hướng dẫn, tra cứu thông báo, ngoài phạm vi ──
+- {text: "chào bạn", expect: {steps: [general]}}
+- {text: "app này dùng thế nào", expect: {steps: [general]}}
+- {text: "bạn làm được những gì", expect: {steps: [general]}}
+- {text: "cảm ơn nhé", expect: {steps: [general]}}
+- {text: "thời tiết hôm nay thế nào", expect: {steps: [general]}}
+- {text: "tôi có thông báo nào mới không", expect: {steps: [general]}}
+- {text: "đánh dấu đã đọc hết thông báo", expect: {steps: [general]}}
+- {text: "cho tôi xem thông báo chưa đọc", expect: {steps: [general]}}
+- {text: "hello", expect: {steps: [general]}}
+- {text: "how do I use this app", expect: {steps: [general]}}
+- {text: "mở trang thông báo ở đâu", expect: {steps: [general]}}
+- {text: "hướng dẫn tôi dùng app này", expect: {steps: [general]}}
+
+# ── mơ hồ → hỏi lại ──
+- {text: "làm như hôm qua", expect: {clarify: true}}
+- {text: "cái đó", expect: {clarify: true}}
+- {text: "giúp tôi với", expect: {clarify: true}}
+- {text: "sửa lại đi", expect: {clarify: true}}
+
+# ── theo ngữ cảnh: câu cụt nối tiếp lượt trước ──
+- text: "còn cái cũ hơn?"
+  history:
+    - {role: user, text: "tôi có thông báo nào mới không"}
+    - {role: assistant, agent: general, text: "Bạn có 3 thông báo chưa đọc."}
+  expect: {steps: [general]}
+- text: "đọc hết đi"
+  history:
+    - {role: user, text: "tôi có thông báo nào mới không"}
+    - {role: assistant, agent: general, text: "Bạn có 3 thông báo chưa đọc."}
+  expect: {steps: [general]}

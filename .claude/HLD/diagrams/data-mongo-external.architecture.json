@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Mongo (chỉ log) + dịch vụ ngoài",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1235,
+      760
+    ],
+    "output": ".claude/HLD/diagrams/data-mongo-external.html"
+  },
+  "components": [
+    {
+      "id": "spans",
+      "type": "database",
+      "label": "agent_spans",
+      "sublabel": "trace · TTL span_ttl_days 90",
+      "brand": "mongodb",
+      "pos": [
+        36,
+        50
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "httpraw",
+      "type": "database",
+      "label": "agent_http_raw",
+      "sublabel": "HTTP thô · TTL 7 ngày",
+      "brand": "mongodb",
+      "pos": [
+        284,
+        50
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "eventlog",
+      "type": "database",
+      "label": "event_log",
+      "sublabel": "mỗi op ghi · TTL 180 ngày",
+      "brand": "mongodb",
+      "pos": [
+        622,
+        50
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "issues",
+      "type": "database",
+      "label": "issues",
+      "sublabel": "fingerprint · không TTL",
+      "brand": "mongodb",
+      "pos": [
+        871,
+        50
+      ],
+      "size": [
+        204,
+        60
+      ]
+    },
+    {
+      "id": "tracesink",
+      "type": "security",
+      "label": "TraceSink",
+      "sublabel": "Noop khi MONGO_ENABLED=false",
+      "pos": [
+        147,
+        210
+      ],
+      "size": [
+        231,
+        60
+      ]
+    },
+    {
+      "id": "sinks",
+      "type": "security",
+      "label": "get_sinks()",
+      "sublabel": "EventLogSink + IssueSink · Noop khi tắt",
+      "pos": [
+        622,
+        210
+      ],
+      "size": [
+        453,
+        60
+      ]
+    },
+    {
+      "id": "consumer",
+      "type": "backend",
+      "label": "consumer",
+      "sublabel": "lane agent-run · RunMiddleware + Tracer",
+      "pos": [
+        147,
+        390
+      ],
+      "size": [
+        231,
+        64
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api",
+      "sublabel": "@operation · HTTP",
+      "pos": [
+        551,
+        390
+      ],
+      "size": [
+        178,
+        64
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "worker",
+      "sublabel": "taskiq · job nền",
+      "pos": [
+        897,
+        390
+      ],
+      "size": [
+        178,
+        64
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM provider",
+      "sublabel": "openai · anthropic · google_genai · openai_compatible",
+      "pos": [
+        89,
+        600
+      ],
+      "size": [
+        347,
+        64
+      ]
+    },
+    {
+      "id": "oauth",
+      "type": "external",
+      "label": "Google OAuth",
+      "sublabel": "chỉ đăng nhập",
+      "pos": [
+        551,
+        600
+      ],
+      "size": [
+        178,
+        64
+      ]
+    },
+    {
+      "id": "smtp",
+      "type": "external",
+      "label": "SMTP",
+      "sublabel": "xác thực · đặt lại · lời mời",
+      "pos": [
+        791,
+        600
+      ],
+      "size": [
+        178,
+        64
+      ]
+    },
+    {
+      "id": "webhook",
+      "type": "external",
+      "label": "Webhook của hook",
+      "sublabel": "URL do superadmin cấu hình",
+      "pos": [
+        1013,
+        600
+      ],
+      "size": [
+        187,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "MongoDB · DB bizwithagents · chỉ khi MONGO_ENABLED=true",
+      "wraps": [
+        "spans",
+        "httpraw",
+        "eventlog",
+        "issues"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "region",
+      "label": "Ngoài hệ thống",
+      "wraps": [
+        "llm",
+        "oauth",
+        "smtp",
+        "webhook"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "trace-spans",
+      "from": "tracesink",
+      "to": "spans",
+      "label": "span",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "dashed"
+    },
+    {
+      "id": "trace-raw",
+      "from": "tracesink",
+      "to": "httpraw",
+      "label": "http_capture",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "dashed"
+    },
+    {
+      "id": "sinks-eventlog",
+      "from": "sinks",
+      "to": "eventlog",
+      "label": "write",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "dashed"
+    },
+    {
+      "id": "sinks-issues",
+      "from": "sinks",
+      "to": "issues",
+      "label": "upsert $inc",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "dashed"
+    },
+    {
+      "id": "consumer-trace",
+      "from": "consumer",
+      "to": "tracesink",
+      "label": "Tracer · span",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "emphasis",
+      "labelAt": [
+        191,
+        330
+      ]
+    },
+    {
+      "id": "consumer-sinks",
+      "from": "consumer",
+      "to": "sinks",
+      "label": "tool · @on_ws · lỗi",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "api-sinks",
+      "from": "api",
+      "to": "sinks",
+      "label": "op ghi · 5xx",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "worker-sinks",
+      "from": "worker",
+      "to": "sinks",
+      "label": "webhook · lỗi task",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "consumer-llm",
+      "from": "consumer",
+      "to": "llm",
+      "label": "1 key / agent / lượt",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        262,
+        527
+      ]
+    },
+    {
+      "id": "api-oauth",
+      "from": "api",
+      "to": "oauth",
+      "label": "PKCE S256",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        640,
+        527
+      ]
+    },
+    {
+      "id": "worker-smtp",
+      "from": "worker",
+      "to": "smtp",
+      "label": "mail.send",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "worker-webhook",
+      "from": "worker",
+      "to": "webhook",
+      "label": "POST · HMAC",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Mongo chỉ chứa log",
+      "items": [
+        "Không có dữ liệu nghiệp vụ ở Mongo; ai làm gì vẫn truy được qua created_by · source · agent_run_id ở Postgres",
+        "Mọi ghi Mongo đi qua sink; tắt cờ → Noop + cảnh báo obs0001 một lần mỗi process",
+        "api đọc qua LogStore: observability.list_events · list_issues · get_issue; trace agent qua TraceSink"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Pool key LLM",
+      "items": [
+        "round_robin: INCR bw:rr:<agent> · auto: ít dùng nhất theo weight",
+        "429 → bw:key:cool:<cred> rồi đổi key · 401/403 → tắt key + issue",
+        "Hết key khoẻ → run failed, mã 6010"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Google",
+      "items": [
+        "OAuth chỉ xác minh email: state ở Redis 10 phút, bắt buộc email_verified",
+        "SMTP: task mail.send (idempotent); console → outbox Redis cho dev / smoke",
+        "scheduler / migrate không có Mongo → sink Noop (obs0002)"
+      ]
+    }
+  ]
+}

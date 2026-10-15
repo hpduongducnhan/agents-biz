@@ -1,0 +1,46 @@
+{
+  "HLD/diagrams/agent-run-state.lifecycle.json": {
+    "html": "426de12aabcaf8eeabad865ce53fb44f23c82fa5393c2c7c4d551e9e06f3e91f",
+    "spec": "a8407de4835f940b467cf753b9d621cd3151f24f4b9b4e744ff37a1b9e4f8ed2"
+  },
+  "HLD/diagrams/data-mongo-external.architecture.json": {
+    "html": "65042e4912ce847034512c83b00ee555698bf3c4047a8d6212ff0cac3e6019ff",
+    "spec": "5c638361af1908b7b2f001c33b8c846f5abd25c2a6eacb51e7c2fca5be39cf76"
+  },
+  "HLD/diagrams/data-postgres-redis.architecture.json": {
+    "html": "2be6e5a695d5f8db6fcd08f058f31209a87b934a24319a3ac3163a5d2914d627",
+    "spec": "f63824d2c411561e774bdcc236fe2f6801ad0c1e4f05dfc270d7a070d23f8cc3"
+  },
+  "HLD/diagrams/data-rabbitmq.architecture.json": {
+    "html": "549da4baa1f3a308b2fc9812aaecc1b63cb0a3126066270cf761be294e3f91dc",
+    "spec": "9e927eb8d74c610f46bbe1d71439b510952736bfac7cd1a3376d85a8a2a8bcba"
+  },
+  "HLD/diagrams/deployment.architecture.json": {
+    "html": "161d5064a4b79c3582435d1fe4846cb9d90996cb3153f02eef9b4abad9748b18",
+    "spec": "ded248f3dd63d7566111ac51758699cac750e28b63707c50d0b0e78ea63c57f9"
+  },
+  "HLD/diagrams/logical-layers.architecture.json": {
+    "html": "c27b5cc86ba744fc03a27d9057680e28a5897973256cc614234cee86b612dafd",
+    "spec": "e7883b71d5904d1635e8668ec86c0e98d82c101000c4fb6463bd09c79e628f55"
+  },
+  "HLD/diagrams/uc-agent-turn.sequence.json": {
+    "html": "6799d13c2149531a3bd73c54c70c5564cc693942ec39d30213aaff248d95610b",
+    "spec": "fad40cc582a82bc61b921491640bf2bec6470bc44cc1a5385c79142b21192c9e"
+  },
+  "HLD/diagrams/uc-deploy.sequence.json": {
+    "html": "efd79d156af0b6c5d36734a93f227caf8af7f355c881d47ab86248f0c3d8d0ff",
+    "spec": "ce276ed5393a4924dd003fdcb7aaaf8390262b2b5081ae46cb47e66ce483cbfc"
+  },
+  "HLD/diagrams/uc-login-session.sequence.json": {
+    "html": "c9e159fb9f7de46af2d73a8a4d7c8e67b6e1a55765e9388440a7a41dedbb602f",
+    "spec": "850f41deff70a8cc46f4577ca642c1584e88da359d4aeccbfa3a7c311cef852c"
+  },
+  "HLD/diagrams/uc-task-realtime.sequence.json": {
+    "html": "ecb1e7d24976d48a8db67bcdf5d9e1ff569d0ca7a12531bd6eab4d44e3011cb4",
+    "spec": "2d566c147d75573b8a3b11998dce9c4cfccfe521e09a830413394f131f8e49e9"
+  },
+  "HLD/diagrams/uc-tenant-invite.sequence.json": {
+    "html": "93e81e7594dde25c9485b76b69c7f98422dff4b732cd8b36c8d389c24ee45882",
+    "spec": "5842930c3552ade14cce8aa6b049b2f028b596de7afbc4aec276a6b17bdca6a1"
+  }
+}

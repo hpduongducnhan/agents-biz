@@ -1,0 +1,33 @@
+# Intent cases of the Tasks sample module (English) — the router must pick the `tasks` specialist first.
+- {text: "create a task to review the contract tomorrow", expect: {steps: [tasks]}}
+- {text: "add a to-do: call the supplier on Friday", expect: {steps: [tasks]}}
+- {text: "what tasks are assigned to me", expect: {steps: [tasks]}}
+- {text: "anything overdue this week?", expect: {steps: [tasks]}}
+- {text: "list my open tasks", expect: {steps: [tasks]}}
+- {text: "mark the monthly report task as done", expect: {steps: [tasks]}}
+- {text: "move the inventory check to in progress", expect: {steps: [tasks]}}
+- {text: "cancel the meeting room booking task", expect: {steps: [tasks]}}
+- {text: "reopen the website fix", expect: {steps: [tasks]}}
+- {text: "assign the slide deck task to Minh", expect: {steps: [tasks]}}
+- {text: "push the quote deadline to Monday", expect: {steps: [tasks]}}
+- {text: "remove the due date from the warehouse cleanup", expect: {steps: [tasks]}}
+- {text: "set the debt collection task to urgent", expect: {steps: [tasks]}}
+- {text: "delete the test task", expect: {steps: [tasks]}}
+- {text: "comment on the contract task that the draft was sent", expect: {steps: [tasks]}}
+- {text: "which tasks is Lan working on", expect: {steps: [tasks]}}
+- {text: "how many tasks are still open", expect: {steps: [tasks]}}
+- {text: "is anything due today", expect: {steps: [tasks]}}
+- {text: "find tasks about the contract", expect: {steps: [tasks]}}
+- {text: "show me the details of the quote task", expect: {steps: [tasks]}}
+- {text: "who is handling the inventory check", expect: {steps: [tasks]}}
+- {text: "I finished calling the customer", expect: {steps: [tasks]}}
+- {text: "create three tasks: buy paper, print the docs, send the letters", expect: {steps: [tasks]}}
+- {text: "what's my most urgent task", expect: {steps: [tasks]}}
+- {text: "tasks due in the next 7 days", expect: {steps: [tasks]}}
+- {text: "note on the website task: the client wants a new color", expect: {steps: [tasks]}}
+- {text: "unassign the slide deck task", expect: {steps: [tasks]}}
+- {text: "how many overdue tasks does our team have", expect: {steps: [tasks]}}
+- {text: "schedule a wrap-up meeting task Thursday at 3pm", expect: {steps: [tasks]}}
+- {text: "which tasks have nobody assigned", expect: {steps: [tasks]}}
+- {text: "rename 'call customer' to 'call back old customers'", expect: {steps: [tasks]}}
+- {text: "plan my day", expect: {steps: [tasks]}}

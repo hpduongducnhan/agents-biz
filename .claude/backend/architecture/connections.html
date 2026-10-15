@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="vi" data-root="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="bw-docs">
+<title>Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED · BizWithAgents</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/highlight.css">
+<link rel="stylesheet" href="../../assets/docs.css">
+<script>(function(){var t;try{t=localStorage.getItem("bw-docs-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<script src="../../assets/docs.js" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Bỏ qua menu</a>
+<header class="topbar">
+<button class="icon-btn nav-toggle" type="button" aria-label="Menu tài liệu" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<a class="brand" href="../../index.html"><span class="brand-mark">M</span><span class="brand-name">BizWithAgents</span><span class="brand-sub">docs</span></a>
+<div class="search" role="search">
+<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<input type="search" id="search" placeholder="Tìm tài liệu…" autocomplete="off" spellcheck="false" aria-label="Tìm trong tài liệu" aria-controls="search-results" aria-expanded="false">
+<kbd class="search-key">/</kbd>
+<div class="search-results" id="search-results" role="listbox" hidden></div>
+</div>
+<button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng / tối"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="Tài liệu">
+<a class="nav-home" href="../../index.html">Trang review</a>
+<details class="nav-group"><summary>Platform</summary><ul><li><a href="../../platform/CLAUDE.html" title="Platform"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="../../platform/architecture/auth-rbac.html" title="Platform — Auth, RBAC hệ thống, superadmin từ env"><span>Auth, RBAC hệ thống, superadmin từ env</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/agent-runtime.html" title="Platform — Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook"><span>Trợ lý AI: cấu hình, lượt chạy, duyệt, key, hạn mức, trace, hook</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tenancy.html" title="Platform — Tenant: tách dữ liệu khách hàng"><span>Tenant: tách dữ liệu khách hàng</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/tasks-module.html" title="Platform — Module mẫu Tasks (khuôn cho mọi module)"><span>Module mẫu Tasks (khuôn cho mọi module)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/architecture/mail.html" title="Platform — Mail + xác thực email + quên mật khẩu"><span>Mail + xác thực email + quên mật khẩu</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../platform/design/template-v1.html" title="BizWithAgents — Thiết kế template v1"><span>BizWithAgents — Thiết kế template v1</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/design/decisions/README.html" title="Nhật ký quyết định"><span>Nhật ký quyết định</span></a></li><li><a href="../../platform/design/roadmap.html" title="Lộ trình và trạng thái"><span>Lộ trình và trạng thái</span></a></li><li><a href="../../platform/design/decisions/d01-current.html" title="Quyết định D1 →"><span>Quyết định D1 →</span></a></li><li class="nav-sec">Plan</li><li><a href="../../platform/plans/sp0-platform-port/README.html" title="SP0 — Chép nền từ dự án nguồn"><span>SP0 — Chép nền từ dự án nguồn</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp1-tenant-mail/README.html" title="SP1 — Tenant + mail + luồng đăng nhập"><span>SP1 — Tenant + mail + luồng đăng nhập</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp2-agent-general/README.html" title="SP2 — Agent tổng quát cho mọi tenant"><span>SP2 — Agent tổng quát cho mọi tenant</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp3-tasks-module/README.html" title="SP3 — Module mẫu Tasks"><span>SP3 — Module mẫu Tasks</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp4-scaffold/README.html" title="SP4 — Scaffold module + tạo app mới"><span>SP4 — Scaffold module + tạo app mới</span><i class="dot st-done" title="Xong"></i></a></li><li><a href="../../platform/plans/sp5-release/README.html" title="SP5 — Kiểm + phát hành v1.0.0"><span>SP5 — Kiểm + phát hành v1.0.0</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="../../platform/plans/sp6-agent-skills/README.html" title="SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường"><span>SP6 — Skill cho Claude Code / Codex / Gemini: tạo app sau khi clone + dựng môi trường</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">playbooks</li><li><a href="../../platform/playbooks/README.html" title="Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template"><span>Playbook — tạo app mới, dựng môi trường, thêm module, đồng bộ template</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group" open><summary>Backend</summary><ul><li><a href="../CLAUDE.html" title="Backend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Kiến trúc</li><li><a href="connections.html" class="active" aria-current="page" title="Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED"><span>Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ MONGO_ENABLED</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="logging.html" title="Backend — Logging &amp; correlation id"><span>Logging &amp; correlation id</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="messaging.html" title="Backend — Messaging: lane, subscriber / task / cron, broadcast, nhịp tim"><span>Messaging: lane, subscriber / task / cron, broadcast, nhịp tim</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="operations.html" title="Backend — @operation: một khai báo cho REST, agent, quyền, log"><span>@operation: một khai báo cho REST, agent, quyền, log</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="realtime.html" title="Backend — Realtime: RabbitMQ ↔ service Node ↔ trình duyệt"><span>Realtime: RabbitMQ ↔ service Node ↔ trình duyệt</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li><a href="observability.html" title="Backend — Quan sát (event log, issues), thông báo, cài đặt hệ thống"><span>Quan sát (event log, issues), thông báo, cài đặt hệ thống</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Frontend</summary><ul><li><a href="../../frontend/CLAUDE.html" title="Frontend"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../frontend/design/ui-system.html" title="Frontend — UI system (ưu tiên điện thoại)"><span>UI system (ưu tiên điện thoại)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>Deploy — BizWithAgents</summary><ul><li><a href="../../deploy/CLAUDE.html" title="Deploy — BizWithAgents"><span>Tổng quan</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li><li class="nav-sec">Thiết kế</li><li><a href="../../deploy/design/coolify.html" title="Deploy — Bộ deploy Docker cho Coolify (một compose, chỉ app)"><span>Bộ deploy Docker cho Coolify (một compose, chỉ app)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details><details class="nav-group"><summary>HLD</summary><ul><li class="nav-sec">Khác</li><li><a href="../../HLD/HLD.html" title="BizWithAgents — Thiết kế mức cao (HLD)"><span>BizWithAgents — Thiết kế mức cao (HLD)</span><i class="dot st-locked" title="ĐÃ CHỐT"></i></a></li></ul></details>
+</nav>
+<div class="scrim" hidden></div>
+<main class="content" id="main">
+<nav class="crumbs" aria-label="Vị trí"><a href="../../index.html">Tổng quan</a> <span class='sep'>/</span> <a href="../CLAUDE.html">Backend</a> <span class='sep'>/</span> <span>Kiến trúc</span></nav>
+<div class="doc-meta"><span class="badge st-locked">ĐÃ CHỐT</span><span class="meta-date">Cập nhật 2026-10-12</span><code class="meta-src">.claude/backend/architecture/connections.md</code></div>
+<article class="prose">
+<h1 id="backend--kết-nối-postgres--mongo--redis-2-kênh-rw--ro-theo-process-role-cờ-mongo_enabled">Backend — Kết nối Postgres / Mongo / Redis: 2 kênh RW + RO, theo process role, cờ <code>MONGO_ENABLED</code> <a class="anchor" href="#backend--kết-nối-postgres--mongo--redis-2-kênh-rw--ro-theo-process-role-cờ-mongo_enabled" aria-label="Liên kết tới mục này">#</a></h1>
+<blockquote>
+<p><strong>Backlinks:</strong> <a href="../../index.html">CLAUDE.md</a> | <a href="../CLAUDE.html">backend/CLAUDE.md</a> · <a href="logging.html">logging</a> · <a href="observability.html">observability</a> · <a href="operations.html">operations</a> · <a href="../../platform/design/decisions/README.html">decisions</a></p>
+</blockquote>
+<p><strong>Trạng thái:</strong> ĐÃ CHỐT (chép từ dự án nguồn ở SP0). RabbitMQ: <a href="messaging.html">messaging</a>. Hạ tầng dùng chung trên server theo D19.</p>
+<hr />
+<h2 id="1-mỗi-tài-nguyên-có-2-kênh">1. Mỗi tài nguyên có 2 kênh <a class="anchor" href="#1-mỗi-tài-nguyên-có-2-kênh" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tài nguyên</th>
+<th>RW (ghi + đọc-ngay-sau-ghi)</th>
+<th>RO (đọc chịu được hơi cũ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Postgres</td>
+<td><code>POSTGRES_RW_URL</code></td>
+<td><code>POSTGRES_RO_URL</code></td>
+</tr>
+<tr>
+<td>Mongo (chỉ log, theo cờ)</td>
+<td><code>MONGO_RW_URL</code> (+ <code>MONGO_DB_NAME</code>)</td>
+<td><code>MONGO_RO_URL</code></td>
+</tr>
+<tr>
+<td>Redis</td>
+<td><code>REDIS_RW_URL</code></td>
+<td><code>REDIS_RO_URL</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Chỉ cấu hình RW → RO copy nguyên connection string (vẫn pool / client riêng). Code đi đúng đường RO ngay từ dev; lên replica chỉ cần thêm biến.</li>
+<li><code>Settings.postgres_ro_url</code> / <code>mongo_ro_url</code> / <code>redis_ro_url</code> = <code>*_RO_URL or *_RW_URL</code> — một chỗ quyết định fallback.</li>
+</ul>
+<h2 id="2-kênh-ro-thật-sự-read-only">2. Kênh RO thật sự read-only <a class="anchor" href="#2-kênh-ro-thật-sự-read-only" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><strong>Postgres:</strong> session RO mở transaction <code>READ ONLY</code> → ghi nhầm kênh là lỗi ngay.</li>
+<li><strong>Mongo:</strong> handle RO dùng <code>readPreference=secondaryPreferred</code>.</li>
+<li><strong>Redis:</strong> client RO chỉ dùng cho lệnh đọc.</li>
+</ul>
+<h2 id="3-dùng-đúng-kênh">3. Dùng đúng kênh <a class="anchor" href="#3-dùng-đúng-kênh" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Việc</th>
+<th>Kênh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@operation</code> <code>effect=&quot;read&quot;</code></td>
+<td>RO (mặc định)</td>
+</tr>
+<tr>
+<td><code>effect=&quot;write&quot;</code> / <code>&quot;destructive&quot;</code></td>
+<td>RW</td>
+</tr>
+<tr>
+<td>Đọc lại thứ vừa ghi trong cùng luồng</td>
+<td>RW (<code>read_from=&quot;rw&quot;</code> + lý do)</td>
+</tr>
+<tr>
+<td>Danh sách / báo cáo</td>
+<td>RO</td>
+</tr>
+<tr>
+<td>Kiểm quyền trước khi ghi</td>
+<td>RW nếu quyết định ghi dựa vào nó</td>
+</tr>
+<tr>
+<td>Redis: đọc cache</td>
+<td>RO</td>
+</tr>
+<tr>
+<td>Redis: ghi / khoá / rate limit / dấu khoá tài khoản</td>
+<td>RW</td>
+</tr>
+<tr>
+<td>Thông báo (inbox)</td>
+<td>RW (session ngắn sau commit)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-kết-nối-theo-process-role--tạo-một-lần-nhận-qua-inject">4. Kết nối theo process role — tạo một lần, nhận qua inject <a class="anchor" href="#4-kết-nối-theo-process-role--tạo-một-lần-nhận-qua-inject" aria-label="Liên kết tới mục này">#</a></h2>
+<ul>
+<li><code>init_connections(role, settings)</code> (<code>app/core/connections/registry.py</code>) chạy trong lifespan của mỗi process.
+<ul>
+<li>Tạo đúng thứ role cần, rồi ping <strong>mọi kênh</strong>.</li>
+<li>Lỗi → đóng hết và không boot (<code>db0501</code>).</li>
+</ul>
+</li>
+<li><code>get_connections()</code> / <code>close_connections()</code>.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role (<code>bw …</code>)</th>
+<th>Cần</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api</code>, <code>consume</code>, <code>work</code></td>
+<td>Postgres + Redis + Mongo (khi cờ bật)</td>
+</tr>
+<tr>
+<td><code>schedule</code></td>
+<td>Postgres + Redis</td>
+</tr>
+<tr>
+<td><code>migrate</code></td>
+<td>Postgres</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Trong <code>@operation</code>: <code>ctx.session</code> (Postgres đúng kênh), <code>ctx.redis</code> (<code>.rw</code> / <code>.ro</code>), <code>ctx.mongo</code> (<code>None</code> khi tắt cờ). Ngoài operation: <code>get_connections()</code>.</li>
+<li>Không miền nào tự tạo engine / client (<code>create_async_engine</code>, <code>AsyncMongoClient</code>, <code>redis.asyncio.from_url</code>, <code>psycopg.connect</code>…).</li>
+</ul>
+<h2 id="5-chế-độ-mongo_enabled">5. Chế độ <code>MONGO_ENABLED</code> <a class="anchor" href="#5-chế-độ-mongo_enabled" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>MONGO_ENABLED</code></th>
+<th>Client Mongo</th>
+<th><code>/health/ready</code></th>
+<th>Event log / issues / trace</th>
+<th>API đọc log</th>
+<th>Cảnh báo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>true</code></strong> (mặc định)</td>
+<td>✓ — ping lúc boot</td>
+<td><code>mongo.rw</code> / <code>mongo.ro</code> = <code>ok</code></td>
+<td>ghi qua sink Mongo</td>
+<td>dữ liệu thật</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td>✗</td>
+<td><code>&quot;mongo&quot;: &quot;disabled&quot;</code> (vẫn 200)</td>
+<td>sink Noop</td>
+<td><code>{enabled: false, items: [], total: 0}</code></td>
+<td><code>obs0001</code> một lần mỗi process</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Dùng <strong><code>true</code></strong> khi có Mongo. <code>false</code> khi không có / không muốn tốn Mongo: nghiệp vụ + chat vẫn chạy, chỉ tắt log.</p>
+<ul>
+<li><strong>Đã cân nhắc:</strong> bảng <code>audit_log</code> ở Postgres — chỉ cần dấu vết tối thiểu (<code>created_by</code>, <code>source</code>, <code>agent_run_id</code> ở Postgres).</li>
+</ul>
+<p>Kiểm thật:</p>
+<ul>
+<li><code>make dev-up MONGO=off</code> đặt <code>MONGO_RW_URL</code> trỏ host <code>.invalid</code>;</li>
+<li><code>make smoke-local MONGO=off</code> và <code>make docker-smoke</code> (lượt <code>smoke-nomongo.env</code>) chạy đầu-cuối ở chế độ này.</li>
+</ul>
+<h2 id="6-postgres--một-driver">6. Postgres — một driver <a class="anchor" href="#6-postgres--một-driver" aria-label="Liên kết tới mục này">#</a></h2>
+<p>Mọi kênh dùng <code>postgresql+psycopg://</code>. Thư viện cần psycopg thô (checkpointer LangGraph, schema <code>agent_lg</code>) lấy pool thô do lõi giữ.</p>
+<p><strong>Qua PgBouncer (prod, <code>POSTGRES_PGBOUNCER=true</code>):</strong> <code>prepare_threshold=None</code> (không prepared statement). Tham số khởi động <code>options</code> được PgBouncer chấp nhận nhưng <strong>chỉ <code>search_path</code> có hiệu lực</strong> (đo 2026-10-12: <code>-c search_path=agent_lg</code> → đúng schema; <code>-c statement_timeout=30000</code> → <code>0</code>). Hệ quả:</p>
+<ul>
+<li>checkpointer <code>agent_lg</code> chạy đúng qua PgBouncer (đã thử setup / ghi / đọc / xoá thread trên <code>bizwithagents_e2e:6432</code>);</li>
+<li><code>POSTGRES_STATEMENT_TIMEOUT</code> <strong>không áp</strong> khi đi PgBouncer — truy vấn treo không bị cắt ở phía DB.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cách áp <code>statement_timeout</code> qua PgBouncer</th>
+<th>Ai làm</th>
+<th>Round-trip thêm</th>
+<th>Đụng hạ tầng chung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thêm <code>statement_timeout</code> vào <code>track_extra_parameters</code> của PgBouncer</strong></td>
+<td>chủ dự án</td>
+<td>0</td>
+<td>✓ (file cấu hình PgBouncer dùng chung với các app khác — chỉ có tác dụng với client gửi tham số)</td>
+</tr>
+<tr>
+<td><code>SET LOCAL statement_timeout</code> ở sự kiện <code>begin</code> của engine</td>
+<td>Claude</td>
+<td>+1 mỗi transaction</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Để nguyên (timeout ở client: <code>asyncio.timeout</code> của lượt agent, timeout HTTP)</td>
+<td>—</td>
+<td>0</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ Đề xuất cách 1 (rẻ nhất, không đổi code); đã báo chủ dự án. Chưa làm thì giữ cách 3.</p>
+<h2 id="7-bảng-mặc-định-r11">7. Bảng mặc định (R11) <a class="anchor" href="#7-bảng-mặc-định-r11" aria-label="Liên kết tới mục này">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Mặc định</th>
+<th>Nguồn thật khi được cấu hình</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POSTGRES_RO_URL</code></td>
+<td>= <code>POSTGRES_RW_URL</code></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>MONGO_RO_URL</code></td>
+<td>= <code>MONGO_RW_URL</code></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>REDIS_RO_URL</code></td>
+<td>= <code>REDIS_RW_URL</code></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>POSTGRES_RO_POOL_SIZE</code></td>
+<td>= <code>POSTGRES_POOL_SIZE</code> (10)</td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>MONGO_ENABLED</code></td>
+<td><code>true</code></td>
+<td>env (Coolify / <code>.env</code>)</td>
+</tr>
+<tr>
+<td><code>MONGO_DB_NAME</code></td>
+<td><code>bizwithagents</code></td>
+<td>env</td>
+</tr>
+<tr>
+<td><code>REDIS_RW_URL</code> (local)</td>
+<td><code>redis://127.0.0.1:6379/10</code></td>
+<td><code>.env</code>; test dùng db 11, stack thử db 12 (D19)</td>
+</tr>
+<tr>
+<td><code>POSTGRES_STATEMENT_TIMEOUT</code></td>
+<td>30 s — áp khi nối thẳng Postgres; <strong>qua PgBouncer không áp</strong> (§6)</td>
+<td>env</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><em>Cập nhật: 2026-10-12</em></p>
+</article>
+<footer class="doc-foot">Sinh từ <code>.claude/backend/architecture/connections.md</code> bằng <code>make docs</code> — sửa file .md rồi chạy lại.</footer>
+</main>
+<aside class="toc" aria-label="Mục lục"><div class="toc-title">Trong trang này</div><ul><li class="lvl2"><a href="#1-mỗi-tài-nguyên-có-2-kênh">1. Mỗi tài nguyên có 2 kênh</a></li><li class="lvl2"><a href="#2-kênh-ro-thật-sự-read-only">2. Kênh RO thật sự read-only</a></li><li class="lvl2"><a href="#3-dùng-đúng-kênh">3. Dùng đúng kênh</a></li><li class="lvl2"><a href="#4-kết-nối-theo-process-role--tạo-một-lần-nhận-qua-inject">4. Kết nối theo process role — tạo một lần, nhận qua inject</a></li><li class="lvl2"><a href="#5-chế-độ-mongo_enabled">5. Chế độ MONGO_ENABLED</a></li><li class="lvl2"><a href="#6-postgres--một-driver">6. Postgres — một driver</a></li><li class="lvl2"><a href="#7-bảng-mặc-định-r11">7. Bảng mặc định (R11)</a></li></ul></aside>
+</div>
+</body>
+</html>
